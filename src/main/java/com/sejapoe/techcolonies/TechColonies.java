@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 public class TechColonies {
   public static final String MOD_ID = "techcolonies";
   // Directly reference a slf4j logger
-  private static final Logger LOGGER = LogUtils.getLogger();
+  public static final Logger LOGGER = LogUtils.getLogger();
 
   public TechColonies() {
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

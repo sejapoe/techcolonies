@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/wall_inventory",
   "textures": {
-    "wall": "techcolonies:block/cooper_plated_bricks"
+    "wall": "techcolonies:block/copper_plated_bricks"
   }
 }

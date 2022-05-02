@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "techcolonies:block/cooper_plated_bricks"
+    "all": "techcolonies:block/copper_plated_bricks"
   }
 }

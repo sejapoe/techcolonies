@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " yx",
+    "yxy",
+    "xy "
+  ],
+  "key": {
+    "x": {
+      "item": "minecraft:stick"
+    },
+    "y": {
+      "tag": "forge:dyes/green"
+    }
+  },
+  "result": {
+    "item": "techcolonies:strange_wand"
+  }
+}
