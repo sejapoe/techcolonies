@@ -24,69 +24,69 @@ import java.util.stream.Collectors;
 @Mod(TechColonies.MOD_ID)
 public class TechColonies
 {
-    public static final String MOD_ID = "techcolonies";
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+  public static final String MOD_ID = "techcolonies";
+  // Directly reference a slf4j logger
+  private static final Logger LOGGER = LogUtils.getLogger();
 
-    public TechColonies()
-    {
-        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+  public TechColonies()
+  {
+    IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // Register blocks
-        ModBlocks.register(bus);
-        // Register items
-        ModItems.register(bus);
+    // Register blocks
+    ModBlocks.register(bus);
+    // Register items
+    ModItems.register(bus);
 
-        // Register the setup method for modloading
-        bus.addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        bus.addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        bus.addListener(this::processIMC);
+    // Register the setup method for modloading
+    bus.addListener(this::setup);
+    // Register the enqueueIMC method for modloading
+    bus.addListener(this::enqueueIMC);
+    // Register the processIMC method for modloading
+    bus.addListener(this::processIMC);
 
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+    // Register ourselves for server and other game events we are interested in
+    MinecraftForge.EVENT_BUS.register(this);
+  }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-    }
+  private void setup(final FMLCommonSetupEvent event)
+  {
+    // some preinit code
+    LOGGER.info("HELLO FROM PREINIT");
+    LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+  }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-        // Some example code to dispatch IMC to another mod
-        InterModComms.sendTo("techcolonies", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
-    }
+  private void enqueueIMC(final InterModEnqueueEvent event)
+  {
+    // Some example code to dispatch IMC to another mod
+    InterModComms.sendTo("techcolonies", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+  }
 
-    private void processIMC(final InterModProcessEvent event)
-    {
-        // Some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.messageSupplier().get()).
-                collect(Collectors.toList()));
-    }
+  private void processIMC(final InterModProcessEvent event)
+  {
+    // Some example code to receive and process InterModComms from other mods
+    LOGGER.info("Got IMC {}", event.getIMCStream().
+            map(m->m.messageSupplier().get()).
+            collect(Collectors.toList()));
+  }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+  // You can use SubscribeEvent and let the Event Bus discover methods to call
+  @SubscribeEvent
+  public void onServerStarting(ServerStartingEvent event)
+  {
+    // Do something when the server starts
+    LOGGER.info("HELLO from server starting");
+  }
+
+  // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
+  // Event bus for receiving Registry Events)
+  @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+  public static class RegistryEvents
+  {
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event)
+    public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
     {
-        // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+      // Register a new block here
+      LOGGER.info("HELLO from Register Block");
     }
-
-    // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-    // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents
-    {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent)
-        {
-            // Register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
-    }
+  }
 }
