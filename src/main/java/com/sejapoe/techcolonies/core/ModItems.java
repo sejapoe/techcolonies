@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.items.StrangeWandItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -12,7 +13,8 @@ import net.minecraftforge.registries.RegistryObject;
 public final class ModItems {
   public static final DeferredRegister<Item> ITEM_REGISTER = DeferredRegister.create(ForgeRegistries.ITEMS, TechColonies.MOD_ID);
 
-//  public static final RegistryObject<Item>
+  public static final RegistryObject<Item>
+          STRANGE_WAND = ITEM_REGISTER.register("strange_wand", () -> new StrangeWandItem(new Item.Properties()));
 //  EXAMPLE_ITEM = ITEM_REGISTER.register("registry_name", () -> new ExampleItem(...))
 
   public static void register(IEventBus bus) {
