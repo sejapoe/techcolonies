@@ -1,10 +1,13 @@
 package com.sejapoe.techcolonies;
 
 import com.mojang.logging.LogUtils;
+import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.core.ModItems;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
@@ -18,20 +21,28 @@ import org.slf4j.Logger;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("techcolonies")
+@Mod(TechColonies.MOD_ID)
 public class TechColonies
 {
+    public static final String MOD_ID = "techcolonies";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
 
     public TechColonies()
     {
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // Register blocks
+        ModBlocks.register(bus);
+        // Register items
+        ModItems.register(bus);
+
         // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        bus.addListener(this::setup);
         // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
+        bus.addListener(this::enqueueIMC);
         // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
+        bus.addListener(this::processIMC);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
