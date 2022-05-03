@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "techcolonies:block/none_plated_bricks"
+  }
+}

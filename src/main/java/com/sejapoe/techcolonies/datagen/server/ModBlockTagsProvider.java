@@ -10,7 +10,10 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Map;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
   public ModBlockTagsProvider(DataGenerator generator, @Nullable ExistingFileHelper existingFileHelper) {
@@ -19,9 +22,18 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
   @Override
   protected void addTags() {
-    tag(BlockTags.MINEABLE_WITH_PICKAXE)
-            .add(ModBlocks.COPPER_PLATED_BRICKS_BLOCK.get())
-            .add(ModBlocks.COPPER_PLATED_BRICK_WALL_BLOCK.get());
-    tag(BlockTags.WALLS).add(ModBlocks.COPPER_PLATED_BRICK_WALL_BLOCK.get());
+    addGroupToTag(BlockTags.MINEABLE_WITH_PICKAXE,
+            ModBlocks.PLATED_BRICKS_BLOCKS,
+            ModBlocks.PLATED_BRICK_WALL_BLOCKS);
+    addGroupToTag(BlockTags.WALLS,
+            ModBlocks.PLATED_BRICK_WALL_BLOCKS);
+  }
+
+  protected void addGroupToTag(TagKey<Block> key, Map<?, RegistryObject<Block>>... maps) {
+    for (Map<?, RegistryObject<Block>> map : maps) {
+      for (RegistryObject<Block> v : map.values()) {
+        tag(key).add(v.get());
+      }
+    }
   }
 }

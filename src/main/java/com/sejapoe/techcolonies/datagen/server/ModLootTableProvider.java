@@ -3,6 +3,9 @@ package com.sejapoe.techcolonies.datagen.server;
 import com.sejapoe.techcolonies.core.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Map;
 
 public class ModLootTableProvider extends BaseLootTableProvider{
   public ModLootTableProvider(DataGenerator dataGeneratorIn) {
@@ -11,8 +14,17 @@ public class ModLootTableProvider extends BaseLootTableProvider{
 
   @Override
   protected void addTables() {
-    dropSelf(ModBlocks.COPPER_PLATED_BRICKS_BLOCK.get());
-    dropSelf(ModBlocks.COPPER_PLATED_BRICK_WALL_BLOCK.get());
+    groupDropSelf(ModBlocks.PLATED_BRICKS_BLOCKS);
+    groupDropSelf(ModBlocks.PLATED_BRICK_WALL_BLOCKS);
+    dropSelf(ModBlocks.SMELTERY_BLOCK.get());
+  }
+
+  protected void groupDropSelf(Map<?, RegistryObject<Block>>... maps) {
+    for (Map<?, RegistryObject<Block>> map : maps) {
+      for (RegistryObject<Block> registryObject : map.values()) {
+        dropSelf(registryObject.get());
+      }
+    }
   }
 
   protected void dropSelf(Block block) {

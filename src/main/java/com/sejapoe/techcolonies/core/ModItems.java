@@ -1,6 +1,8 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
+import com.sejapoe.techcolonies.items.PlatedBlockItem;
 import com.sejapoe.techcolonies.items.StrangeWandItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,11 +20,10 @@ public final class ModItems {
 //  EXAMPLE_ITEM = ITEM_REGISTER.register("registry_name", () -> new ExampleItem(...))
 
   public static void register(IEventBus bus) {
+    TechColonies.LOGGER.debug("HELLO FROM ITEM REGISTER");
+
     for (RegistryObject<Block> registryObject : ModBlocks.BLOCK_REGISTER.getEntries()) {
-      ITEM_REGISTER.register(registryObject.getId().getPath(), () -> {
-        Block block = registryObject.get();
-        return new BlockItem(block, new Item.Properties().tab(ModCreativeModeTab.TECH_COLONIES));
-      });
+      ITEM_REGISTER.register(registryObject.getId().getPath(), () -> new BlockItem(registryObject.get(), new Item.Properties().tab(ModCreativeModeTab.TECH_COLONIES)));
     }
     ITEM_REGISTER.register(bus);
   }
