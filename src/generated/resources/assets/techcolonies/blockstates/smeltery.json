@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "facing=north,lit=false": {
+      "model": "techcolonies:block/smeltery"
+    },
+    "facing=south,lit=false": {
+      "model": "techcolonies:block/smeltery",
+      "y": 180
+    },
+    "facing=west,lit=false": {
+      "model": "techcolonies:block/smeltery",
+      "y": 270
+    },
+    "facing=east,lit=false": {
+      "model": "techcolonies:block/smeltery",
+      "y": 90
+    },
+    "facing=north,lit=true": {
+      "model": "techcolonies:block/smeltery_lit"
+    },
+    "facing=south,lit=true": {
+      "model": "techcolonies:block/smeltery_lit",
+      "y": 180
+    },
+    "facing=west,lit=true": {
+      "model": "techcolonies:block/smeltery_lit",
+      "y": 270
+    },
+    "facing=east,lit=true": {
+      "model": "techcolonies:block/smeltery_lit",
+      "y": 90
+    }
+  }
+}
