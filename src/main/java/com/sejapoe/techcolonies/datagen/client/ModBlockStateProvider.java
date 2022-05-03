@@ -25,10 +25,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
     platedSimpleBlocks(ModBlocks.PLATED_BRICKS_BLOCKS);
     platedWallBlocks(ModBlocks.PLATED_BRICK_WALL_BLOCKS);
     horizontalFurnaceBlock(ModBlocks.SMELTERY_BLOCK.get(),
-            new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_side"),
-            new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front"),
-            new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_side"),
-            new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front_on"));
+            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_side"),
+            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front"),
+            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_side"),
+            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front_on"));
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -40,7 +40,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
   protected void platedWallBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
     for (Map.Entry<PlatingMaterial, RegistryObject<Block>> entry : blocks.entrySet()) {
       wallBlock((WallBlock) entry.getValue().get(),
-              new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
+              modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
     }
   }
 

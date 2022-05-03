@@ -45,7 +45,7 @@ public class ModItemModelProvider extends ItemModelProvider {
   protected void platedWallBlockItems(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
     for (Map.Entry<PlatingMaterial, RegistryObject<Block>> entry : blocks.entrySet()) {
       wallBlockItem(entry.getValue().get().asItem(),
-              new ResourceLocation(TechColonies.MOD_ID, "block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
+              modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
     }
   }
   protected void wallBlockItem(Item item ,ResourceLocation texture) {
