@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies;
 
 import com.mojang.logging.LogUtils;
+import com.sejapoe.techcolonies.core.ModBlockEntities;
 import com.sejapoe.techcolonies.core.ModBlocks;
 import com.sejapoe.techcolonies.core.ModItems;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
@@ -38,6 +39,8 @@ public class TechColonies {
     ModBlocks.register(bus);
     // Register items
     ModItems.register(bus);
+    // Register blockentities
+    ModBlockEntities.register(bus);
 
     // Register the setup method for modloading
     bus.addListener(this::setup);

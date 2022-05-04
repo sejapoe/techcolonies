@@ -1,11 +1,19 @@
 package com.sejapoe.techcolonies.block;
 
+import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
+import com.sejapoe.techcolonies.core.ModBlockEntities;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -13,7 +21,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class SmelteryBlock extends Block {
+public class SmelteryBlock extends Block implements EntityBlock {
   public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
   public static final BooleanProperty LIT = BlockStateProperties.LIT;
   public SmelteryBlock(Properties properties) {
@@ -37,4 +45,15 @@ public class SmelteryBlock extends Block {
     builder.add(FACING, LIT, ModProperties.PLATING_MATERIAL);
   }
 
+  @Nullable
+  @Override
+  public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+    return new SmelteryBlockEntity(blockPos, state);
+  }
+
+  @Nullable
+  @Override
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+    return type == ModBlockEntities.SMELTERY_BE.get() ? SmelteryBlockEntity::tick : null;
+  }
 }
