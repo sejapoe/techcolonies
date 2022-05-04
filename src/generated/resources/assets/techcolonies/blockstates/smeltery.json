@@ -1,33 +1,93 @@
 {
   "variants": {
-    "facing=north,lit=false": {
-      "model": "techcolonies:block/smeltery"
+    "facing=north,lit=false,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery"
     },
-    "facing=south,lit=false": {
-      "model": "techcolonies:block/smeltery",
+    "facing=south,lit=false,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery",
       "y": 180
     },
-    "facing=west,lit=false": {
-      "model": "techcolonies:block/smeltery",
+    "facing=west,lit=false,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery",
       "y": 270
     },
-    "facing=east,lit=false": {
-      "model": "techcolonies:block/smeltery",
+    "facing=east,lit=false,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery",
       "y": 90
     },
-    "facing=north,lit=true": {
-      "model": "techcolonies:block/smeltery_lit"
+    "facing=north,lit=true,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery_lit"
     },
-    "facing=south,lit=true": {
-      "model": "techcolonies:block/smeltery_lit",
+    "facing=south,lit=true,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery_lit",
       "y": 180
     },
-    "facing=west,lit=true": {
-      "model": "techcolonies:block/smeltery_lit",
+    "facing=west,lit=true,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery_lit",
       "y": 270
     },
-    "facing=east,lit=true": {
-      "model": "techcolonies:block/smeltery_lit",
+    "facing=east,lit=true,plating_material=none": {
+      "model": "techcolonies:block/none_smeltery_lit",
+      "y": 90
+    },
+    "facing=north,lit=false,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery"
+    },
+    "facing=south,lit=false,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery",
+      "y": 180
+    },
+    "facing=west,lit=false,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery",
+      "y": 270
+    },
+    "facing=east,lit=false,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery",
+      "y": 90
+    },
+    "facing=north,lit=true,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery_lit"
+    },
+    "facing=south,lit=true,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery_lit",
+      "y": 180
+    },
+    "facing=west,lit=true,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery_lit",
+      "y": 270
+    },
+    "facing=east,lit=true,plating_material=copper": {
+      "model": "techcolonies:block/copper_smeltery_lit",
+      "y": 90
+    },
+    "facing=north,lit=false,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery"
+    },
+    "facing=south,lit=false,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery",
+      "y": 180
+    },
+    "facing=west,lit=false,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery",
+      "y": 270
+    },
+    "facing=east,lit=false,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery",
+      "y": 90
+    },
+    "facing=north,lit=true,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery_lit"
+    },
+    "facing=south,lit=true,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery_lit",
+      "y": 180
+    },
+    "facing=west,lit=true,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery_lit",
+      "y": 270
+    },
+    "facing=east,lit=true,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_smeltery_lit",
       "y": 90
     }
   }

@@ -1,5 +1,7 @@
 package com.sejapoe.techcolonies.blocks;
 
+import com.sejapoe.techcolonies.core.properties.ModProperties;
+import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
@@ -16,7 +18,10 @@ public class SmelteryBlock extends Block {
   public static final BooleanProperty LIT = BlockStateProperties.LIT;
   public SmelteryBlock(Properties properties) {
     super(properties);
-    this.registerDefaultState(this.getStateDefinition().any().setValue(FACING, Direction.NORTH).setValue(LIT, false));
+    this.registerDefaultState(this.getStateDefinition().any()
+            .setValue(FACING, Direction.NORTH)
+            .setValue(LIT, false)
+            .setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.NONE));
   }
 
 
@@ -29,7 +34,7 @@ public class SmelteryBlock extends Block {
 
   @Override
   protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-    builder.add(FACING, LIT);
+    builder.add(FACING, LIT, ModProperties.PLATING_MATERIAL);
   }
 
 }

@@ -27,7 +27,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     platedWallBlockItems(ModBlocks.PLATED_BRICK_WALL_BLOCKS);
 
     // Block Items
-    simpleBlockItem(ModBlocks.SMELTERY_BLOCK.get().asItem());
+    simpleBlockItem(ModBlocks.SMELTERY_BLOCK.get().asItem(), modLoc("block/none_smeltery"));
 
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());
@@ -40,6 +40,10 @@ public class ModItemModelProvider extends ItemModelProvider {
   }
   protected void simpleBlockItem(Item item) {
     getBuilder(item.getRegistryName().toString()).parent(getExistingFile(modLoc("block/" + item.getRegistryName().getPath())));
+  }
+
+  protected void simpleBlockItem(Item item, ResourceLocation model) {
+    getBuilder(item.getRegistryName().toString()).parent(getExistingFile(model));
   }
 
   protected void platedWallBlockItems(Map<PlatingMaterial, RegistryObject<Block>> blocks) {

@@ -3,8 +3,12 @@ package com.sejapoe.techcolonies;
 import com.mojang.logging.LogUtils;
 import com.sejapoe.techcolonies.core.ModBlocks;
 import com.sejapoe.techcolonies.core.ModItems;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -37,6 +41,8 @@ public class TechColonies {
 
     // Register the setup method for modloading
     bus.addListener(this::setup);
+    // Register client setup
+    bus.addListener(this::clientSetup);
     // Register the enqueueIMC method for modloading
     bus.addListener(this::enqueueIMC);
     // Register the processIMC method for modloading
@@ -50,6 +56,10 @@ public class TechColonies {
     // some preinit code
     LOGGER.info("HELLO FROM PREINIT");
     LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+  }
+  @OnlyIn(Dist.CLIENT)
+  private void clientSetup(final FMLCommonSetupEvent event) {
+    ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMELTERY_BLOCK.get(), RenderType.cutout());
   }
 
   private void enqueueIMC(final InterModEnqueueEvent event) {
