@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.datagen.server;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.core.ModBlockTags;
 import com.sejapoe.techcolonies.core.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
@@ -22,11 +23,16 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
   @Override
   protected void addTags() {
+    // Base Tags
     addGroupToTag(BlockTags.MINEABLE_WITH_PICKAXE,
             ModBlocks.PLATED_BRICKS_BLOCKS,
             ModBlocks.PLATED_BRICK_WALL_BLOCKS);
     addGroupToTag(BlockTags.WALLS,
             ModBlocks.PLATED_BRICK_WALL_BLOCKS);
+
+    // Mod tags
+    addGroupToTag(ModBlockTags.PLATED_BRICKS, ModBlocks.PLATED_BRICKS_BLOCKS);
+    addGroupToTag(ModBlockTags.PLATED_BRICK_WALLS, ModBlocks.PLATED_BRICK_WALL_BLOCKS);
   }
 
   protected void addGroupToTag(TagKey<Block> key, Map<?, RegistryObject<Block>>... maps) {

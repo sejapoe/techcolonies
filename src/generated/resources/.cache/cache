@@ -42,3 +42,5 @@ ffb1a07351f23acf6d87fa832f759cceca6334f3 assets/techcolonies/models/item/strange
 696444b836b6acac3cb195375207068649688bf6 data/techcolonies/loot_tables/blocks/none_plated_bricks.json
 2ced53d425b9c9dd8872e4559b073f4d9e76b353 data/techcolonies/loot_tables/blocks/smeltery.json
 9ac72f6d2c3a959f555472831adeeaccaadac962 data/techcolonies/recipes/strange_wand.json
+7609a7e1ea26b41d6a1018b63cca57a24fd95468 data/techcolonies/tags/blocks/plated_brick_walls.json
+2c2f832664127b401042fa4aa53cbed38227982c data/techcolonies/tags/blocks/plated_bricks.json

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "techcolonies:copper_plated_bricks",
+    "techcolonies:diamond_plated_bricks",
+    "techcolonies:none_plated_bricks"
+  ]
+}
