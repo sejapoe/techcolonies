@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.items;
+package com.sejapoe.techcolonies.item;
 
 import net.minecraft.world.item.Item;
 

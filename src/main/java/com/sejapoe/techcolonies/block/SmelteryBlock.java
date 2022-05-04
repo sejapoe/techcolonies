@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.blocks;
+package com.sejapoe.techcolonies.block;
 
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;

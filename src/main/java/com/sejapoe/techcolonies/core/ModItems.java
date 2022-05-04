@@ -1,9 +1,7 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
-import com.sejapoe.techcolonies.items.PlatedBlockItem;
-import com.sejapoe.techcolonies.items.StrangeWandItem;
+import com.sejapoe.techcolonies.item.StrangeWandItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;

@@ -1,15 +1,11 @@
-package com.sejapoe.techcolonies.items;
+package com.sejapoe.techcolonies.item;
 
-import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import org.jetbrains.annotations.Nullable;
 
 public class PlatedBlockItem extends BlockItem {
 

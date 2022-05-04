@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.blocks;
+package com.sejapoe.techcolonies.block;
 
 import net.minecraft.world.level.block.Block;
 

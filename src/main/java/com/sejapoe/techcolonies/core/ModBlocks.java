@@ -1,9 +1,8 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.blocks.CopperPlatedBricksBlock;
-import com.sejapoe.techcolonies.blocks.PlatedBricksBlock;
-import com.sejapoe.techcolonies.blocks.SmelteryBlock;
+import com.sejapoe.techcolonies.block.PlatedBricksBlock;
+import com.sejapoe.techcolonies.block.SmelteryBlock;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
