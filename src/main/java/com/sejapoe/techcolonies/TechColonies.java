@@ -63,6 +63,7 @@ public class TechColonies {
   @OnlyIn(Dist.CLIENT)
   private void clientSetup(final FMLCommonSetupEvent event) {
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMELTERY_BLOCK.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(ModBlocks.ITEM_INTERFACE_BLOCK.get(), RenderType.cutout());
   }
 
   private void enqueueIMC(final InterModEnqueueEvent event) {

@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "interface_direction=input,plating_material=none": {
+      "model": "techcolonies:block/none_item_interface_input"
+    },
+    "interface_direction=output,plating_material=none": {
+      "model": "techcolonies:block/none_item_interface_output"
+    },
+    "interface_direction=input,plating_material=copper": {
+      "model": "techcolonies:block/copper_item_interface_input"
+    },
+    "interface_direction=output,plating_material=copper": {
+      "model": "techcolonies:block/copper_item_interface_output"
+    },
+    "interface_direction=input,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_item_interface_input"
+    },
+    "interface_direction=output,plating_material=diamond": {
+      "model": "techcolonies:block/diamond_item_interface_output"
+    }
+  }
+}

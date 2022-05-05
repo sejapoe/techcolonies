@@ -2,6 +2,7 @@ package com.sejapoe.techcolonies.datagen.client;
 
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.core.properties.InterfaceDirection;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.core.Direction;
@@ -9,16 +10,18 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelBuilder;
-import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
   public ModBlockStateProvider(DataGenerator gen, ExistingFileHelper exFileHelper) {
@@ -32,6 +35,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
     horizontalMechanismPlatedBlock(ModBlocks.SMELTERY_BLOCK.get(),
             modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front"),
             modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front_on"));
+    cubeAllInterfacePlatedBlock(ModBlocks.ITEM_INTERFACE_BLOCK.get(),
+            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath()),
+            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_input"),
+            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_output"));
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -45,6 +52,29 @@ public class ModBlockStateProvider extends BlockStateProvider {
       wallBlock((WallBlock) entry.getValue().get(),
               modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
     }
+  }
+
+  protected void cubeAllInterfacePlatedBlock(Block block, ResourceLocation baseOverlay, ResourceLocation inputOverlay, ResourceLocation outputOverlay) {
+    Map<PlatingMaterial, Function<BlockState, ModelBuilder>> map = new HashMap<>();
+    for (PlatingMaterial material : PlatingMaterial.values()) {
+      Function<BlockState, ModelBuilder> modelFunc = state -> {
+        ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
+        ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + block.getRegistryName().getPath() + "_" + state.getValue(ModProperties.INTERFACE_DIRECTION).getSerializedName())
+                .parent(models().getExistingFile(mcLoc("block/block")))
+                .texture("side", side)
+                .texture("baseOverlay", baseOverlay)
+                .texture("overlay", state.getValue(ModProperties.INTERFACE_DIRECTION) == InterfaceDirection.INPUT ? inputOverlay : outputOverlay)
+                .texture("particle", "#side");
+        model.element().textureAll("#side");
+        model.element().textureAll("#baseOverlay");
+        model.element().textureAll("#overlay");
+        return model;
+      };
+      map.put(material, modelFunc);
+    }
+    getVariantBuilder(block).forAllStates(state -> ConfiguredModel.builder()
+            .modelFile(map.get(state.getValue(ModProperties.PLATING_MATERIAL)).apply(state))
+            .build());
   }
 
   protected void horizontalMechanismPlatedBlock(Block block, ResourceLocation front, ResourceLocation frontOn) {

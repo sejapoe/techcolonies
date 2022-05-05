@@ -1,5 +1,7 @@
 package com.sejapoe.techcolonies.block.entity;
 
+import com.sejapoe.techcolonies.core.properties.ModProperties;
+import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -7,11 +9,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractStructureBlockEntity extends BlockEntity {
+public abstract class AbstractStructureElementBlockEntity extends BlockEntity {
   private boolean isComplete;
   private int structureLevel;
 
-  public AbstractStructureBlockEntity(BlockEntityType type, BlockPos blockPos, BlockState state) {
+  public AbstractStructureElementBlockEntity(BlockEntityType type, BlockPos blockPos, BlockState state) {
     super(type, blockPos, state);
     this.isComplete = false;
     this.structureLevel = 0;
@@ -29,6 +31,17 @@ public abstract class AbstractStructureBlockEntity extends BlockEntity {
     super.saveAdditional(compoundTag);
     compoundTag.putBoolean("IsComplete", this.isComplete);
     compoundTag.putInt("StructureLevel", this.structureLevel);
+  }
+
+  public void updateStatus(boolean isComplete, int structureLevel) {
+    BlockState state = level.getBlockState(getBlockPos());
+    if (this.isComplete != isComplete || this.structureLevel != structureLevel) {
+      this.setComplete(isComplete);
+      this.setStructureLevel(isComplete ? structureLevel : 0);
+      state = state.setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.valueOf(this.structureLevel));
+      level.setBlockAndUpdate(getBlockPos(), state);
+      setChanged(level, getBlockPos(), state);
+    }
   }
 
   public boolean isComplete() {

@@ -1,0 +1,107 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "side": "techcolonies:block/copper_plated_bricks",
+    "baseOverlay": "techcolonies:block/item_interface",
+    "overlay": "techcolonies:block/item_interface_output",
+    "particle": "#side"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#side"
+        },
+        "up": {
+          "texture": "#side"
+        },
+        "north": {
+          "texture": "#side"
+        },
+        "south": {
+          "texture": "#side"
+        },
+        "west": {
+          "texture": "#side"
+        },
+        "east": {
+          "texture": "#side"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#baseOverlay"
+        },
+        "up": {
+          "texture": "#baseOverlay"
+        },
+        "north": {
+          "texture": "#baseOverlay"
+        },
+        "south": {
+          "texture": "#baseOverlay"
+        },
+        "west": {
+          "texture": "#baseOverlay"
+        },
+        "east": {
+          "texture": "#baseOverlay"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#overlay"
+        },
+        "up": {
+          "texture": "#overlay"
+        },
+        "north": {
+          "texture": "#overlay"
+        },
+        "south": {
+          "texture": "#overlay"
+        },
+        "west": {
+          "texture": "#overlay"
+        },
+        "east": {
+          "texture": "#overlay"
+        }
+      }
+    }
+  ]
+}

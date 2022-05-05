@@ -12,41 +12,24 @@ import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 
-public class SmelteryBlockEntity extends AbstractStructureBlockEntity {
+public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity {
 
   public SmelteryBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.SMELTERY_BE.get(), blockPos, state);
   }
   public static void tick(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
-    boolean isChanged = false;
+    if (level.isClientSide()) return;
     PlatedBlockPattern.BlockPatternMatch match = checkStructure(level, blockPos, blockState);
-    int oldStructureLevel = blockState.getValue(ModProperties.PLATING_MATERIAL).getLevel();
     if (match != null) {
-      if (match.getLowestMaterial().getLevel() != oldStructureLevel) {
-        blockEntity.setComplete(true);
-        blockEntity.setStructureLevel(match.getLowestMaterial().getLevel());
-        isChanged = true;
-      }
+      blockEntity.updateStatus(true, match.getLowestMaterial().getLevel());
+      blockEntity.setInterfaces(match.getInterfaces());
+      blockEntity.updateInterfaces();
     } else {
-      if (blockEntity.isComplete() || blockEntity.getStructureLevel() != 0) {
-        blockEntity.setComplete(false);
-        blockEntity.setStructureLevel(0);
-        isChanged = true;
-      }
-    }
-
-    boolean isBlockStateChanged = false;
-    if (blockEntity.getStructureLevel() != oldStructureLevel) {
-      blockState = blockState.setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.valueOf(blockEntity.getStructureLevel()));
-      isBlockStateChanged = true;
-    }
-
-    if (isBlockStateChanged) {
-      level.setBlock(blockPos, blockState, 3);
-    }
-    if (isChanged) {
-      setChanged(level, blockPos, blockState);
+      blockEntity.updateStatus(false, 0);
+      blockEntity.updateInterfaces();
+      blockEntity.setInterfaces(new ArrayList<>());
     }
   }
   @Nullable

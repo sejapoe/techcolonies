@@ -2,6 +2,7 @@ package com.sejapoe.techcolonies.core.structures;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.cache.LoadingCache;
+import com.sejapoe.techcolonies.block.AbstractInterfaceBlock;
 import com.sejapoe.techcolonies.block.IPlatedBlock;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.core.BlockPos;
@@ -11,6 +12,8 @@ import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class PlatedBlockPattern extends BlockPattern {
@@ -33,6 +36,7 @@ public class PlatedBlockPattern extends BlockPattern {
   @Nullable
   private BlockPatternMatch matches(BlockPos pos, Direction direction, LoadingCache<BlockPos, BlockInWorld> loadingCache) {
     PlatingMaterial lowestMaterial = PlatingMaterial.values()[PlatingMaterial.values().length - 1];
+    List<BlockPos> interfaces = new ArrayList<>();
     for(int i = 0; i < this.getWidth(); ++i) {
       for(int j = 0; j < this.getHeight(); ++j) {
         for(int k = 0; k < this.getDepth(); ++k) {
@@ -52,20 +56,26 @@ public class PlatedBlockPattern extends BlockPattern {
                 lowestMaterial = material;
               }
             }
+
+            if (block.getState().getBlock() instanceof AbstractInterfaceBlock) {
+              interfaces.add(block.getPos());
+            }
           }
         }
       }
     }
-    return new BlockPatternMatch(pos, direction, Direction.UP, loadingCache, this.getWidth(), this.getHeight(), this.getDepth(), lowestMaterial);
+    return new BlockPatternMatch(pos, direction, Direction.UP, loadingCache, this.getWidth(), this.getHeight(), this.getDepth(), lowestMaterial, interfaces);
   }
 
 
   public static class BlockPatternMatch extends BlockPattern.BlockPatternMatch {
     private PlatingMaterial lowestMaterial;
+    private List<BlockPos> interfaces;
 
-    public BlockPatternMatch(BlockPos pos, Direction direction, Direction direction1, LoadingCache<BlockPos, BlockInWorld> loadingCache, int width, int height, int depth, PlatingMaterial lowestMaterial) {
+    public BlockPatternMatch(BlockPos pos, Direction direction, Direction direction1, LoadingCache<BlockPos, BlockInWorld> loadingCache, int width, int height, int depth, PlatingMaterial lowestMaterial, List<BlockPos> interfaces) {
       super(pos, direction, direction1, loadingCache, width, height, depth);
       this.lowestMaterial = lowestMaterial;
+      this.interfaces = interfaces;
     }
 
     public PlatingMaterial getLowestMaterial() {
@@ -75,6 +85,10 @@ public class PlatedBlockPattern extends BlockPattern {
     @Override
     public String toString() {
       return MoreObjects.toStringHelper(this).add("up", this.getUp()).add("forwards", this.getForwards()).add("frontTopLeft", this.getFrontTopLeft()).add("material", this.getLowestMaterial().getSerializedName()).toString();
+    }
+
+    public List<BlockPos> getInterfaces() {
+      return interfaces;
     }
   }
 }
