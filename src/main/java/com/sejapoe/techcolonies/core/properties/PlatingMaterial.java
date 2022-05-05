@@ -3,13 +3,15 @@ package com.sejapoe.techcolonies.core.properties;
 import net.minecraft.util.StringRepresentable;
 
 public enum PlatingMaterial implements StringRepresentable {
-  NONE("none"),
-  COPPER("copper"),
-  DIAMOND("diamond");
+  NONE("none", 0),
+  COPPER("copper", 1),
+  DIAMOND("diamond", 2);
   private final String name;
+  private final int level;
 
-  private PlatingMaterial(String name) {
+  PlatingMaterial(String name, int level) {
     this.name = name;
+    this.level = level;
   }
 
   public String getName() {
@@ -19,5 +21,17 @@ public enum PlatingMaterial implements StringRepresentable {
   @Override
   public String getSerializedName() {
     return name;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public static PlatingMaterial valueOf(int level) {
+    for (PlatingMaterial material : PlatingMaterial.values())
+      if (material.getLevel() == level) {
+        return material;
+      }
+    return null;
   }
 }
