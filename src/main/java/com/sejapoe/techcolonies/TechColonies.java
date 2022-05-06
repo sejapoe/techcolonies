@@ -3,6 +3,7 @@ package com.sejapoe.techcolonies;
 import com.mojang.logging.LogUtils;
 import com.sejapoe.techcolonies.core.ModBlockEntities;
 import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.core.ModEntities;
 import com.sejapoe.techcolonies.core.ModItems;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
+import software.bernie.geckolib3.GeckoLib;
 
 import java.util.stream.Collectors;
 
@@ -33,6 +35,8 @@ public class TechColonies {
   public static final Logger LOGGER = LogUtils.getLogger();
 
   public TechColonies() {
+    GeckoLib.initialize();
+
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
     // Register blocks
@@ -41,6 +45,8 @@ public class TechColonies {
     ModItems.register(bus);
     // Register blockentities
     ModBlockEntities.register(bus);
+    // Register entities
+    ModEntities.register(bus);
 
     // Register the setup method for modloading
     bus.addListener(this::setup);
@@ -86,16 +92,5 @@ public class TechColonies {
   public void onServerStarting(ServerStartingEvent event) {
     // Do something when the server starts
     LOGGER.info("HELLO from server starting");
-  }
-
-  // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
-  // Event bus for receiving Registry Events)
-  @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-  public static class RegistryEvents {
-    @SubscribeEvent
-    public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-      // Register a new block here
-      LOGGER.info("HELLO from Register Block");
-    }
   }
 }
