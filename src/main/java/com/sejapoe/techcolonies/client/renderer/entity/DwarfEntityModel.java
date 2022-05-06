@@ -36,18 +36,16 @@ public class DwarfEntityModel<T extends DwarfEntity> extends EntityModel<T> {
     MeshDefinition meshdefinition = new MeshDefinition();
     PartDefinition partdefinition = meshdefinition.getRoot();
 
-    PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(21, 20).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
-            .texOffs(0, 0).addBox(-6.0F, -6.0F, -2.0F, 12.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 15.0F, 0.0F));
+    PartDefinition body = partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(25, 11).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 3.0F, 4.0F, new CubeDeformation(0.0F))
+            .texOffs(0, 0).addBox(-6.0F, -6.0F, -2.0F, 12.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 15.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-    body.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(25, 11).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 3.0F, 0.0F));
+    body.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(10, 24).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(2.0F, 3.0F, 0.0F));
 
-    body.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(18, 28).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-2.0F, 3.0F, 0.0F));
+    body.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(10, 24).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 6.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-2.0F, 3.0F, 0.0F));
 
-    PartDefinition left_arm = body.addOrReplaceChild("left_arm", CubeListBuilder.create(), PartPose.offset(6.0F, -4.0F, 0.0F));
+    body.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(0, 24).addBox(0.0F, -1.0F, -1.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, -4.0F, 0.0F));
 
-    left_arm.addOrReplaceChild("main_r1", CubeListBuilder.create().texOffs(9, 24).addBox(0.0F, -1.0F, -1.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, 0.0F, 0.0F, 0.0F, -0.0873F, 0.0F));
-
-    body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 24).addBox(-2.0F, -1.0F, -1.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(-6.0F, -4.0F, 0.0F));
+    body.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(0, 24).mirror().addBox(-2.0F, -1.0F, -1.0F, 2.0F, 9.0F, 2.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-6.0F, -4.0F, 0.0F));
 
     PartDefinition head = body.addOrReplaceChild("head", CubeListBuilder.create(), PartPose.offset(0.0F, -6.0F, 0.0F));
 
