@@ -1,7 +1,8 @@
 package com.sejapoe.techcolonies.client.event;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.client.renderer.entity.DwarfEntityModel;
+import com.sejapoe.techcolonies.client.model.DwarfEntityModel;
+import com.sejapoe.techcolonies.client.model.faceelement.beard.DefaultBeardModel;
 import com.sejapoe.techcolonies.client.renderer.entity.DwarfEntityRenderer;
 import com.sejapoe.techcolonies.core.ModEntities;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,6 +15,7 @@ public final class ClientRegistryModEvents {
   @SubscribeEvent
   public static void registerEntityLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
     event.registerLayerDefinition(DwarfEntityModel.LAYER_LOCATION, DwarfEntityModel::createBodyLayer);
+    event.registerLayerDefinition(DefaultBeardModel.LAYER_LOCATION, DefaultBeardModel::createBodyLayer);
   }
 
   @SubscribeEvent
