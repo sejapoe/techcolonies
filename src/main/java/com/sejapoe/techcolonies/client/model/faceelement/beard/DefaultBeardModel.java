@@ -15,15 +15,12 @@ import net.minecraft.util.Mth;
 
 import java.util.function.Function;
 
-public class DefaultBeardModel<T extends DwarfEntity> extends Model {
-  public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(TechColonies.MOD_ID, "face/beard/default"), "main");
-  private final ModelPart main;
+public class DefaultBeardModel<T extends DwarfEntity> extends AbstractBeardModel<T> {
+  public static final ModelLayerLocation LAYER_LOCATION = createModelLayerLocation("default");
 
   public DefaultBeardModel(ModelPart root) {
-    super(RenderType::entityCutoutNoCull);
-    this.main = root.getChild("beard");
+    super(root);
   }
-
   public static LayerDefinition createBodyLayer() {
     MeshDefinition meshdefinition = new MeshDefinition();
     PartDefinition partdefinition = meshdefinition.getRoot();
@@ -44,15 +41,4 @@ public class DefaultBeardModel<T extends DwarfEntity> extends Model {
 
     return LayerDefinition.create(meshdefinition, 64, 64);
   }
-
-  public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-    this.main.yRot = netHeadYaw * ((float)(Math.PI / 180f));
-    this.main.xRot = headPitch * ((float)(Math.PI / 180f));
-  }
-
-  @Override
-  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-    main.render(poseStack, buffer, packedLight, packedOverlay);
-  }
-
 }
