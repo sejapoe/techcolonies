@@ -9,7 +9,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class ModBlockEntities {
+public final class ModBlockEntities {
   public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, TechColonies.MOD_ID);
 
   public static final RegistryObject<BlockEntityType<SmelteryBlockEntity>> SMELTERY_BE = BLOCK_ENTITY_REGISTER.register("smeltery_block_entity", () -> BlockEntityType.Builder.of(SmelteryBlockEntity::new, ModBlocks.SMELTERY_BLOCK.get()).build(null));

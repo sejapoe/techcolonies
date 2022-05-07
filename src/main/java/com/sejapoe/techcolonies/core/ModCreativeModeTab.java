@@ -4,7 +4,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-public class ModCreativeModeTab {
+public final class ModCreativeModeTab {
   public static final CreativeModeTab TECH_COLONIES = (new CreativeModeTab("techcolonies") {
     @Override
     @MethodsReturnNonnullByDefault

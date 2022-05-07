@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
-public class ModBlocks {
+public final class ModBlocks {
   public static final DeferredRegister<Block> BLOCK_REGISTER = DeferredRegister.create(ForgeRegistries.BLOCKS, TechColonies.MOD_ID);
 
   public static final Map<PlatingMaterial, RegistryObject<Block>>

@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Supplier;
 
-public class ModEntities {
+public final class ModEntities {
   public static final DeferredRegister<EntityType<?>> ENTITY_REGISTER = DeferredRegister.create(ForgeRegistries.ENTITIES, TechColonies.MOD_ID);
 
   public static final RegistryObject<EntityType<DwarfEntity>> DWARF_ENTITY = register("dwarf_entity",
