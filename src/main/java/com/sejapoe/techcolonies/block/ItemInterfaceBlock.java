@@ -15,7 +15,6 @@ public class ItemInterfaceBlock extends AbstractInterfaceBlock {
     this.registerDefaultState(this.getStateDefinition().any().setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.NONE).setValue(ModProperties.INTERFACE_DIRECTION, InterfaceDirection.INPUT));
   }
 
-
   @Nullable
   @Override
   public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {

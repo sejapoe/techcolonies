@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public abstract class AbstractStructureControllerBlockEntity extends AbstractStructureElementBlockEntity{
   private List<BlockPos> interfaces;
@@ -62,5 +63,9 @@ public abstract class AbstractStructureControllerBlockEntity extends AbstractStr
 
   public List<BlockPos> getInterfaces() {
     return interfaces;
+  }
+
+  public List<AbstractInterfaceBlockEntity> getSerializedInterfaces() {
+    return interfaces.stream().map(blockPos -> (AbstractInterfaceBlockEntity) level.getBlockEntity(blockPos)).collect(Collectors.toList());
   }
 }
