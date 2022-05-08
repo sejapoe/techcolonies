@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
-public class AbstractInterfaceBlockEntity extends AbstractStructureElementBlockEntity {
+public abstract class AbstractInterfaceBlockEntity extends AbstractStructureElementBlockEntity {
   private InterfaceDirection interfaceDirection;
   public AbstractInterfaceBlockEntity(BlockEntityType type, BlockPos blockPos, BlockState state) {
     super(type, blockPos, state);
@@ -22,19 +22,6 @@ public class AbstractInterfaceBlockEntity extends AbstractStructureElementBlockE
 
   public BlockPos getAccessibilityPos(PathfinderMob mob) {
     return getBlockPos().below();
-    //    for (Direction direction : HorizontalDirectionalBlock.FACING.getPossibleValues()) {
-//      BlockPos offsetPos = this.getBlockPos().offset(direction.getNormal());
-//      if (level.getBlockState(offsetPos).isAir()) {
-//        for (int y = offsetPos.getY() - 1; y > 0; --y) {
-//          BlockPos checkPos = new BlockPos(offsetPos.getX(), y, offsetPos.getZ());
-//          if (level.getBlockState(checkPos).entityCanStandOn(level, checkPos, mob)) {
-//            TechColonies.LOGGER.debug("AccessPoint " + checkPos.toShortString());
-//            return checkPos;
-//          }
-//        }
-//      }
-//    }
-//    return null;
   }
 
   public boolean isInput() {
