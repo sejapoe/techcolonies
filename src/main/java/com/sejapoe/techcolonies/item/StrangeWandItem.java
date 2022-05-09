@@ -48,12 +48,6 @@ public class StrangeWandItem extends Item {
       }
       if (blockEntity instanceof AbstractInterfaceBlockEntity) {
         if (useOnContext.getPlayer().isCrouching()) {
-          if (blockEntity instanceof ItemInterfaceBlockEntity) {
-            TechColonies.LOGGER.debug(((ItemInterfaceBlockEntity) blockEntity).getItems().toString());
-          } else {
-            IFluidHandler handler = (IFluidHandler) blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().orElse(null);
-            TechColonies.LOGGER.debug(handler.getFluidInTank(0).getTranslationKey());
-          }
           return InteractionResult.SUCCESS;
         }
         state = state.setValue(ModProperties.INTERFACE_DIRECTION, state.getValue(ModProperties.INTERFACE_DIRECTION).getOpposite());

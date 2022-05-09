@@ -4,19 +4,23 @@ import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.block.entity.AbstractInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
+import com.sejapoe.techcolonies.core.ModCapabilities;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.world.Container;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.pathfinder.Path;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.function.Function;
 
 public class FillInterfaceGoal extends Goal {
   private final DwarfEntity dwarf;
@@ -28,6 +32,7 @@ public class FillInterfaceGoal extends Goal {
 
   public FillInterfaceGoal(DwarfEntity dwarf) {
     this.dwarf = dwarf;
+    this.setFlags(EnumSet.of(Flag.MOVE));
   }
 
   private boolean prepare() {
@@ -41,7 +46,7 @@ public class FillInterfaceGoal extends Goal {
       if (!(inputBlockEntity instanceof Container)) {
         return false;
       }
-      return (!dwarf.isEmpty() || !isInputEmpty()) && !this.interfaceBlockEntity.isFull();
+      return !dwarf.isEmpty() || !isInputEmpty();
     }
     return false;
   }
@@ -53,8 +58,26 @@ public class FillInterfaceGoal extends Goal {
     
   }
 
+  protected boolean isValidItemStack(ItemStack stack) {
+    return !stack.isEmpty() && stack.is(Tags.Items.INGOTS);
+  }
+
+  protected boolean canBePlaced(ItemStack stack, ICapabilityProvider to) {
+    IItemHandler itemHandler = to.getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY).orElse(null);
+    return isValidItemStack(stack) && ItemHandlerHelper.insertItemStacked(itemHandler, stack, true) != stack;
+  }
+
   protected boolean isInputEmpty() {
-    return ((Container) inputBlockEntity).isEmpty();
+    boolean res = inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).map(handler -> {
+      for (int i = 0; i < handler.getSlots(); i++) {
+        ItemStack itemStack = handler.getStackInSlot(i);
+        if (canBePlaced(itemStack, interfaceBlockEntity)) {
+          return false;
+        }
+      }
+      return true;
+    }).orElse(true);
+    return res;
   }
 
   protected boolean isReachedTarget() {
@@ -76,6 +99,7 @@ public class FillInterfaceGoal extends Goal {
   @Override
   public void stop() {
     super.stop();
+    this.dwarf.getNavigation().stop();
   }
 
   @Override
@@ -87,44 +111,11 @@ public class FillInterfaceGoal extends Goal {
   public void tick() {
     if (isReachedTarget()) {
       if (currentTarget.equals(interfaceBlockEntity.getAccessibilityPos(dwarf))) {
-          ItemStack stack = dwarf.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).map(handler -> {
-          for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack itemStack = handler.getStackInSlot(i);
-            if (!itemStack.isEmpty()) {// TODO: check controller recipes
-              return handler.extractItem(i, itemStack.getCount(), false);
-            }
-          }
-          return ItemStack.EMPTY;
-        }).orElse(ItemStack.EMPTY);
-        IItemHandler handler = interfaceBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
-        for (int i = 0; i < handler.getSlots(); i++) {
-          ItemStack itemStack = handler.getStackInSlot(i);
-          if (itemStack.isEmpty()) {
-            handler.insertItem(i, stack, false);
-            break;
-          }
-        }
-        if (!isInputEmpty()) {
-          moveMobToBlock(inputBlockEntity.getBlockPos());
-        }
+        moveItemStack(dwarf.getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY), interfaceBlockEntity.getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY), stack -> canBePlaced(stack, interfaceBlockEntity));
+        moveMobToBlock(inputBlockEntity.getBlockPos());
       } else {
-          ItemStack stack = inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).map(handler -> {
-          for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack itemStack = handler.getStackInSlot(i);
-            if (!itemStack.isEmpty()) {// TODO: check controller recipes
-              return handler.extractItem(i, itemStack.getCount(), false);
-            }
-          }
-          return ItemStack.EMPTY;
-        }).orElse(ItemStack.EMPTY);
-        IItemHandler handler = dwarf.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null);
-        for (int i = 0; i < handler.getSlots(); i++) {
-          ItemStack itemStack = handler.getStackInSlot(i);
-          if (itemStack.isEmpty()) {
-            handler.insertItem(i, stack, false);
-            break;
-          }
-        }
+        moveItemStack(dwarf.getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY), inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), stack -> !canBePlaced(stack, interfaceBlockEntity));
+        moveItemStack(inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY), dwarf.getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY), stack -> canBePlaced(stack, dwarf) && canBePlaced(stack, interfaceBlockEntity));
         moveMobToBlock(interfaceBlockEntity.getAccessibilityPos(dwarf));
       }
     } else {
@@ -132,6 +123,23 @@ public class FillInterfaceGoal extends Goal {
       if (this.shouldRecalculatePath()) {
         dwarf.getNavigation().moveTo((double)((float)currentTarget.getX()) + 0.5D, (double)currentTarget.getY(), (double)((float)currentTarget.getZ()) + 0.5D, 1.0D);
       }
+    }
+  }
+
+  private void moveItemStack(LazyOptional<? extends IItemHandler> from, LazyOptional<? extends IItemHandler> to, Function<ItemStack, Boolean> validator) {
+    ItemStack stack = from.map(handler -> {
+      for (int i = 0; i < handler.getSlots(); i++) {
+        ItemStack itemStack = handler.getStackInSlot(i);
+        if (validator.apply(itemStack)) {
+          return handler.extractItem(i, itemStack.getCount(), false);
+        }
+      }
+      return ItemStack.EMPTY;
+    }).orElse(ItemStack.EMPTY);
+    IItemHandler handler = to.orElse(null);
+    ItemStack remainedStack = ItemHandlerHelper.insertItemStacked(handler, stack, false);
+    if (!remainedStack.isEmpty()) {
+      ItemHandlerHelper.insertItemStacked(from.orElse(null), remainedStack, false);
     }
   }
 

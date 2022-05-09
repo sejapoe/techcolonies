@@ -1,5 +1,6 @@
 package com.sejapoe.techcolonies.entity;
 
+import com.sejapoe.techcolonies.core.ModCapabilities;
 import com.sejapoe.techcolonies.core.ModItems;
 import com.sejapoe.techcolonies.core.properties.faceelement.BeardType;
 import com.sejapoe.techcolonies.entity.ai.goal.FillInterfaceGoal;
@@ -63,7 +64,7 @@ public class DwarfEntity extends PathfinderMob implements Container {
   protected void registerGoals() {
     this.goalSelector.addGoal(0, new FloatGoal(this));
     this.goalSelector.addGoal(1, new FillInterfaceGoal(this));
-//    this.goalSelector.addGoal(2, new MoveToControllerGoal(this));
+    this.goalSelector.addGoal(2, new MoveToControllerGoal(this));
     this.goalSelector.addGoal(3, new TemptGoal(this,1.25f, Ingredient.of(ModItems.STRANGE_WAND.get()), false));
     this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6F));
     this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
@@ -71,7 +72,7 @@ public class DwarfEntity extends PathfinderMob implements Container {
 
   @Override
   public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
-    if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+    if (capability == ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY) {
       if (this.backpackHandler == null)
         this.backpackHandler = LazyOptional.of(this::createHandler);
       return this.backpackHandler.cast();

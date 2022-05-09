@@ -3,6 +3,7 @@ package com.sejapoe.techcolonies.entity.ai.goal;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
 
@@ -17,6 +18,10 @@ public class MoveToControllerGoal extends MoveToBlockGoal {
     this.setFlags(EnumSet.of(Flag.MOVE));
   }
 
+  @Override
+  protected int nextStartTick(PathfinderMob p_25618_) {
+    return 0;
+  }
 
   @Override
   protected boolean isValidTarget(LevelReader levelReader, BlockPos blockPos) {

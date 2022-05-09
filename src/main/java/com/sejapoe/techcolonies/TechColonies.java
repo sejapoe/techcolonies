@@ -1,10 +1,7 @@
 package com.sejapoe.techcolonies;
 
 import com.mojang.logging.LogUtils;
-import com.sejapoe.techcolonies.core.ModBlockEntities;
-import com.sejapoe.techcolonies.core.ModBlocks;
-import com.sejapoe.techcolonies.core.ModEntities;
-import com.sejapoe.techcolonies.core.ModItems;
+import com.sejapoe.techcolonies.core.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Block;
@@ -47,6 +44,8 @@ public class TechColonies {
     ModBlockEntities.register(bus);
     // Register entities
     ModEntities.register(bus);
+    /// Register capabilities
+    bus.addListener(ModCapabilities::register);
 
     // Register the setup method for modloading
     bus.addListener(this::setup);
