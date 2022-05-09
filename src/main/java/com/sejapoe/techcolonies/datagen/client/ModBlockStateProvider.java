@@ -36,9 +36,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
             modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front"),
             modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front_on"));
     cubeAllInterfacePlatedBlock(ModBlocks.ITEM_INTERFACE_BLOCK.get(),
-            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath()),
+            modLoc("block/interface"),
             modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_input"),
             modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_output"));
+    cubeAllInterfacePlatedBlock(ModBlocks.FLUID_INTERFACE_BLOCK.get(),
+            modLoc("block/interface"),
+            modLoc("block/" + ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_input"),
+            modLoc("block/" + ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_output"));
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {

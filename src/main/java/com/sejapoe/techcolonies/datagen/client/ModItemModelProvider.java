@@ -29,6 +29,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     // Block Items
     simpleBlockItem(ModBlocks.SMELTERY_BLOCK.get().asItem(), modLoc("block/none_smeltery"));
     simpleBlockItem(ModBlocks.ITEM_INTERFACE_BLOCK.get().asItem(), modLoc("block/none_item_interface_input"));
+    simpleBlockItem(ModBlocks.FLUID_INTERFACE_BLOCK.get().asItem(), modLoc("block/none_fluid_interface_input"));
 
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());

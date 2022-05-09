@@ -1,9 +1,9 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
-    "side": "techcolonies:block/none_plated_bricks",
+    "side": "techcolonies:block/diamond_plated_bricks",
     "baseOverlay": "techcolonies:block/interface",
-    "overlay": "techcolonies:block/item_interface_output",
+    "overlay": "techcolonies:block/fluid_interface_input",
     "particle": "#side"
   },
   "elements": [

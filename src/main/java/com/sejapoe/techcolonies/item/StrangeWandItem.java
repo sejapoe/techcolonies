@@ -22,6 +22,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 public class StrangeWandItem extends Item {
   private DwarfEntity configurableDwarf;
@@ -45,8 +47,13 @@ public class StrangeWandItem extends Item {
         }
       }
       if (blockEntity instanceof AbstractInterfaceBlockEntity) {
-        if (useOnContext.getPlayer().isCrouching() && blockEntity instanceof ItemInterfaceBlockEntity) {
-          TechColonies.LOGGER.debug(((ItemInterfaceBlockEntity) blockEntity).getItems().toString());
+        if (useOnContext.getPlayer().isCrouching()) {
+          if (blockEntity instanceof ItemInterfaceBlockEntity) {
+            TechColonies.LOGGER.debug(((ItemInterfaceBlockEntity) blockEntity).getItems().toString());
+          } else {
+            IFluidHandler handler = (IFluidHandler) blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).resolve().orElse(null);
+            TechColonies.LOGGER.debug(handler.getFluidInTank(0).getTranslationKey());
+          }
           return InteractionResult.SUCCESS;
         }
         state = state.setValue(ModProperties.INTERFACE_DIRECTION, state.getValue(ModProperties.INTERFACE_DIRECTION).getOpposite());

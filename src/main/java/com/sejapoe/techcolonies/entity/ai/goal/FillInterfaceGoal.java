@@ -35,7 +35,7 @@ public class FillInterfaceGoal extends Goal {
     BlockEntity controller = dwarf.level.getBlockEntity(dwarf.getControllerPos());
     if (controller != null && controller instanceof AbstractStructureControllerBlockEntity && ((AbstractStructureControllerBlockEntity) controller).isComplete()) {
       List<AbstractInterfaceBlockEntity> interfaces = ((AbstractStructureControllerBlockEntity) controller).getSerializedInterfaces();
-      this.interfaceBlockEntity = (ItemInterfaceBlockEntity) interfaces.stream().filter(abstractInterfaceBlockEntity -> abstractInterfaceBlockEntity.isInput() && abstractInterfaceBlockEntity instanceof ItemInterfaceBlockEntity).findFirst().orElse(null);
+      this.interfaceBlockEntity = (ItemInterfaceBlockEntity) interfaces.stream().filter(abstractInterfaceBlockEntity -> abstractInterfaceBlockEntity != null && abstractInterfaceBlockEntity.isInput() && abstractInterfaceBlockEntity instanceof ItemInterfaceBlockEntity).findFirst().orElse(null);
       if (this.interfaceBlockEntity == null) return false;
       this.inputBlockEntity = dwarf.level.getBlockEntity(dwarf.getInputContainerPos());
       if (!(inputBlockEntity instanceof Container)) {

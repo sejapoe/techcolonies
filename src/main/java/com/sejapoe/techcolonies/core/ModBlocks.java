@@ -1,10 +1,7 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.block.ItemInterfaceBlock;
-import com.sejapoe.techcolonies.block.PlatedBrickWallBlock;
-import com.sejapoe.techcolonies.block.PlatedBricksBlock;
-import com.sejapoe.techcolonies.block.SmelteryBlock;
+import com.sejapoe.techcolonies.block.*;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -27,7 +24,8 @@ public final class ModBlocks {
           PLATED_BRICK_WALL_BLOCKS = registerPlatedGroup("plated_brick_wall", material -> new PlatedBrickWallBlock(material, BlockBehaviour.Properties.copy(PLATED_BRICKS_BLOCKS.get(PlatingMaterial.COPPER).get())));
   public static final RegistryObject<Block>
         SMELTERY_BLOCK = BLOCK_REGISTER.register("smeltery", () -> new SmelteryBlock(BlockBehaviour.Properties.copy(PLATED_BRICKS_BLOCKS.get(PlatingMaterial.COPPER).get()))),
-        ITEM_INTERFACE_BLOCK = BLOCK_REGISTER.register("item_interface", () -> new ItemInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+        ITEM_INTERFACE_BLOCK = BLOCK_REGISTER.register("item_interface", () -> new ItemInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS))),
+        FLUID_INTERFACE_BLOCK = BLOCK_REGISTER.register("fluid_interface", () -> new FluidInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
 
   public static void register(IEventBus bus) {
     TechColonies.LOGGER.debug("HELLO FROM BLOCK REGISTER");

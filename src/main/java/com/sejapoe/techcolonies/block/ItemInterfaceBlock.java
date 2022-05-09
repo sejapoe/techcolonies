@@ -12,7 +12,6 @@ import org.jetbrains.annotations.Nullable;
 public class ItemInterfaceBlock extends AbstractInterfaceBlock {
   public ItemInterfaceBlock(Properties properties) {
     super(properties);
-    this.registerDefaultState(this.getStateDefinition().any().setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.NONE).setValue(ModProperties.INTERFACE_DIRECTION, InterfaceDirection.INPUT));
   }
 
   @Nullable

@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.core;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.block.entity.FluidInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -14,7 +15,7 @@ public final class ModBlockEntities {
 
   public static final RegistryObject<BlockEntityType<SmelteryBlockEntity>> SMELTERY_BE = BLOCK_ENTITY_REGISTER.register("smeltery_block_entity", () -> BlockEntityType.Builder.of(SmelteryBlockEntity::new, ModBlocks.SMELTERY_BLOCK.get()).build(null));
   public static final RegistryObject<BlockEntityType<ItemInterfaceBlockEntity>> ITEM_INTERFACE_BE = BLOCK_ENTITY_REGISTER.register("item_interface_block_entity", () -> BlockEntityType.Builder.of(ItemInterfaceBlockEntity::new, ModBlocks.ITEM_INTERFACE_BLOCK.get()).build(null));
-
+  public static final RegistryObject<BlockEntityType<FluidInterfaceBlockEntity>> FLUID_INTERFACE_BE = BLOCK_ENTITY_REGISTER.register("fluid_interface_block_entity", () -> BlockEntityType.Builder.of(FluidInterfaceBlockEntity::new, ModBlocks.FLUID_INTERFACE_BLOCK.get()).build(null));
   public static void register(IEventBus bus) {
     BLOCK_ENTITY_REGISTER.register(bus);
   }

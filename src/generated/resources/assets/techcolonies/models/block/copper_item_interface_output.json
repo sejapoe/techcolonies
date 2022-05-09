@@ -2,7 +2,7 @@
   "parent": "minecraft:block/block",
   "textures": {
     "side": "techcolonies:block/copper_plated_bricks",
-    "baseOverlay": "techcolonies:block/item_interface",
+    "baseOverlay": "techcolonies:block/interface",
     "overlay": "techcolonies:block/item_interface_output",
     "particle": "#side"
   },
