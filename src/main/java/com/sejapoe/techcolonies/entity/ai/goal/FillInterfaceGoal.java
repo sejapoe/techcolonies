@@ -46,7 +46,7 @@ public class FillInterfaceGoal extends Goal {
       if (!(inputBlockEntity instanceof Container)) {
         return false;
       }
-      return !dwarf.isEmpty() || !isInputEmpty();
+      return !dwarf.getInv().isEmpty() || !isInputEmpty();
     }
     return false;
   }
@@ -93,7 +93,7 @@ public class FillInterfaceGoal extends Goal {
   public void start() {
     super.start();
     this.tryTicks = 0;
-    moveMobToBlock(dwarf.isEmpty() ? inputBlockEntity.getBlockPos() : interfaceBlockEntity.getAccessibilityPos(dwarf));
+    moveMobToBlock(dwarf.getInv().isEmpty() ? inputBlockEntity.getBlockPos() : interfaceBlockEntity.getAccessibilityPos(dwarf));
   }
 
   @Override
