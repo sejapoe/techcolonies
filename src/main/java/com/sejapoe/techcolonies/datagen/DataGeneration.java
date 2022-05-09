@@ -3,10 +3,7 @@ package com.sejapoe.techcolonies.datagen;
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.datagen.client.ModBlockStateProvider;
 import com.sejapoe.techcolonies.datagen.client.ModItemModelProvider;
-import com.sejapoe.techcolonies.datagen.server.ModBlockTagsProvider;
-import com.sejapoe.techcolonies.datagen.server.ModItemTagsProvider;
-import com.sejapoe.techcolonies.datagen.server.ModLootTableProvider;
-import com.sejapoe.techcolonies.datagen.server.ModRecipeProvider;
+import com.sejapoe.techcolonies.datagen.server.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -33,6 +30,7 @@ public class DataGeneration {
       generator.addProvider(new ModRecipeProvider(generator));
       generator.addProvider(blockTagsProvider);
       generator.addProvider(new ModItemTagsProvider(generator, blockTagsProvider, helper));
+      generator.addProvider(new ModFluidTagsProvider(generator, helper));
       generator.addProvider(new ModLootTableProvider(generator));
     }
   }

@@ -34,6 +34,8 @@ public class TechColonies {
 
     IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
+    // Register fluids
+    ModFluids.register(bus);
     // Register blocks
     ModBlocks.register(bus);
     // Register items
@@ -68,6 +70,9 @@ public class TechColonies {
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMELTERY_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.ITEM_INTERFACE_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_INTERFACE_BLOCK.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getBlock(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getStillFluid(), RenderType.translucent());
+    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getFlowingFluid(), RenderType.translucent());
   }
 
   private void enqueueIMC(final InterModEnqueueEvent event) {

@@ -1,7 +1,9 @@
 package com.sejapoe.techcolonies.datagen.client;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.core.FluidDeferredRegister;
 import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.core.ModFluids;
 import com.sejapoe.techcolonies.core.ModItems;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.data.DataGenerator;
@@ -9,7 +11,10 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.client.model.DynamicBucketModel;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.loaders.DynamicBucketModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -30,6 +35,9 @@ public class ModItemModelProvider extends ItemModelProvider {
     simpleBlockItem(ModBlocks.SMELTERY_BLOCK.get().asItem(), modLoc("block/none_smeltery"));
     simpleBlockItem(ModBlocks.ITEM_INTERFACE_BLOCK.get().asItem(), modLoc("block/none_item_interface_input"));
     simpleBlockItem(ModBlocks.FLUID_INTERFACE_BLOCK.get().asItem(), modLoc("block/none_fluid_interface_input"));
+
+    // Buckets
+    bucketItem(ModFluids.MOLTEN_COPPER);
 
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());
@@ -71,4 +79,9 @@ public class ModItemModelProvider extends ItemModelProvider {
     oneLayerItem(item, item.getRegistryName());
   }
 
+  protected void bucketItem(FluidDeferredRegister.FluidRegistryObject fluidRegistryObject) {
+    withExistingParent(fluidRegistryObject.getBucket().getRegistryName().getPath(), new ResourceLocation("forge", "item/bucket"))
+            .customLoader(DynamicBucketModelBuilder::begin)
+            .fluid(fluidRegistryObject.getStillFluid());
+  };
 }
