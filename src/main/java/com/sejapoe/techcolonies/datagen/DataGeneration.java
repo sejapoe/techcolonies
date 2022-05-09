@@ -26,12 +26,12 @@ public class DataGeneration {
     if (event.includeServer()) {
       // Server Data Generation
       ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(generator, helper);
-
-      generator.addProvider(new ModRecipeProvider(generator));
       generator.addProvider(blockTagsProvider);
       generator.addProvider(new ModItemTagsProvider(generator, blockTagsProvider, helper));
       generator.addProvider(new ModFluidTagsProvider(generator, helper));
       generator.addProvider(new ModLootTableProvider(generator));
+      generator.addProvider(new ModStandartRecipeProvider(generator));
+      generator.addProvider(new SmelteryRecipeProvider(generator));
     }
   }
 }

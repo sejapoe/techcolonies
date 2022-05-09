@@ -11,10 +11,11 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
-public class ModRecipeProvider extends RecipeProvider {
-  public ModRecipeProvider(DataGenerator generator) {
+public class ModStandartRecipeProvider extends RecipeProvider {
+  public ModStandartRecipeProvider(DataGenerator generator) {
     super(generator);
   }
 
@@ -27,6 +28,6 @@ public class ModRecipeProvider extends RecipeProvider {
             .pattern("yxy")
             .pattern("xy ")
             .unlockedBy("has_copper", has(Items.COPPER_INGOT))
-            .save(consumer, new ResourceLocation(TechColonies.MOD_ID, ModItems.STRANGE_WAND.get().getRegistryName().getPath()));
+            .save(consumer, new ResourceLocation(TechColonies.MOD_ID, Objects.requireNonNull(ModItems.STRANGE_WAND.get().getRegistryName()).getPath()));
   }
 }

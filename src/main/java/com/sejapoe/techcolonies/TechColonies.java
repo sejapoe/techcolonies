@@ -1,9 +1,12 @@
 package com.sejapoe.techcolonies;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
 import com.sejapoe.techcolonies.core.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -28,6 +31,9 @@ public class TechColonies {
   public static final String MOD_ID = "techcolonies";
   // Directly reference a slf4j logger
   public static final Logger LOGGER = LogUtils.getLogger();
+  public static final Gson GSON = new GsonBuilder().setPrettyPrinting()
+          .disableHtmlEscaping()
+          .create();
 
   public TechColonies() {
     GeckoLib.initialize();
@@ -46,6 +52,8 @@ public class TechColonies {
     ModEntities.register(bus);
     /// Register capabilities
     bus.addListener(ModCapabilities::register);
+    // Register recipes
+    bus.addGenericListener(RecipeSerializer.class, ModRecipeTypes::register);
 
     // Register the setup method for modloading
     bus.addListener(this::setup);
