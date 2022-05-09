@@ -80,7 +80,7 @@ public class ModItemModelProvider extends ItemModelProvider {
   }
 
   protected void bucketItem(FluidDeferredRegister.FluidRegistryObject fluidRegistryObject) {
-    withExistingParent(fluidRegistryObject.getBucket().getRegistryName().getPath(), new ResourceLocation("forge", "item/bucket"))
+    withExistingParent(fluidRegistryObject.getBucket().getRegistryName().getPath(), new ResourceLocation("forge", "item/bucket_drip"))
             .customLoader(DynamicBucketModelBuilder::begin)
             .fluid(fluidRegistryObject.getStillFluid());
   };
