@@ -1,6 +1,5 @@
 package com.sejapoe.techcolonies.entity.ai.goal;
 
-import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.block.entity.AbstractInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
@@ -38,7 +37,7 @@ public class FillInterfaceGoal extends Goal {
   private boolean prepare() {
     if (dwarf.getControllerPos() == null || dwarf.getInputContainerPos() == null) return false;
     BlockEntity controller = dwarf.level.getBlockEntity(dwarf.getControllerPos());
-    if (controller != null && controller instanceof AbstractStructureControllerBlockEntity && ((AbstractStructureControllerBlockEntity) controller).isComplete()) {
+    if (controller instanceof AbstractStructureControllerBlockEntity && ((AbstractStructureControllerBlockEntity) controller).isComplete()) {
       List<AbstractInterfaceBlockEntity> interfaces = ((AbstractStructureControllerBlockEntity) controller).getSerializedInterfaces();
       this.interfaceBlockEntity = (ItemInterfaceBlockEntity) interfaces.stream().filter(abstractInterfaceBlockEntity -> abstractInterfaceBlockEntity != null && abstractInterfaceBlockEntity.isInput() && abstractInterfaceBlockEntity instanceof ItemInterfaceBlockEntity).findFirst().orElse(null);
       if (this.interfaceBlockEntity == null) return false;
@@ -54,7 +53,7 @@ public class FillInterfaceGoal extends Goal {
   protected void moveMobToBlock(BlockPos blockPos) {
     currentTarget = blockPos;
     dwarf.getNavigation().stop();
-    dwarf.getNavigation().moveTo((double)((float)blockPos.getX()) + 0.5D, (double)(blockPos.getY()), (double)((float)blockPos.getZ()) + 0.5D, 1.0f);
+    dwarf.getNavigation().moveTo((double)((float)blockPos.getX()) + 0.5D, blockPos.getY(), (double)((float)blockPos.getZ()) + 0.5D, 1.0f);
     
   }
 
@@ -68,7 +67,7 @@ public class FillInterfaceGoal extends Goal {
   }
 
   protected boolean isInputEmpty() {
-    boolean res = inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).map(handler -> {
+    return inputBlockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).map(handler -> {
       for (int i = 0; i < handler.getSlots(); i++) {
         ItemStack itemStack = handler.getStackInSlot(i);
         if (canBePlaced(itemStack, interfaceBlockEntity)) {
@@ -77,7 +76,6 @@ public class FillInterfaceGoal extends Goal {
       }
       return true;
     }).orElse(true);
-    return res;
   }
 
   protected boolean isReachedTarget() {
@@ -121,7 +119,7 @@ public class FillInterfaceGoal extends Goal {
     } else {
       ++this.tryTicks;
       if (this.shouldRecalculatePath()) {
-        dwarf.getNavigation().moveTo((double)((float)currentTarget.getX()) + 0.5D, (double)currentTarget.getY(), (double)((float)currentTarget.getZ()) + 0.5D, 1.0D);
+        dwarf.getNavigation().moveTo((double)((float)currentTarget.getX()) + 0.5D, currentTarget.getY(), (double)((float)currentTarget.getZ()) + 0.5D, 1.0D);
       }
     }
   }

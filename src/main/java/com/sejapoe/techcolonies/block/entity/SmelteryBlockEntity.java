@@ -1,8 +1,6 @@
 package com.sejapoe.techcolonies.block.entity;
 
 import com.sejapoe.techcolonies.core.ModBlockEntities;
-import com.sejapoe.techcolonies.core.properties.ModProperties;
-import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import com.sejapoe.techcolonies.core.structures.PlatedBlockPattern;
 import com.sejapoe.techcolonies.core.structures.Structures;
 import net.minecraft.core.BlockPos;

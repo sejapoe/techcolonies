@@ -5,11 +5,11 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.client.model.Model;
-import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractBeardModel<T extends DwarfEntity> extends Model {
   public static ModelLayerLocation LAYER_LOCATION;
@@ -30,7 +30,7 @@ public abstract class AbstractBeardModel<T extends DwarfEntity> extends Model {
   }
 
   @Override
-  public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+  public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
     main.render(poseStack, buffer, packedLight, packedOverlay);
   }
 }

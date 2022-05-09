@@ -5,7 +5,6 @@ import com.sejapoe.techcolonies.block.*;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -31,7 +30,7 @@ public final class ModBlocks {
     TechColonies.LOGGER.debug("HELLO FROM BLOCK REGISTER");
     BLOCK_REGISTER.register(bus);
   }
-  protected static Map<PlatingMaterial, RegistryObject<Block>> registerPlatedGroup(String baseName, Function<PlatingMaterial, Block> blockFunc) {
+  private static Map<PlatingMaterial, RegistryObject<Block>> registerPlatedGroup(String baseName, Function<PlatingMaterial, Block> blockFunc) {
     Map<PlatingMaterial, RegistryObject<Block>> map = new HashMap<>();
     for (PlatingMaterial material : PlatingMaterial.values()) {
       map.put(material, BLOCK_REGISTER.register(material.getSerializedName() + "_" + baseName, () -> blockFunc.apply(material)));

@@ -27,13 +27,14 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
-  private int invSize = 1;
+  private final int invSize = 1;
 
   private final SavableContainer inv = new SavableContainer(invSize);
   private LazyOptional<IItemHandlerModifiable> backpackHandler;
@@ -44,7 +45,7 @@ public class DwarfEntity extends PathfinderMob  {
 
   @Nullable
   @Override
-  public SpawnGroupData finalizeSpawn(ServerLevelAccessor levelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+  public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
     this.setBeardType(BeardType.getRandom());
     return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
   }
@@ -66,7 +67,7 @@ public class DwarfEntity extends PathfinderMob  {
   }
 
   @Override
-  public <T> LazyOptional<T> getCapability(Capability<T> capability, @Nullable Direction facing) {
+  public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
     if (capability == ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY) {
       if (this.backpackHandler == null)
         this.backpackHandler = LazyOptional.of(this::createHandler);
@@ -75,7 +76,7 @@ public class DwarfEntity extends PathfinderMob  {
     return super.getCapability(capability, facing);
   }
 
-  private IItemHandlerModifiable createHandler() {
+  private @NotNull IItemHandlerModifiable createHandler() {
     return new InvWrapper(this.inv);
   }
 
@@ -84,7 +85,7 @@ public class DwarfEntity extends PathfinderMob  {
   }
 
   @Override
-  public void readAdditionalSaveData(CompoundTag compoundTag) {
+  public void readAdditionalSaveData(@NotNull CompoundTag compoundTag) {
     super.readAdditionalSaveData(compoundTag);
     Tag beardType = compoundTag.get("BeardType");
     if (beardType != null) {
@@ -98,7 +99,7 @@ public class DwarfEntity extends PathfinderMob  {
   }
 
   @Override
-  public void addAdditionalSaveData(CompoundTag compoundTag) {
+  public void addAdditionalSaveData(@NotNull CompoundTag compoundTag) {
     super.addAdditionalSaveData(compoundTag);
     compoundTag.putString("BeardType", this.getBeardType().getSerializedName());
     if (controllerPos != null) {

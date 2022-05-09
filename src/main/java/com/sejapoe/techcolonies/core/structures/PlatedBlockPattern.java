@@ -10,6 +10,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -69,8 +70,8 @@ public class PlatedBlockPattern extends BlockPattern {
 
 
   public static class BlockPatternMatch extends BlockPattern.BlockPatternMatch {
-    private PlatingMaterial lowestMaterial;
-    private List<BlockPos> interfaces;
+    private final PlatingMaterial lowestMaterial;
+    private final List<BlockPos> interfaces;
 
     public BlockPatternMatch(BlockPos pos, Direction direction, Direction direction1, LoadingCache<BlockPos, BlockInWorld> loadingCache, int width, int height, int depth, PlatingMaterial lowestMaterial, List<BlockPos> interfaces) {
       super(pos, direction, direction1, loadingCache, width, height, depth);
@@ -83,7 +84,7 @@ public class PlatedBlockPattern extends BlockPattern {
     }
 
     @Override
-    public String toString() {
+    public @NotNull String toString() {
       return MoreObjects.toStringHelper(this).add("up", this.getUp()).add("forwards", this.getForwards()).add("frontTopLeft", this.getFrontTopLeft()).add("material", this.getLowestMaterial().getSerializedName()).toString();
     }
 

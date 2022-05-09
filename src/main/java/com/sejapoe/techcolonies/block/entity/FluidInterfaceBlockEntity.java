@@ -6,7 +6,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
@@ -14,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class FluidInterfaceBlockEntity extends AbstractInterfaceBlockEntity  {
-  FluidTank tank = new FluidTank(5000);
+  final FluidTank tank = new FluidTank(5000);
   LazyOptional<IFluidHandler> handler;
   public FluidInterfaceBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.FLUID_INTERFACE_BE.get(), blockPos, state);
@@ -31,7 +30,7 @@ public class FluidInterfaceBlockEntity extends AbstractInterfaceBlockEntity  {
     return super.getCapability(cap, side);
   }
 
-  private IFluidHandler createHandler() {
+  private @NotNull IFluidHandler createHandler() {
     return this.tank;
   }
 }

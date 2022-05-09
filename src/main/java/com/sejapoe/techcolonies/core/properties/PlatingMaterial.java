@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.core.properties;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum PlatingMaterial implements StringRepresentable {
   NONE("none", 0),
@@ -19,7 +20,7 @@ public enum PlatingMaterial implements StringRepresentable {
   }
 
   @Override
-  public String getSerializedName() {
+  public @NotNull String getSerializedName() {
     return name;
   }
 

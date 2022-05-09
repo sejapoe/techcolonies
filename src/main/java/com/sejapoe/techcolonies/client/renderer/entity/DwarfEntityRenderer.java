@@ -7,6 +7,7 @@ import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class DwarfEntityRenderer<T extends DwarfEntity> extends MobRenderer<T, DwarfEntityModel<T>> {
 
@@ -18,7 +19,7 @@ public class DwarfEntityRenderer<T extends DwarfEntity> extends MobRenderer<T, D
   }
 
   @Override
-  public ResourceLocation getTextureLocation(T entity) {
+  public @NotNull ResourceLocation getTextureLocation(@NotNull T entity) {
     return TEXTURE;
   }
 }

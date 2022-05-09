@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
@@ -19,12 +20,12 @@ public class MoveToControllerGoal extends MoveToBlockGoal {
   }
 
   @Override
-  protected int nextStartTick(PathfinderMob p_25618_) {
+  protected int nextStartTick(@NotNull PathfinderMob p_25618_) {
     return 0;
   }
 
   @Override
-  protected boolean isValidTarget(LevelReader levelReader, BlockPos blockPos) {
+  protected boolean isValidTarget(LevelReader levelReader, @NotNull BlockPos blockPos) {
     return levelReader.getBlockEntity(blockPos) instanceof AbstractStructureControllerBlockEntity;
   }
 

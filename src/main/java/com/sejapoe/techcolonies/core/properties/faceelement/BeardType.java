@@ -7,10 +7,8 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
@@ -35,7 +33,7 @@ public enum BeardType implements StringRepresentable {
   }
 
   @Override
-  public String getSerializedName() {
+  public @NotNull String getSerializedName() {
     return name;
   }
 

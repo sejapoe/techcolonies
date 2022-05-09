@@ -1,14 +1,10 @@
 package com.sejapoe.techcolonies.block.entity;
 
-import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.core.properties.InterfaceDirection;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;

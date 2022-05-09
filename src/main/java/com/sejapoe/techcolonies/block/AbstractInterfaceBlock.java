@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class AbstractInterfaceBlock extends BaseEntityBlock {
 
@@ -17,7 +18,7 @@ public abstract class AbstractInterfaceBlock extends BaseEntityBlock {
   }
 
   @Override
-  public RenderShape getRenderShape(BlockState state) {
+  public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
     return RenderShape.MODEL;
   }
 

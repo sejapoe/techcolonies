@@ -63,7 +63,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     if (existingFileHelper.exists(itemTexture, PackType.CLIENT_RESOURCES, ".png", "textures")) {
       getBuilder(item.getRegistryName().getPath()).parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", itemTexture);
     } else {
-      TechColonies.LOGGER.error("Texture for " + item.getRegistryName().toString() + " not present at " + itemTexture.toString());
+      TechColonies.LOGGER.error("Texture for " + item.getRegistryName().toString() + " not present at " + itemTexture);
     }
   }
 

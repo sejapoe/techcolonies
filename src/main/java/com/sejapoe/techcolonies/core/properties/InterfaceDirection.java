@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.core.properties;
 
 import net.minecraft.util.StringRepresentable;
+import org.jetbrains.annotations.NotNull;
 
 public enum InterfaceDirection implements StringRepresentable {
   INPUT("input"),
@@ -13,7 +14,7 @@ public enum InterfaceDirection implements StringRepresentable {
 
 
   @Override
-  public String getSerializedName() {
+  public @NotNull String getSerializedName() {
     return this.name;
   }
 

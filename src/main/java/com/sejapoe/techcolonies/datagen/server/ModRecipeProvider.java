@@ -9,6 +9,7 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -18,7 +19,7 @@ public class ModRecipeProvider extends RecipeProvider {
   }
 
   @Override
-  protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+  protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
     ShapedRecipeBuilder.shaped(ModItems.STRANGE_WAND.get(), 1)
             .define('x', Items.STICK)
             .define('y', Tags.Items.DYES_GREEN)

@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class SmelteryBlock extends BaseEntityBlock {
@@ -31,7 +32,7 @@ public class SmelteryBlock extends BaseEntityBlock {
   }
 
   @Override
-  public RenderShape getRenderShape(BlockState state) {
+  public @NotNull RenderShape getRenderShape(@NotNull BlockState state) {
     return RenderShape.MODEL;
   }
 
@@ -48,13 +49,13 @@ public class SmelteryBlock extends BaseEntityBlock {
 
   @Nullable
   @Override
-  public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
+  public BlockEntity newBlockEntity(@NotNull BlockPos blockPos, @NotNull BlockState state) {
     return new SmelteryBlockEntity(blockPos, state);
   }
 
   @Nullable
   @Override
-  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
+  public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level level, @NotNull BlockState state, @NotNull BlockEntityType<T> type) {
     return createTickerHelper(type, ModBlockEntities.SMELTERY_BE.get(), SmelteryBlockEntity::tick);
   }
 }

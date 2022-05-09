@@ -5,18 +5,10 @@ import com.sejapoe.techcolonies.core.ModCapabilities;
 import com.sejapoe.techcolonies.core.SavableContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.Container;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -25,7 +17,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ItemInterfaceBlockEntity extends AbstractInterfaceBlockEntity {
   private LazyOptional<IItemHandlerModifiable> handler;
-  private SavableContainer inv = new SavableContainer(4);
+  private final SavableContainer inv = new SavableContainer(4);
   public ItemInterfaceBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.ITEM_INTERFACE_BE.get(), blockPos, state);
   }
@@ -53,7 +45,7 @@ public class ItemInterfaceBlockEntity extends AbstractInterfaceBlockEntity {
     return super.getCapability(cap, side);
   }
 
-  private IItemHandlerModifiable createHandler() {
+  private @NotNull IItemHandlerModifiable createHandler() {
     return new InvWrapper(this.inv);
   }
 }

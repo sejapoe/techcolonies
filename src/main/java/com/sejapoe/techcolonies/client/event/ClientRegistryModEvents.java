@@ -5,15 +5,11 @@ import com.sejapoe.techcolonies.client.model.DwarfEntityModel;
 import com.sejapoe.techcolonies.client.model.faceelement.beard.DefaultBeardModel;
 import com.sejapoe.techcolonies.client.model.faceelement.beard.GoateeBeardModel;
 import com.sejapoe.techcolonies.client.renderer.entity.DwarfEntityRenderer;
-import com.sejapoe.techcolonies.core.ModBlocks;
 import com.sejapoe.techcolonies.core.ModEntities;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = TechColonies.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public final class ClientRegistryModEvents {

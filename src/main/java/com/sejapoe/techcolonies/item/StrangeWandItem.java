@@ -1,10 +1,7 @@
 package com.sejapoe.techcolonies.item;
 
-import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.block.AbstractInterfaceBlock;
 import com.sejapoe.techcolonies.block.entity.AbstractInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
-import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.Util;
@@ -22,8 +19,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.NotNull;
 
 public class StrangeWandItem extends Item {
   private DwarfEntity configurableDwarf;
@@ -32,7 +28,7 @@ public class StrangeWandItem extends Item {
   }
 
   @Override
-  public InteractionResult useOn(UseOnContext useOnContext) {
+  public @NotNull InteractionResult useOn(UseOnContext useOnContext) {
     Level level = useOnContext.getLevel();
     BlockPos pos = useOnContext.getClickedPos();
     BlockState state = level.getBlockState(pos);
@@ -66,7 +62,7 @@ public class StrangeWandItem extends Item {
   }
 
   @Override
-  public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity livingEntity, InteractionHand interactionHand) {
+  public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack stack, Player player, @NotNull LivingEntity livingEntity, @NotNull InteractionHand interactionHand) {
     if (!player.level.isClientSide() && livingEntity instanceof DwarfEntity) {
       if (player.isCrouching()) {
         ((DwarfEntity) livingEntity).setControllerPos(null);
