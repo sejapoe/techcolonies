@@ -16,6 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 public abstract class StructureRecipe<T extends Container> implements Recipe<T> {
@@ -167,5 +168,12 @@ public abstract class StructureRecipe<T extends Container> implements Recipe<T> 
 
   public IRecipeTypeInfo getTypeInfo() {
     return typeInfo;
+  }
+
+
+
+  public boolean matches(List<ItemStack> input, List<FluidStack> fluidInput) {
+    return ingredients.stream().allMatch(ingredient -> input.stream().anyMatch(stack -> ingredient.test(stack))) &&
+            fluidIngredients.stream().allMatch(fluidIngredient -> fluidInput.stream().anyMatch(fluidStack -> fluidIngredient.test(fluidStack)));
   }
 }

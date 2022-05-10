@@ -61,7 +61,7 @@ public class StructureRecipeSerializer<T extends StructureRecipe<?>> extends For
       if (FluidIngredient.isFluidIngredient(je)) {
         fluidIngredients.add(FluidIngredient.deserialize(je));
       } else {
-        Ingredient.fromJson(je);
+        ingredients.add(Ingredient.fromJson(je));
       }
     }
 

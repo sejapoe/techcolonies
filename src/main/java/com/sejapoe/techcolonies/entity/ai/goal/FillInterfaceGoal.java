@@ -23,11 +23,11 @@ import java.util.function.Function;
 
 public class FillInterfaceGoal extends Goal {
   private final DwarfEntity dwarf;
-  private ItemInterfaceBlockEntity interfaceBlockEntity;
+  private ItemInterfaceBlockEntity interfaceBlockEntity; // TODO: more than one input interface
   private BlockEntity inputBlockEntity;
   private BlockPos currentTarget = BlockPos.ZERO;
-  private BlockPos interfaceAccessibilityBlockPos;
   private int tryTicks;
+  private AbstractStructureControllerBlockEntity controller;
 
   public FillInterfaceGoal(DwarfEntity dwarf) {
     this.dwarf = dwarf;
@@ -36,9 +36,9 @@ public class FillInterfaceGoal extends Goal {
 
   private boolean prepare() {
     if (dwarf.getControllerPos() == null || dwarf.getInputContainerPos() == null) return false;
-    BlockEntity controller = dwarf.level.getBlockEntity(dwarf.getControllerPos());
-    if (controller instanceof AbstractStructureControllerBlockEntity && ((AbstractStructureControllerBlockEntity) controller).isComplete()) {
-      List<AbstractInterfaceBlockEntity> interfaces = ((AbstractStructureControllerBlockEntity) controller).getSerializedInterfaces();
+    this.controller = (AbstractStructureControllerBlockEntity) dwarf.level.getBlockEntity(dwarf.getControllerPos());
+    if (controller instanceof AbstractStructureControllerBlockEntity && controller.isComplete()) {
+      List<AbstractInterfaceBlockEntity> interfaces = controller.getSerializedInterfaces();
       this.interfaceBlockEntity = (ItemInterfaceBlockEntity) interfaces.stream().filter(abstractInterfaceBlockEntity -> abstractInterfaceBlockEntity != null && abstractInterfaceBlockEntity.isInput() && abstractInterfaceBlockEntity instanceof ItemInterfaceBlockEntity).findFirst().orElse(null);
       if (this.interfaceBlockEntity == null) return false;
       this.inputBlockEntity = dwarf.level.getBlockEntity(dwarf.getInputContainerPos());
@@ -58,7 +58,7 @@ public class FillInterfaceGoal extends Goal {
   }
 
   protected boolean isValidItemStack(ItemStack stack) {
-    return !stack.isEmpty() && stack.is(Tags.Items.INGOTS);
+    return !stack.isEmpty() && controller.isValidItemInput(stack);
   }
 
   protected boolean canBePlaced(ItemStack stack, ICapabilityProvider to) {

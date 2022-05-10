@@ -22,15 +22,19 @@ public class SavableContainer extends SimpleContainer {
   }
 
   public void saveAllItems(CompoundTag compoundTag) {
-    NonNullList<ItemStack> items = getEmptyItemlist();
-    for (int i = 0; i < getContainerSize(); i++) {
-      items.set(i, this.getItem(i));
-    }
-    ContainerHelper.saveAllItems(compoundTag, items);
+    ContainerHelper.saveAllItems(compoundTag, this.getItems());
   }
 
   @NotNull
   private NonNullList<ItemStack> getEmptyItemlist() {
     return NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+  }
+
+  public NonNullList<ItemStack> getItems() {
+    NonNullList<ItemStack> items = getEmptyItemlist();
+    for (int i = 0; i < getContainerSize(); i++) {
+      items.set(i, this.getItem(i));
+    }
+    return items;
   }
 }

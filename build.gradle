@@ -162,6 +162,7 @@ dependencies {
     // Real mod deobf dependency examples - these get remapped to your current mappings
     implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.15')
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
+    runtimeOnly fg.deobf("mekanism:Mekanism:1.18.2-10.2.0.459")
 
     // Examples using mod jars from ./libs
     // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")

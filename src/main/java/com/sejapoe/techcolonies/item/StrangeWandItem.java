@@ -1,7 +1,10 @@
 package com.sejapoe.techcolonies.item;
 
+import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.block.entity.AbstractInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
+import com.sejapoe.techcolonies.block.entity.FluidInterfaceBlockEntity;
+import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.Util;
@@ -19,6 +22,7 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class StrangeWandItem extends Item {
@@ -44,6 +48,12 @@ public class StrangeWandItem extends Item {
       }
       if (blockEntity instanceof AbstractInterfaceBlockEntity) {
         if (useOnContext.getPlayer().isCrouching()) {
+          if (blockEntity instanceof ItemInterfaceBlockEntity) {
+            TechColonies.LOGGER.debug(((ItemInterfaceBlockEntity) blockEntity).getItems().toString());
+          }
+          if (blockEntity instanceof FluidInterfaceBlockEntity) {
+            TechColonies.LOGGER.debug(blockEntity.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY).orElse(null).getFluidInTank(0).getAmount() + "");
+          }
           return InteractionResult.SUCCESS;
         }
         state = state.setValue(ModProperties.INTERFACE_DIRECTION, state.getValue(ModProperties.INTERFACE_DIRECTION).getOpposite());
@@ -52,7 +62,7 @@ public class StrangeWandItem extends Item {
         blockEntity.setChanged();
         return InteractionResult.SUCCESS;
       }
-      if (blockEntity instanceof Container) {
+      if (blockEntity instanceof Container && this.configurableDwarf != null) {
         this.configurableDwarf.setInputContainerPos(pos);
         useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.controller.set_input"), Util.NIL_UUID);
         return InteractionResult.SUCCESS;

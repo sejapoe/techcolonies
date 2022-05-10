@@ -6,6 +6,7 @@ import com.sejapoe.techcolonies.core.SavableContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
@@ -14,6 +15,8 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Collection;
 
 public class ItemInterfaceBlockEntity extends AbstractInterfaceBlockEntity {
   private LazyOptional<IItemHandlerModifiable> handler;
@@ -47,5 +50,9 @@ public class ItemInterfaceBlockEntity extends AbstractInterfaceBlockEntity {
 
   private @NotNull IItemHandlerModifiable createHandler() {
     return new InvWrapper(this.inv);
+  }
+
+  public Collection<ItemStack> getItems() {
+    return inv.getItems();
   }
 }
