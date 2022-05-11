@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.core;
 
-import com.sejapoe.techcolonies.fluid.MoltenMetal;
+import com.sejapoe.techcolonies.registry.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.BucketItem;
@@ -19,7 +19,6 @@ import net.minecraftforge.fluids.ForgeFlowingFluid.Source;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.intellij.lang.annotations.Flow;
 
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;

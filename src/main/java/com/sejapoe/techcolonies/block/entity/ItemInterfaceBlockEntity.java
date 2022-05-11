@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.block.entity;
 
-import com.sejapoe.techcolonies.core.ModBlockEntities;
-import com.sejapoe.techcolonies.core.ModCapabilities;
+import com.sejapoe.techcolonies.registry.ModBlockEntities;
+import com.sejapoe.techcolonies.registry.ModCapabilities;
 import com.sejapoe.techcolonies.core.SavableContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

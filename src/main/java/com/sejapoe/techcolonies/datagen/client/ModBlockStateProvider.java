@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.datagen.client;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.registry.ModBlocks;
 import com.sejapoe.techcolonies.core.properties.InterfaceDirection;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;

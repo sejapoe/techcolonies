@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.datagen.server;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.core.ModFluids;
+import com.sejapoe.techcolonies.registry.ModFluids;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.FluidTagsProvider;
 import net.minecraft.tags.FluidTags;

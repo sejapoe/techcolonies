@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.registry;
 
 import com.sejapoe.techcolonies.TechColonies;
 import net.minecraft.resources.ResourceLocation;

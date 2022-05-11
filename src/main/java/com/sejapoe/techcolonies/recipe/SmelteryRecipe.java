@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.recipe;
 
-import com.sejapoe.techcolonies.core.ModRecipeTypes;
+import com.sejapoe.techcolonies.registry.ModRecipeTypes;
 import net.minecraft.world.Container;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.NotNull;

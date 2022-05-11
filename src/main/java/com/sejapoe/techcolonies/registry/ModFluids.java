@@ -1,6 +1,8 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.registry;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.core.FluidDeferredRegister;
+import com.sejapoe.techcolonies.core.MetalConstants;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.eventbus.api.IEventBus;

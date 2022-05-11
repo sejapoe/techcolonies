@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.entity;
 
-import com.sejapoe.techcolonies.core.ModCapabilities;
-import com.sejapoe.techcolonies.core.ModItems;
+import com.sejapoe.techcolonies.registry.ModCapabilities;
+import com.sejapoe.techcolonies.registry.ModItems;
 import com.sejapoe.techcolonies.core.SavableContainer;
 import com.sejapoe.techcolonies.core.properties.faceelement.BeardType;
 import com.sejapoe.techcolonies.entity.ai.goal.FillInterfaceGoal;

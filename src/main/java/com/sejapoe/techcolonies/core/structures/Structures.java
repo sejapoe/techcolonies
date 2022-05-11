@@ -1,8 +1,8 @@
 package com.sejapoe.techcolonies.core.structures;
 
 import com.sejapoe.techcolonies.block.AbstractInterfaceBlock;
-import com.sejapoe.techcolonies.core.ModBlockTags;
-import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.registry.ModBlockTags;
+import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;

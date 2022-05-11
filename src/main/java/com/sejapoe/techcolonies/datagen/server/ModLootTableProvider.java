@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.datagen.server;
 
-import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;

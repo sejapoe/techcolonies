@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.core.event;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.core.ModEntities;
+import com.sejapoe.techcolonies.registry.ModEntities;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

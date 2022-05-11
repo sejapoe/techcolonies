@@ -5,7 +5,7 @@ import com.sejapoe.techcolonies.client.model.DwarfEntityModel;
 import com.sejapoe.techcolonies.client.model.faceelement.beard.DefaultBeardModel;
 import com.sejapoe.techcolonies.client.model.faceelement.beard.GoateeBeardModel;
 import com.sejapoe.techcolonies.client.renderer.entity.DwarfEntityRenderer;
-import com.sejapoe.techcolonies.core.ModEntities;
+import com.sejapoe.techcolonies.registry.ModEntities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.registry;
 
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.world.item.CreativeModeTab;

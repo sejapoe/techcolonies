@@ -1,10 +1,9 @@
 package com.sejapoe.techcolonies.block.entity;
 
-import com.sejapoe.techcolonies.core.ModBlockEntities;
+import com.sejapoe.techcolonies.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;

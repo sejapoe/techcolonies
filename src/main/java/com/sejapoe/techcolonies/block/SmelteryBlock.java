@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.block;
 
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
-import com.sejapoe.techcolonies.core.ModBlockEntities;
+import com.sejapoe.techcolonies.registry.ModBlockEntities;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.core.BlockPos;

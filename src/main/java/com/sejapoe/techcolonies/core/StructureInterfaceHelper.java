@@ -3,7 +3,7 @@ package com.sejapoe.techcolonies.core;
 import com.sejapoe.techcolonies.block.entity.FluidInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.recipe.StructureRecipe;
-import net.minecraft.core.NonNullList;
+import com.sejapoe.techcolonies.registry.ModCapabilities;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.fluids.FluidStack;
@@ -14,7 +14,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class StructureInterfaceHelper {
   public static void extractRecipeIngredients(StructureRecipe recipe, List<ItemInterfaceBlockEntity> interfaceBlockEntityList) {

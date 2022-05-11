@@ -1,8 +1,8 @@
 package com.sejapoe.techcolonies.datagen.server;
 
 import com.sejapoe.techcolonies.core.IRecipeTypeInfo;
-import com.sejapoe.techcolonies.core.ModFluids;
-import com.sejapoe.techcolonies.core.ModRecipeTypes;
+import com.sejapoe.techcolonies.registry.ModFluids;
+import com.sejapoe.techcolonies.registry.ModRecipeTypes;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;

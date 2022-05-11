@@ -1,8 +1,8 @@
 package com.sejapoe.techcolonies.datagen.server;
 
 import com.sejapoe.techcolonies.TechColonies;
-import com.sejapoe.techcolonies.core.ModBlockTags;
-import com.sejapoe.techcolonies.core.ModBlocks;
+import com.sejapoe.techcolonies.registry.ModBlockTags;
+import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.tags.BlockTags;

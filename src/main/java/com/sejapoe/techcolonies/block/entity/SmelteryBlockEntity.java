@@ -1,12 +1,9 @@
 package com.sejapoe.techcolonies.block.entity;
 
-import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.block.SmelteryBlock;
-import com.sejapoe.techcolonies.core.FluidIngredient;
-import com.sejapoe.techcolonies.core.ModBlockEntities;
-import com.sejapoe.techcolonies.core.ModRecipeTypes;
+import com.sejapoe.techcolonies.registry.ModBlockEntities;
+import com.sejapoe.techcolonies.registry.ModRecipeTypes;
 import com.sejapoe.techcolonies.core.StructureInterfaceHelper;
-import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.core.structures.PlatedBlockPattern;
 import com.sejapoe.techcolonies.core.structures.Structures;
 import com.sejapoe.techcolonies.recipe.SmelteryRecipe;

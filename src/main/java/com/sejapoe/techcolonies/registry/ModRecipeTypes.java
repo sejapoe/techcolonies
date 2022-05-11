@@ -1,6 +1,7 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.registry;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.core.IRecipeTypeInfo;
 import com.sejapoe.techcolonies.recipe.SmelteryRecipe;
 import com.sejapoe.techcolonies.recipe.StructureRecipeBuilder.StructureRecipeFactory;
 import com.sejapoe.techcolonies.recipe.StructureRecipeSerializer;
