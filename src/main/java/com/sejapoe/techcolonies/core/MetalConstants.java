@@ -1,7 +1,8 @@
 package com.sejapoe.techcolonies.core;
 
 public enum MetalConstants implements IMetalConstant{
-  COPPER("copper", 0xD67B5B93, 1500, 15, 2);
+  COPPER("copper", 0xD67B5B93, 1500, 15, 2),
+  IRON("iron", 0xA3140293, 1800, 15, 2);
 
   private String name;
   private int color;

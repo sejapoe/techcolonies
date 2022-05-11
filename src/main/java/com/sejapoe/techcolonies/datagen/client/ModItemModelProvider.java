@@ -36,6 +36,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     // Buckets
     bucketItem(ModFluids.MOLTEN_COPPER);
+    bucketItem(ModFluids.MOLTEN_IRON);
 
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());

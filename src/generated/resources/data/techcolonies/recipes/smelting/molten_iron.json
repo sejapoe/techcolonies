@@ -1,0 +1,16 @@
+{
+  "type": "techcolonies:smelting",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/iron"
+    }
+  ],
+  "results": [
+    {
+      "fluid": "techcolonies:molten_iron",
+      "amount": 1000
+    }
+  ],
+  "processingTime": 200,
+  "structureLevel": 1
+}

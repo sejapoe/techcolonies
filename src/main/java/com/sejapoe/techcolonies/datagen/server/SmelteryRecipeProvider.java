@@ -9,7 +9,8 @@ import net.minecraftforge.common.Tags;
 import net.minecraftforge.fluids.FluidStack;
 
 public class SmelteryRecipeProvider extends BaseStructureRecipeProvider {
-  GeneratedRecipe MOLTEN_COPPER = createMelt("molten_copper", Ingredient.of(Tags.Items.INGOTS_COPPER), new FluidStack(ModFluids.MOLTEN_COPPER.getStillFluid(), 1000), 200, 0);
+  GeneratedRecipe MOLTEN_COPPER = createMelt("molten_copper", Ingredient.of(Tags.Items.INGOTS_COPPER), new FluidStack(ModFluids.MOLTEN_COPPER.getStillFluid(), 1000), 200, 0),
+                  MOLTEN_IRON = createMelt("molten_iron", Ingredient.of(Tags.Items.INGOTS_IRON), new FluidStack(ModFluids.MOLTEN_IRON.getStillFluid(), 1000), 200, 1);
 
   private GeneratedRecipe createMelt(String name, Ingredient from, FluidStack to, int processingTime, int structureLevel) {
     return create(name, builder -> builder.withItemIngredients(from).withFluidResults(to).duration(processingTime).structureLevel(structureLevel));
