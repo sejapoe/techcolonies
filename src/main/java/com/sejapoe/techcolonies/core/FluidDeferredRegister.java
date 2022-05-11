@@ -20,6 +20,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
 
@@ -27,6 +29,7 @@ public class FluidDeferredRegister {
   private static final ResourceLocation OVERLAY = new ResourceLocation("block/water_overlay");
   private static final ResourceLocation LIQUID = new ResourceLocation("block/lava_still");
   private static final ResourceLocation LIQUID_FLOW = new ResourceLocation("block/lava_flow");
+  private Collection<FluidRegistryObject> allObjects = new ArrayList<>();
 
   public static FluidAttributes.Builder getBaseBuilder() {
     return FluidAttributes.builder(LIQUID, LIQUID_FLOW).sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY).overlay(OVERLAY);
@@ -80,6 +83,7 @@ public class FluidDeferredRegister {
     fluidRegistryObject.setBucketRegistryObject(itemDeferredRegister.register(bucketName, () -> bucketCreator.create(fluidRegistryObject::getStillFluid, getBaseBucketProperties())));
     fluidRegistryObject.setBlockRegistryObject(blockDeferredRegister.register(name, () -> new LiquidBlock(fluidRegistryObject::getStillFluid,
             BlockBehaviour.Properties.copy(Blocks.LAVA))));
+    allObjects.add(fluidRegistryObject);
     return fluidRegistryObject;
   }
 
@@ -88,6 +92,11 @@ public class FluidDeferredRegister {
     blockDeferredRegister.register(bus);
     itemDeferredRegister.register(bus);
   }
+
+  public Collection<FluidRegistryObject> getEntries() {
+    return allObjects;
+  }
+
   @FunctionalInterface
   public interface BucketCreator {
     BucketItem create(Supplier<? extends Fluid> suppplier, Item.Properties properties);

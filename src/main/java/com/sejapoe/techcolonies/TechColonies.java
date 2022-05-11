@@ -3,6 +3,7 @@ package com.sejapoe.techcolonies;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.logging.LogUtils;
+import com.sejapoe.techcolonies.core.FluidDeferredRegister;
 import com.sejapoe.techcolonies.registry.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -78,9 +79,11 @@ public class TechColonies {
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMELTERY_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.ITEM_INTERFACE_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_INTERFACE_BLOCK.get(), RenderType.cutout());
-    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getBlock(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getStillFluid(), RenderType.translucent());
-    ItemBlockRenderTypes.setRenderLayer(ModFluids.MOLTEN_COPPER.getFlowingFluid(), RenderType.translucent());
+    for (FluidDeferredRegister.FluidRegistryObject fluidRegistryObject : ModFluids.FLUID_REGISTER.getEntries()) {
+      ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getBlock(), RenderType.translucent());
+      ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getStillFluid(), RenderType.translucent());
+      ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getFlowingFluid(), RenderType.translucent());
+    }
   }
 
   private void enqueueIMC(final InterModEnqueueEvent event) {

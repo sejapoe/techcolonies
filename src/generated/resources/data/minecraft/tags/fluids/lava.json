@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "techcolonies:molten_copper",
-    "techcolonies:molten_copper_flowing"
+    "techcolonies:molten_copper_flowing",
+    "techcolonies:molten_iron",
+    "techcolonies:molten_iron_flowing"
   ]
 }

@@ -15,7 +15,9 @@ public class ModFluidTagsProvider extends FluidTagsProvider {
 
   @Override
   protected void addTags() {
-    tag(FluidTags.LAVA).add(ModFluids.MOLTEN_COPPER.getStillFluid());
-    tag(FluidTags.LAVA).add(ModFluids.MOLTEN_COPPER.getFlowingFluid());
+    tag(FluidTags.LAVA).add(ModFluids.MOLTEN_COPPER.getStillFluid())
+            .add(ModFluids.MOLTEN_COPPER.getFlowingFluid())
+            .add(ModFluids.MOLTEN_IRON.getStillFluid())
+            .add(ModFluids.MOLTEN_IRON.getFlowingFluid());
   }
 }
