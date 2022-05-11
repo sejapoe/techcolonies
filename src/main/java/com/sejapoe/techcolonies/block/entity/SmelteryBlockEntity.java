@@ -25,28 +25,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<SmelteryRecipe> {
+  private boolean isLit;
   public SmelteryBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.SMELTERY_BE.get(), blockPos, state);
   }
   public static void tick(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
     if (level.isClientSide()) return;
+    blockEntity.isLit = blockState.getValue(SmelteryBlock.LIT);
     updateStructureStatus(level, blockPos, blockState, blockEntity);
     blockState = level.getBlockState(blockPos);
-    if (blockEntity.isComplete()) {
-      process(level, blockPos, blockState, blockEntity);
+    process(level, blockPos, blockState, blockEntity);
+    if (blockEntity.isLit != blockState.getValue(SmelteryBlock.LIT)) {
+      level.setBlockAndUpdate(blockPos, blockState.setValue(SmelteryBlock.LIT, blockEntity.isLit));
     }
   }
 
   private static void process(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
     boolean isChanged = false;
 
+    if (!blockEntity.isComplete()) {
+      blockEntity.isLit = false;
+      return;
+    }
+
     if (blockEntity.getActiveRecipe() != null) {
       blockEntity.setProcessingTime(blockEntity.getProcessingTime() + 1);
+      blockEntity.isLit = true;
       if (blockEntity.getProcessingTime() >= blockEntity.getActiveRecipe().getProcessingDuration()) {
         StructureInterfaceHelper.injectRecipeFluidResult(blockEntity.getActiveRecipe(), blockEntity.getFluidOutputInterfaces());
         blockEntity.setProcessingTime(0);
         blockEntity.setActiveRecipe(null);
-        blockState = blockState.setValue(SmelteryBlock.LIT, false);
+        blockEntity.isLit = false;
         isChanged = true;
       }
     }
@@ -60,15 +69,13 @@ public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<
         blockEntity.setActiveRecipe(recipe);
         StructureInterfaceHelper.extractRecipeIngredients(recipe, blockEntity.getItemInputInterfaces());
         blockEntity.setProcessingTime(0);
-        blockState = blockState.setValue(SmelteryBlock.LIT, true);
         isChanged = true;
+      } else {
+        blockEntity.isLit = false;
       }
     }
 
-//    TechColonies.LOGGER.debug("Processing: " + blockEntity.getProcessingTime());
-
     if (isChanged) {
-      level.setBlockAndUpdate(blockPos, blockState);
       setChanged(level, blockPos, blockState);
     }
   }
