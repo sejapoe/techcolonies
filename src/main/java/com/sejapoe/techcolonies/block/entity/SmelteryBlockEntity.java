@@ -41,19 +41,29 @@ public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<
     boolean isChanged = false;
 
     if (!blockEntity.isComplete()) {
+      // Pause, NOT RESET, recipe if structure incomplete;
       blockEntity.isLit = false;
       return;
     }
 
     if (blockEntity.getActiveRecipe() != null) {
-      blockEntity.setProcessingTime(blockEntity.getProcessingTime() + 1);
-      blockEntity.isLit = true;
-      if (blockEntity.getProcessingTime() >= blockEntity.getActiveRecipe().getProcessingDuration()) {
-        StructureInterfaceHelper.injectRecipeFluidResult(blockEntity.getActiveRecipe(), blockEntity.getFluidOutputInterfaces());
+      if (blockEntity.getStructureLevel() < blockEntity.getActiveRecipe().getRequiredStructureLevel()) {
+        // Reset recipe if structure level not enough;
         blockEntity.setProcessingTime(0);
         blockEntity.setActiveRecipe(null);
         blockEntity.isLit = false;
         isChanged = true;
+      } else {
+        blockEntity.setProcessingTime(blockEntity.getProcessingTime() + 1);
+        blockEntity.isLit = true;
+        if (blockEntity.getProcessingTime() >= blockEntity.getActiveRecipe().getProcessingDuration()) {
+          // Complete recipe;
+          StructureInterfaceHelper.injectRecipeFluidResult(blockEntity.getActiveRecipe(), blockEntity.getFluidOutputInterfaces());
+          blockEntity.setProcessingTime(0);
+          blockEntity.setActiveRecipe(null);
+          blockEntity.isLit = false;
+          isChanged = true;
+        }
       }
     }
 
@@ -63,11 +73,13 @@ public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<
       List<SmelteryRecipe> recipes = blockEntity.getAllRecipes();
       SmelteryRecipe recipe = recipes.stream().filter(smelteryRecipe -> smelteryRecipe.matches(input, fluidInput)).findFirst().orElse(null);
       if (recipe != null && StructureInterfaceHelper.hasSpaceForFluidResult(recipe, blockEntity.getFluidOutputInterfaces())) {
+        // Start process recipe;
         blockEntity.setActiveRecipe(recipe);
         StructureInterfaceHelper.extractRecipeIngredients(recipe, blockEntity.getItemInputInterfaces());
         blockEntity.setProcessingTime(0);
         isChanged = true;
       } else {
+        // Confirm that isLit false, if no recipe;
         blockEntity.isLit = false;
       }
     }
