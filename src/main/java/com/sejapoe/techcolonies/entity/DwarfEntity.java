@@ -47,6 +47,7 @@ public class DwarfEntity extends PathfinderMob  {
   @Override
   public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
     this.setBeardType(BeardType.getRandom());
+    this.setControllerPos(null);
     return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
   }
 
