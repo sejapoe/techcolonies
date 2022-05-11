@@ -1,5 +1,8 @@
 package com.sejapoe.techcolonies.entity;
 
+import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
+import com.sejapoe.techcolonies.entity.ai.DwarfJobs;
+import com.sejapoe.techcolonies.entity.ai.IDwarfJob;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
 import com.sejapoe.techcolonies.registry.ModItems;
 import com.sejapoe.techcolonies.core.SavableContainer;
@@ -11,6 +14,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -23,6 +28,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandlerModifiable;
@@ -32,6 +38,8 @@ import org.jetbrains.annotations.Nullable;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
+  private IDwarfJob job;
+  private String dwarfName; // TODO: Move to dwarf fundamentals
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
   private final int invSize = 1;
@@ -41,6 +49,7 @@ public class DwarfEntity extends PathfinderMob  {
 
   public DwarfEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
     super(entityType, level);
+    this.setCustomNameVisible(true);
   }
 
   @Nullable
@@ -48,6 +57,7 @@ public class DwarfEntity extends PathfinderMob  {
   public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor levelAccessor, @NotNull DifficultyInstance difficultyInstance, @NotNull MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
     this.setBeardType(BeardType.getRandom());
     this.setControllerPos(null);
+    this.setDwarfName("Jack");
     return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
   }
 
@@ -97,6 +107,7 @@ public class DwarfEntity extends PathfinderMob  {
     CompoundTag inputContainerPos = compoundTag.getCompound("InputContainerPos");
     this.inputContainerPos = inputContainerPos != null ? NbtUtils.readBlockPos(inputContainerPos) : null;
     inv.loadAllItems(compoundTag);
+    this.dwarfName = compoundTag.getString("Name");
   }
 
   @Override
@@ -110,11 +121,45 @@ public class DwarfEntity extends PathfinderMob  {
       compoundTag.put("InputContainerPos", NbtUtils.writeBlockPos(inputContainerPos));
     }
     inv.saveAllItems(compoundTag);
+    compoundTag.putString("Name", this.dwarfName);
   }
 
+  public Component getBakedName() {
+    TextComponent textComponent = new TextComponent(this.getDwarfName());
+    if (this.getJob() != null) {
+      textComponent.append(" ").append(this.getJob().getTranslatableName());
+    }
+    return textComponent;
+  }
+
+  public void updateCustomName() {
+    this.setCustomName(this.getBakedName());
+  }
+
+  @Override
+  public void setCustomName(@Nullable Component name) {
+    if (name != null) {
+      if (!name.getString().equals(this.getBakedName().getString())) {
+        // TODO: Check allow renaming?
+        this.dwarfName = name.getString();
+        name = this.getBakedName();
+      }
+      super.setCustomName(name);
+    }
+  }
 
   public void setControllerPos(BlockPos controllerPos) {
     this.controllerPos = controllerPos;
+    if (controllerPos == null || level == null) {
+      this.setJob(null);
+      return;
+    }
+    BlockEntity blockEntity = level.getBlockEntity(controllerPos);
+    if (blockEntity instanceof SmelteryBlockEntity) { // TODO: move this to BE
+      this.setJob(DwarfJobs.MELTER);
+    } else {
+      this.setJob(null);
+    }
   }
 
   public BlockPos getControllerPos() {
@@ -142,5 +187,23 @@ public class DwarfEntity extends PathfinderMob  {
 
   public SavableContainer getInv() {
     return inv;
+  }
+
+  public String getDwarfName() {
+    return dwarfName;
+  }
+
+  public void setDwarfName(String dwarfName) {
+    this.dwarfName = dwarfName;
+    this.updateCustomName();
+  }
+
+  public IDwarfJob getJob() {
+    return job;
+  }
+
+  public void setJob(IDwarfJob job) {
+    this.job = job;
+    this.updateCustomName();
   }
 }
