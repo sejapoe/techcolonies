@@ -1,10 +1,12 @@
 package com.sejapoe.techcolonies.registry;
 
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandlerModifiable;
 
 public final class ModCapabilities {
   public static final Capability<IDwarfItemHandler> DWARF_ITEM_HANDLER_CAPABILITY = CapabilityManager.get(new CapabilityToken<>(){});

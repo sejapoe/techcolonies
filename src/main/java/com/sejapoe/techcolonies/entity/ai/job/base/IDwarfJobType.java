@@ -1,10 +1,10 @@
-package com.sejapoe.techcolonies.entity.ai;
+package com.sejapoe.techcolonies.entity.ai.job.base;
 
 import com.sejapoe.techcolonies.TechColonies;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.Block;
 
-public interface IDwarfJob {
+public interface IDwarfJobType {
   String getName();
   boolean hasControllerBlock();
   Block getControllerBlock();

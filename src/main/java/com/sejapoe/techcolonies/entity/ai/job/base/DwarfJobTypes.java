@@ -1,21 +1,21 @@
-package com.sejapoe.techcolonies.entity.ai;
+package com.sejapoe.techcolonies.entity.ai.job.base;
 
 import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
 
-public enum DwarfJobs implements IDwarfJob {
+public enum DwarfJobTypes implements IDwarfJobType {
   MELTER("melter", ModBlocks.SMELTERY_BLOCK.get()),
   LUMBERJACK("lumberjack");
 
   private String name;
   private Block controllerBlock;
 
-  DwarfJobs(String name, Block controllerBlock) {
+  DwarfJobTypes(String name, Block controllerBlock) {
     this.name = name;
     this.controllerBlock = controllerBlock;
   }
 
-  DwarfJobs(String name) {
+  DwarfJobTypes(String name) {
     this(name, null);
   }
 

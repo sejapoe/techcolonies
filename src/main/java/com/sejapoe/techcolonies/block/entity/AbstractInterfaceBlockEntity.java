@@ -16,7 +16,7 @@ public abstract class AbstractInterfaceBlockEntity extends AbstractStructureElem
     this.interfaceDirection = state.getValue(ModProperties.INTERFACE_DIRECTION);
   }
 
-  public BlockPos getAccessibilityPos(PathfinderMob mob) {
+  public BlockPos getAccessibilityPos() {
     return getBlockPos().below();
   }
 

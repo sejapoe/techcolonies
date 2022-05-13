@@ -1,14 +1,14 @@
 package com.sejapoe.techcolonies.entity;
 
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
-import com.sejapoe.techcolonies.entity.ai.DwarfJobs;
-import com.sejapoe.techcolonies.entity.ai.IDwarfJob;
+import com.sejapoe.techcolonies.entity.ai.goal.MelterAI;
+import com.sejapoe.techcolonies.entity.ai.job.JobMelter;
+import com.sejapoe.techcolonies.entity.ai.job.base.DwarfJobTypes;
+import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
 import com.sejapoe.techcolonies.registry.ModItems;
 import com.sejapoe.techcolonies.core.SavableContainer;
 import com.sejapoe.techcolonies.core.properties.faceelement.BeardType;
-import com.sejapoe.techcolonies.entity.ai.goal.FillInterfaceGoal;
-import com.sejapoe.techcolonies.entity.ai.goal.MoveToControllerGoal;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -42,7 +42,7 @@ import java.util.List;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
-  private IDwarfJob job;
+  private IDwarfJobType job;
   private String dwarfName; // TODO: Move to dwarf fundamentals
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
@@ -113,7 +113,7 @@ public class DwarfEntity extends PathfinderMob  {
     this.dwarfName = compoundTag.getString("Name");
     String jobKey = compoundTag.getString("Job");
     if (jobKey != "") {
-      this.setJob(Arrays.stream(DwarfJobs.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
+      this.setJob(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
     }
   }
 
@@ -166,12 +166,9 @@ public class DwarfEntity extends PathfinderMob  {
       return;
     }
     if (this.job.hasControllerBlock()) {
-      Goal g1 = new FillInterfaceGoal(this);
-      Goal g2 = new MoveToControllerGoal(this, this.job.getControllerBlock());
-      this.goalSelector.addGoal(1, g1);
-      goalList.add(g1);
-      this.goalSelector.addGoal(2, g2);
-      goalList.add(g2);
+      Goal goal = new MelterAI(new JobMelter(this));
+      this.goalSelector.addGoal(1, goal);
+      this.goalList.add(goal);
     }
   }
   public void setControllerPos(BlockPos controllerPos) {
@@ -182,7 +179,7 @@ public class DwarfEntity extends PathfinderMob  {
     }
     BlockEntity blockEntity = level.getBlockEntity(controllerPos);
     if (blockEntity instanceof SmelteryBlockEntity) { // TODO: move this to BE
-      this.setJob(DwarfJobs.MELTER);
+      this.setJob(DwarfJobTypes.MELTER);
     } else {
       this.setJob(null);
     }
@@ -211,6 +208,11 @@ public class DwarfEntity extends PathfinderMob  {
     return inputContainerPos;
   }
 
+  public BlockEntity getSerializedInputContainer() {
+    if (level == null || inputContainerPos == null) return null;
+    return level.getBlockEntity(inputContainerPos);
+  }
+
   public SavableContainer getInv() {
     return inv;
   }
@@ -224,11 +226,11 @@ public class DwarfEntity extends PathfinderMob  {
     this.updateCustomName();
   }
 
-  public IDwarfJob getJob() {
+  public IDwarfJobType getJob() {
     return job;
   }
 
-  public void setJob(IDwarfJob job) {
+  public void setJob(IDwarfJobType job) {
     this.job = job;
     this.updateCustomName();
     this.updateGoals();
