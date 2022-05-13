@@ -6,16 +6,19 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.MoveToBlockGoal;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
 public class MoveToControllerGoal extends MoveToBlockGoal {
   private final DwarfEntity dwarf;
+  private Block controllerBlock;
 
-  public MoveToControllerGoal(DwarfEntity dwarf) {
+  public MoveToControllerGoal(DwarfEntity dwarf, Block controllerBlock) {
     super(dwarf, 1.0f, 128);
     this.dwarf = dwarf;
+    this.controllerBlock = controllerBlock;
     this.setFlags(EnumSet.of(Flag.MOVE));
   }
 
@@ -26,7 +29,8 @@ public class MoveToControllerGoal extends MoveToBlockGoal {
 
   @Override
   protected boolean isValidTarget(LevelReader levelReader, @NotNull BlockPos blockPos) {
-    return levelReader.getBlockEntity(blockPos) instanceof AbstractStructureControllerBlockEntity;
+    return levelReader.getBlockState(blockPos).getBlock().equals(this.controllerBlock) &&
+            levelReader.getBlockEntity(blockPos) instanceof AbstractStructureControllerBlockEntity;
   }
 
   @Override

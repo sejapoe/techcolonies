@@ -36,7 +36,9 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
@@ -45,6 +47,7 @@ public class DwarfEntity extends PathfinderMob  {
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
   private final int invSize = 1;
+  private List<Goal> goalList = new ArrayList<>();
 
   private final SavableContainer inv = new SavableContainer(invSize);
   private LazyOptional<IItemHandlerModifiable> backpackHandler;
@@ -72,11 +75,9 @@ public class DwarfEntity extends PathfinderMob  {
   @Override
   protected void registerGoals() {
     this.goalSelector.addGoal(0, new FloatGoal(this));
-    this.goalSelector.addGoal(1, new FillInterfaceGoal(this));
-    this.goalSelector.addGoal(2, new MoveToControllerGoal(this));
-    this.goalSelector.addGoal(3, new TemptGoal(this,1.25f, Ingredient.of(ModItems.STRANGE_WAND.get()), false));
-    this.goalSelector.addGoal(4, new LookAtPlayerGoal(this, Player.class, 6F));
-    this.goalSelector.addGoal(5, new RandomLookAroundGoal(this));
+    this.goalSelector.addGoal(20, new TemptGoal(this,1.25f, Ingredient.of(ModItems.STRANGE_WAND.get()), false));
+    this.goalSelector.addGoal(21, new LookAtPlayerGoal(this, Player.class, 6F));
+    this.goalSelector.addGoal(22, new RandomLookAroundGoal(this));
   }
 
   @Override
@@ -112,7 +113,7 @@ public class DwarfEntity extends PathfinderMob  {
     this.dwarfName = compoundTag.getString("Name");
     String jobKey = compoundTag.getString("Job");
     if (jobKey != "") {
-      this.job = Arrays.stream(DwarfJobs.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null);
+      this.setJob(Arrays.stream(DwarfJobs.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
     }
   }
 
@@ -157,6 +158,22 @@ public class DwarfEntity extends PathfinderMob  {
     }
   }
 
+  private void updateGoals() {
+    if (this.job == null) {
+      for (Goal goal : goalList) {
+        this.goalSelector.removeGoal(goal);
+      }
+      return;
+    }
+    if (this.job.hasControllerBlock()) {
+      Goal g1 = new FillInterfaceGoal(this);
+      Goal g2 = new MoveToControllerGoal(this, this.job.getControllerBlock());
+      this.goalSelector.addGoal(1, g1);
+      goalList.add(g1);
+      this.goalSelector.addGoal(2, g2);
+      goalList.add(g2);
+    }
+  }
   public void setControllerPos(BlockPos controllerPos) {
     this.controllerPos = controllerPos;
     if (controllerPos == null || level == null) {
@@ -214,5 +231,6 @@ public class DwarfEntity extends PathfinderMob  {
   public void setJob(IDwarfJob job) {
     this.job = job;
     this.updateCustomName();
+    this.updateGoals();
   }
 }
