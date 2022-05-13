@@ -36,6 +36,8 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
   private IDwarfJob job;
@@ -108,6 +110,10 @@ public class DwarfEntity extends PathfinderMob  {
     this.inputContainerPos = inputContainerPos != null ? NbtUtils.readBlockPos(inputContainerPos) : null;
     inv.loadAllItems(compoundTag);
     this.dwarfName = compoundTag.getString("Name");
+    String jobKey = compoundTag.getString("Job");
+    if (jobKey != "") {
+      this.job = Arrays.stream(DwarfJobs.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null);
+    }
   }
 
   @Override
@@ -122,6 +128,9 @@ public class DwarfEntity extends PathfinderMob  {
     }
     inv.saveAllItems(compoundTag);
     compoundTag.putString("Name", this.dwarfName);
+    if (this.job != null) {
+      compoundTag.putString("Job", this.job.getName());
+    }
   }
 
   public Component getBakedName() {
