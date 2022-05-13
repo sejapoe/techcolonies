@@ -82,5 +82,5 @@ public class ModItemModelProvider extends ItemModelProvider {
     withExistingParent(fluidRegistryObject.getBucket().getRegistryName().getPath(), new ResourceLocation("forge", "item/bucket_drip"))
             .customLoader(DynamicBucketModelBuilder::begin)
             .fluid(fluidRegistryObject.getStillFluid());
-  };
+  }
 }

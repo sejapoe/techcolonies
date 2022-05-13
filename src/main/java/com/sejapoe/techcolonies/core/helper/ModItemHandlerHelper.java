@@ -1,7 +1,6 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.core.helper;
 
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemHandlerHelper;
 

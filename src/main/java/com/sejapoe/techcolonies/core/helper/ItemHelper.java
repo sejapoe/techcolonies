@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.core.helper;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

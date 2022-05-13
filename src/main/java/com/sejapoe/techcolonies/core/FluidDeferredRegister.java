@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 public class FluidDeferredRegister {
   private static final ResourceLocation LIQUID = new ResourceLocation("block/lava_still");
   private static final ResourceLocation LIQUID_FLOW = new ResourceLocation("block/lava_flow");
-  private Collection<FluidRegistryObject> allObjects = new ArrayList<>();
+  private final Collection<FluidRegistryObject> allObjects = new ArrayList<>();
 
   public static FluidAttributes.Builder getBaseBuilder() {
     return FluidAttributes.builder(LIQUID, LIQUID_FLOW).sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
@@ -100,7 +100,7 @@ public class FluidDeferredRegister {
   public interface BucketCreator {
     BucketItem create(Supplier<? extends Fluid> suppplier, Item.Properties properties);
   }
-  public class FluidRegistryObject<STILL extends Fluid, FLOWING extends Fluid, BLOCK extends LiquidBlock, BUCKET extends BucketItem> {
+  public static class FluidRegistryObject<STILL extends Fluid, FLOWING extends Fluid, BLOCK extends LiquidBlock, BUCKET extends BucketItem> {
     private RegistryObject<STILL> stillRegistryObject;
     private RegistryObject<FLOWING> flowingRegistryObject;
     private RegistryObject<BLOCK> blockRegistryObject;

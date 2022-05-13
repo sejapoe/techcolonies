@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.entity.ai.goal.base;
 
-import com.sejapoe.techcolonies.core.EntityHelper;
+import com.sejapoe.techcolonies.core.helper.EntityHelper;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;
 import com.sejapoe.techcolonies.entity.ai.base.IAIState;
 import com.sejapoe.techcolonies.entity.ai.job.base.IJob;

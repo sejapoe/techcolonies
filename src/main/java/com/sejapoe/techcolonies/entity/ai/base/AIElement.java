@@ -6,11 +6,11 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
 public class AIElement {
-  private IAIState state;
-  private BooleanSupplier condition;
-  private Supplier<IAIState> action;
-  private int tickRate;
-  private int tickOffset;
+  private final IAIState state;
+  private final BooleanSupplier condition;
+  private final Supplier<IAIState> action;
+  private final int tickRate;
+  private final int tickOffset;
 
   public AIElement(IAIState state, BooleanSupplier predicate, Supplier<IAIState> action, int tickRate) {
     this.state = state;

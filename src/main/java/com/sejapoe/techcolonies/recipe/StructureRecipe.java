@@ -173,7 +173,7 @@ public abstract class StructureRecipe<T extends Container> implements Recipe<T> 
 
 
   public boolean matches(List<ItemStack> input, List<FluidStack> fluidInput) {
-    return ingredients.stream().allMatch(ingredient -> input.stream().anyMatch(stack -> ingredient.test(stack))) &&
-            fluidIngredients.stream().allMatch(fluidIngredient -> fluidInput.stream().anyMatch(fluidStack -> fluidIngredient.test(fluidStack)));
+    return ingredients.stream().allMatch(ingredient -> input.stream().anyMatch(ingredient)) &&
+            fluidIngredients.stream().allMatch(fluidIngredient -> fluidInput.stream().anyMatch(fluidIngredient));
   }
 }

@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.core.helper;
 
 import com.sejapoe.techcolonies.block.entity.FluidInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;

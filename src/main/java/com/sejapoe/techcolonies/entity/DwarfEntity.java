@@ -47,7 +47,7 @@ public class DwarfEntity extends PathfinderMob  {
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
   private final int invSize = 1;
-  private List<Goal> goalList = new ArrayList<>();
+  private final List<Goal> goalList = new ArrayList<>();
 
   private final SavableContainer inv = new SavableContainer(invSize);
   private LazyOptional<IItemHandlerModifiable> backpackHandler;
@@ -112,7 +112,7 @@ public class DwarfEntity extends PathfinderMob  {
     inv.loadAllItems(compoundTag);
     this.dwarfName = compoundTag.getString("Name");
     String jobKey = compoundTag.getString("Job");
-    if (jobKey != "") {
+    if (!jobKey.equals("")) {
       this.setJob(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
     }
   }

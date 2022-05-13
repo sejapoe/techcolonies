@@ -17,7 +17,7 @@ public abstract class AbstractAI<J extends IJob> extends Goal {
   protected final J job;
   protected final Level level;
   protected final TickingAIController controller;
-  protected DwarfEntity worker;
+  protected final DwarfEntity worker;
 
   public AbstractAI(J job) {
     super();
@@ -31,7 +31,7 @@ public abstract class AbstractAI<J extends IJob> extends Goal {
 
   public final IAIState getState() {
     return this.controller.getState() == INIT ? IDLE : this.controller.getState(); // TODO: need i any checks in init?
-  };
+  }
 
   public void registerTarget(AIElement element) {
     this.controller.add(element);

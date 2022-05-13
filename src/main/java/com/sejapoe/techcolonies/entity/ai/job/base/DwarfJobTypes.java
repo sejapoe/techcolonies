@@ -7,8 +7,8 @@ public enum DwarfJobTypes implements IDwarfJobType {
   MELTER("melter", ModBlocks.SMELTERY_BLOCK.get()),
   LUMBERJACK("lumberjack");
 
-  private String name;
-  private Block controllerBlock;
+  private final String name;
+  private final Block controllerBlock;
 
   DwarfJobTypes(String name, Block controllerBlock) {
     this.name = name;

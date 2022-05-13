@@ -86,7 +86,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
 
   public List<FluidInterfaceBlockEntity> getFluidInterfaces() {
     List<FluidInterfaceBlockEntity> fluidInterfaceBlockEntities = new ArrayList<>();
-    getSerializedInterfaces().stream().forEach(can -> {
+    getSerializedInterfaces().forEach(can -> {
       if (can instanceof FluidInterfaceBlockEntity) {
         fluidInterfaceBlockEntities.add((FluidInterfaceBlockEntity) can);
       }
@@ -101,7 +101,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
 
   public List<ItemInterfaceBlockEntity> getItemInterfaces() {
     List<ItemInterfaceBlockEntity> itemInterfaceBlockEntities = new ArrayList<>();
-    getSerializedInterfaces().stream().forEach(can -> {
+    getSerializedInterfaces().forEach(can -> {
       if (can instanceof ItemInterfaceBlockEntity) {
         itemInterfaceBlockEntities.add((ItemInterfaceBlockEntity) can);
       }
@@ -130,7 +130,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
 
   public List<T> getAllRecipes() {
     List<T> recipes = new ArrayList<>();
-    level.getRecipeManager().getRecipes().stream().forEach(recipe -> {
+    level.getRecipeManager().getRecipes().forEach(recipe -> {
       if (recipe instanceof StructureRecipe && recipe.getType().equals(getRecipeType())) {
         recipes.add((T) recipe);
       }

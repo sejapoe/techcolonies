@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.core;
+package com.sejapoe.techcolonies.core.helper;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.PathfinderMob;

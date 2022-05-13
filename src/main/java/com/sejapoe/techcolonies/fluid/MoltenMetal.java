@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -24,12 +25,12 @@ public abstract class MoltenMetal extends ForgeFlowingFluid {
     }
 
     @Override
-    public boolean isSource(FluidState p_76140_) {
+    public boolean isSource(@NotNull FluidState p_76140_) {
       return true;
     }
 
     @Override
-    public int getAmount(FluidState p_164509_) {
+    public int getAmount(@NotNull FluidState p_164509_) {
       return 8;
     }
 
@@ -40,7 +41,7 @@ public abstract class MoltenMetal extends ForgeFlowingFluid {
 
 
     @Override
-    protected void randomTick(Level level, BlockPos blockPos, FluidState fluidState, Random random) {
+    protected void randomTick(@NotNull Level level, @NotNull BlockPos blockPos, @NotNull FluidState fluidState, Random random) {
       if (random.nextDouble() <= this.solidificationRatio) {
         level.setBlockAndUpdate(blockPos, Blocks.STONE.defaultBlockState());
       }
@@ -53,7 +54,7 @@ public abstract class MoltenMetal extends ForgeFlowingFluid {
       registerDefaultState(getStateDefinition().any().setValue(LEVEL, 7));
     }
 
-    protected void createFluidStateDefinition(StateDefinition.Builder<Fluid, FluidState> stateBuilder) {
+    protected void createFluidStateDefinition(StateDefinition.@NotNull Builder<Fluid, FluidState> stateBuilder) {
       super.createFluidStateDefinition(stateBuilder);
       stateBuilder.add(LEVEL);
     }
@@ -62,7 +63,7 @@ public abstract class MoltenMetal extends ForgeFlowingFluid {
       return fluidState.getValue(LEVEL);
     }
 
-    public boolean isSource(FluidState fluidState) {
+    public boolean isSource(@NotNull FluidState fluidState) {
       return false;
     }
   }

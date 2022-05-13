@@ -4,11 +4,11 @@ public enum MetalConstants implements IMetalConstant{
   COPPER("copper", 0xF3D67B5B, 1500, 15, 2),
   IRON("iron", 0xF3A31402, 1800, 15, 2);
 
-  private String name;
-  private int color;
-  private float liquidTemperature;
-  private float liquidDensity;
-  private int liquidLuminosity;
+  private final String name;
+  private final int color;
+  private final float liquidTemperature;
+  private final float liquidDensity;
+  private final int liquidLuminosity;
 
   MetalConstants(String name, int color, float liquidTemperature, float liquidDensity, int liquidLuminosity) {
     this.name = name;
