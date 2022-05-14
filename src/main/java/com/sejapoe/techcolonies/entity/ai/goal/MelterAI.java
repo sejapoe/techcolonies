@@ -2,7 +2,6 @@ package com.sejapoe.techcolonies.entity.ai.goal;
 
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;
-import com.sejapoe.techcolonies.entity.ai.goal.base.IItemFillerAI;
 import com.sejapoe.techcolonies.entity.ai.goal.base.JobWithControllerAI;
 import com.sejapoe.techcolonies.entity.ai.job.JobMelter;
 

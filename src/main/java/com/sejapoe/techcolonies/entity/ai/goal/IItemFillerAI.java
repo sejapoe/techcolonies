@@ -1,9 +1,9 @@
-package com.sejapoe.techcolonies.entity.ai.goal.base;
+package com.sejapoe.techcolonies.entity.ai.goal;
 
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
-import com.sejapoe.techcolonies.core.EntityHelper;
-import com.sejapoe.techcolonies.core.ModItemHandlerHelper;
+import com.sejapoe.techcolonies.core.helper.EntityHelper;
+import com.sejapoe.techcolonies.core.helper.ModItemHandlerHelper;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import com.sejapoe.techcolonies.entity.ai.base.IAIState;
 import com.sejapoe.techcolonies.recipe.StructureRecipe;
@@ -61,7 +61,7 @@ public interface IItemFillerAI<T extends StructureRecipe<?>> {
         ItemStack stack = iItemHandler.getStackInSlot(i);
         if (canBePlaced(stack, getWorkerCapability())) {
           return true;
-        };
+        }
       }
       return false;
     }).orElse(false);
@@ -93,15 +93,15 @@ public interface IItemFillerAI<T extends StructureRecipe<?>> {
       return (AbstractStructureControllerBlockEntity<T>) blockEntity;
     }
     return null;
-  };
+  }
 
   default BlockEntity getInput() {
     return getWorker().getSerializedInputContainer();
-  };
+  }
 
   default List<ItemInterfaceBlockEntity> getInterfaces() {
     return getController().getItemInputInterfaces();
-  };
+  }
 
   default IItemHandler getWorkerCapability() {
     return getWorker().getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY).orElse(null);
