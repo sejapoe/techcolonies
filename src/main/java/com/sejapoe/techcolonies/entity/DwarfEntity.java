@@ -1,8 +1,6 @@
 package com.sejapoe.techcolonies.entity;
 
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
-import com.sejapoe.techcolonies.entity.ai.goal.MelterAI;
-import com.sejapoe.techcolonies.entity.ai.job.JobMelter;
 import com.sejapoe.techcolonies.entity.ai.job.base.DwarfJobTypes;
 import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
@@ -173,11 +171,12 @@ public class DwarfEntity extends PathfinderMob  {
       }
       return;
     }
-    if (this.job.hasControllerBlock()) {
-      Goal goal = new MelterAI(new JobMelter(this));
-      this.goalSelector.addGoal(1, goal);
-      this.goalList.add(goal);
-    }
+    Goal goal = this.job.createGoal(this);
+    this.addGoal(1, goal);
+  }
+  private void addGoal(int priority, Goal goal) {
+    this.goalList.add(goal);
+    this.goalSelector.addGoal(priority, goal);
   }
   public void setControllerPos(BlockPos controllerPos) {
     this.controllerPos = controllerPos;
@@ -250,5 +249,6 @@ public class DwarfEntity extends PathfinderMob  {
 
   public void setHasToolBelt(boolean hasToolBelt) {
     this.hasToolBelt = hasToolBelt;
+    this.setJob(hasToolBelt ? DwarfJobTypes.MINER : null);
   }
 }

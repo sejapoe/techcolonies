@@ -1,6 +1,8 @@
 package com.sejapoe.techcolonies.entity.ai.job.base;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.entity.DwarfEntity;
+import com.sejapoe.techcolonies.entity.ai.goal.base.AbstractAI;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.Block;
 
@@ -12,4 +14,6 @@ public interface IDwarfJobType {
   default TranslatableComponent getTranslatableName() {
     return new TranslatableComponent("dwarf_job." + TechColonies.MOD_ID + "." + getName());
   }
+
+  AbstractAI<? extends IJob> createGoal(DwarfEntity worker);
 }

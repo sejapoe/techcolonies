@@ -8,4 +8,6 @@ public enum AIStates implements IAIState {
 
   // Filler
   FILL_INPUT,
+  // Miner
+  MINE,
 }

@@ -77,6 +77,7 @@ public class StrangeWandItem extends Item {
       if (player.isCrouching()) {
         ((DwarfEntity) livingEntity).setControllerPos(null);
         ((DwarfEntity) livingEntity).setInputContainerPos(null);
+        ((DwarfEntity) livingEntity).setHasToolBelt(false);
         player.sendMessage(new TranslatableComponent("dwarf.job.reset"), Util.NIL_UUID);
       } else {
         setConfigurableDwarf((DwarfEntity) livingEntity);
