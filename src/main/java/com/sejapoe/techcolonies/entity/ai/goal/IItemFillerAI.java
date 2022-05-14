@@ -9,6 +9,7 @@ import com.sejapoe.techcolonies.entity.ai.base.IAIState;
 import com.sejapoe.techcolonies.recipe.StructureRecipe;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -104,7 +105,7 @@ public interface IItemFillerAI<T extends StructureRecipe<?>> {
   }
 
   default IItemHandler getWorkerCapability() {
-    return getWorker().getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY).orElse(null);
+    return getWorker().getCapability(ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
   }
 
   DwarfEntity getWorker();

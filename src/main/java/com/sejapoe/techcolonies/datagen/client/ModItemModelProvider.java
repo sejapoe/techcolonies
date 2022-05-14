@@ -40,6 +40,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());
+    oneLayerItem(ModItems.TOOL_BELT.get());
   }
 
   protected void platedSimpleBlockItems(Map<PlatingMaterial, RegistryObject<Block>> blocks) {

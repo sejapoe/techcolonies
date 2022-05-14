@@ -42,7 +42,7 @@ public class StrangeWandItem extends Item {
       if (blockEntity instanceof AbstractStructureControllerBlockEntity) {
         if (this.configurableDwarf != null) {
           this.configurableDwarf.setControllerPos(pos);
-          useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.controller.set"), Util.NIL_UUID);
+          useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.job.set_controller"), Util.NIL_UUID);
           return InteractionResult.SUCCESS;
         }
       }
@@ -64,7 +64,7 @@ public class StrangeWandItem extends Item {
       }
       if (blockEntity instanceof Container && this.configurableDwarf != null) {
         this.configurableDwarf.setInputContainerPos(pos);
-        useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.controller.set_input"), Util.NIL_UUID);
+        useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.job.set_input"), Util.NIL_UUID);
         return InteractionResult.SUCCESS;
       }
     }
@@ -77,10 +77,10 @@ public class StrangeWandItem extends Item {
       if (player.isCrouching()) {
         ((DwarfEntity) livingEntity).setControllerPos(null);
         ((DwarfEntity) livingEntity).setInputContainerPos(null);
-        player.sendMessage(new TranslatableComponent("dwarf.controller.reset"), Util.NIL_UUID);
+        player.sendMessage(new TranslatableComponent("dwarf.job.reset"), Util.NIL_UUID);
       } else {
         setConfigurableDwarf((DwarfEntity) livingEntity);
-        player.sendMessage(new TextComponent("dwarf.controller.select"), Util.NIL_UUID);
+        player.sendMessage(new TextComponent("dwarf.job.select"), Util.NIL_UUID);
       }
       return InteractionResult.SUCCESS;
     }

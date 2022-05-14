@@ -31,6 +31,7 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
@@ -51,6 +52,7 @@ public class DwarfEntity extends PathfinderMob  {
 
   private final SavableContainer inv = new SavableContainer(invSize);
   private LazyOptional<IItemHandlerModifiable> backpackHandler;
+  private boolean hasToolBelt;
 
   public DwarfEntity(EntityType<? extends PathfinderMob> entityType, Level level) {
     super(entityType, level);
@@ -63,6 +65,7 @@ public class DwarfEntity extends PathfinderMob  {
     this.setBeardType(BeardType.getRandom());
     this.setControllerPos(null);
     this.setDwarfName("Jack");
+    this.setHasToolBelt(false);
     return super.finalizeSpawn(levelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
   }
 
@@ -83,6 +86,9 @@ public class DwarfEntity extends PathfinderMob  {
   @Override
   public <T> @NotNull LazyOptional<T> getCapability(@NotNull Capability<T> capability, @Nullable Direction facing) {
     if (capability == ModCapabilities.DWARF_ITEM_HANDLER_CAPABILITY) {
+      if (facing == Direction.UP) {
+        return (LazyOptional<T>) super.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP);
+      }
       if (this.backpackHandler == null)
         this.backpackHandler = LazyOptional.of(this::createHandler);
       return this.backpackHandler.cast();
@@ -115,6 +121,7 @@ public class DwarfEntity extends PathfinderMob  {
     if (!jobKey.equals("")) {
       this.setJob(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
     }
+    this.setHasToolBelt(compoundTag.getBoolean("HasToolBelt"));
   }
 
   @Override
@@ -132,6 +139,7 @@ public class DwarfEntity extends PathfinderMob  {
     if (this.job != null) {
       compoundTag.putString("Job", this.job.getName());
     }
+    compoundTag.putBoolean("HasToolBelt", this.hasToolBelt());
   }
 
   public Component getBakedName() {
@@ -234,5 +242,13 @@ public class DwarfEntity extends PathfinderMob  {
     this.job = job;
     this.updateCustomName();
     this.updateGoals();
+  }
+
+  public boolean hasToolBelt() {
+    return hasToolBelt;
+  }
+
+  public void setHasToolBelt(boolean hasToolBelt) {
+    this.hasToolBelt = hasToolBelt;
   }
 }
