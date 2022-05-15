@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.entity.ai.goal.base;
+package com.sejapoe.techcolonies.entity.ai.base.goal;
 
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;

@@ -1,7 +1,7 @@
 package com.sejapoe.techcolonies.entity;
 
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
-import com.sejapoe.techcolonies.entity.ai.job.base.DwarfJobTypes;
+import com.sejapoe.techcolonies.entity.ai.job.DwarfJobTypes;
 import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
 import com.sejapoe.techcolonies.registry.ModItems;

@@ -1,10 +1,9 @@
-package com.sejapoe.techcolonies.entity.ai.goal;
+package com.sejapoe.techcolonies.entity.ai.job.miner;
 
 import com.sejapoe.techcolonies.core.helper.EntityHelper;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;
 import com.sejapoe.techcolonies.entity.ai.base.IAIState;
-import com.sejapoe.techcolonies.entity.ai.goal.base.AbstractBreakerAI;
-import com.sejapoe.techcolonies.entity.ai.job.JobMiner;
+import com.sejapoe.techcolonies.entity.ai.base.goal.AbstractBreakerAI;
 import net.minecraft.core.BlockPos;
 
 import static com.sejapoe.techcolonies.entity.ai.base.AIStates.*;

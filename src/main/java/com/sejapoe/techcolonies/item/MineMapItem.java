@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.item;
 
-import com.sejapoe.techcolonies.entity.ai.goal.Mine;
+import com.sejapoe.techcolonies.entity.ai.job.miner.Mine;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

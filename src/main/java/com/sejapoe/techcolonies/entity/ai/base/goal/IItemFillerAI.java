@@ -1,4 +1,4 @@
-package com.sejapoe.techcolonies.entity.ai.goal;
+package com.sejapoe.techcolonies.entity.ai.base.goal;
 
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;

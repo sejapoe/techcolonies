@@ -1,10 +1,9 @@
-package com.sejapoe.techcolonies.entity.ai.goal;
+package com.sejapoe.techcolonies.entity.ai.job.miner;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
-import net.minecraft.nbt.Tag;
 
 public class Mine {
   private BlockPos startPos;

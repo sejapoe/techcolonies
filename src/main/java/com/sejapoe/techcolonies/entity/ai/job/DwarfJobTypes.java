@@ -1,11 +1,13 @@
-package com.sejapoe.techcolonies.entity.ai.job.base;
+package com.sejapoe.techcolonies.entity.ai.job;
 
 import com.sejapoe.techcolonies.entity.DwarfEntity;
-import com.sejapoe.techcolonies.entity.ai.goal.MelterAI;
-import com.sejapoe.techcolonies.entity.ai.goal.MinerAI;
-import com.sejapoe.techcolonies.entity.ai.goal.base.AbstractAI;
-import com.sejapoe.techcolonies.entity.ai.job.JobMelter;
-import com.sejapoe.techcolonies.entity.ai.job.JobMiner;
+import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
+import com.sejapoe.techcolonies.entity.ai.job.base.IJob;
+import com.sejapoe.techcolonies.entity.ai.job.melter.MelterAI;
+import com.sejapoe.techcolonies.entity.ai.job.miner.MinerAI;
+import com.sejapoe.techcolonies.entity.ai.base.goal.AbstractAI;
+import com.sejapoe.techcolonies.entity.ai.job.melter.JobMelter;
+import com.sejapoe.techcolonies.entity.ai.job.miner.JobMiner;
 import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.world.level.block.Block;
 

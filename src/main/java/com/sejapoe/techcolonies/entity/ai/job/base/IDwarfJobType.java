@@ -2,7 +2,7 @@ package com.sejapoe.techcolonies.entity.ai.job.base;
 
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
-import com.sejapoe.techcolonies.entity.ai.goal.base.AbstractAI;
+import com.sejapoe.techcolonies.entity.ai.base.goal.AbstractAI;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.level.block.Block;
 

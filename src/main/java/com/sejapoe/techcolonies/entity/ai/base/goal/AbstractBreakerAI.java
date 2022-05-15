@@ -1,7 +1,6 @@
-package com.sejapoe.techcolonies.entity.ai.goal.base;
+package com.sejapoe.techcolonies.entity.ai.base.goal;
 
 import com.sejapoe.techcolonies.core.helper.LevelHelper;
-import com.sejapoe.techcolonies.entity.DwarfEntity;
 import com.sejapoe.techcolonies.entity.ai.job.base.IJob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -10,7 +9,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
 
 public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
   private int delay;
