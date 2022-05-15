@@ -1,5 +1,6 @@
 package com.sejapoe.techcolonies.entity.ai.goal;
 
+import com.sejapoe.techcolonies.core.helper.EntityHelper;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;
 import com.sejapoe.techcolonies.entity.ai.base.IAIState;
 import com.sejapoe.techcolonies.entity.ai.goal.base.AbstractBreakerAI;
@@ -14,13 +15,20 @@ public class MinerAI extends AbstractBreakerAI<JobMiner> {
     super.registerTargets(
             new AIElement(INIT, () -> IDLE, 10), // Safe check?
             new AIElement(IDLE, () -> MINE, 20),
-            new AIElement(MINE, this::mineBelow, 5)
+            new AIElement(MINE, this::mineEast, 5)
     );
   }
 
-  private IAIState mineBelow() {
+  private IAIState mineEast() {
     BlockPos pos = worker.getOnPos();
-    breakBlock(pos);
+    BlockPos pos1 = pos.above().east();
+    BlockPos pos2 = pos1.above();
+    if (level.getBlockState(pos1).isAir() && level.getBlockState(pos2).isAir()) {
+      EntityHelper.moveMobToBlock(worker, pos.below().east(2));
+    } else {
+      worker.getNavigation().stop();
+      breakBlock(level.getBlockState(pos1).isAir() ? pos2 : pos1);
+    }
     return getState();
   }
 }

@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.registry;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.item.MineMapItem;
 import com.sejapoe.techcolonies.item.StrangeWandItem;
 import com.sejapoe.techcolonies.item.ToolBeltItem;
 import net.minecraft.world.item.BlockItem;
@@ -17,7 +18,8 @@ public final class ModItems {
 
   public static final RegistryObject<Item>
           STRANGE_WAND = ITEM_REGISTER.register("strange_wand", () -> new StrangeWandItem(getBaseProperties())),
-          TOOL_BELT = ITEM_REGISTER.register("tool_belt", () -> new ToolBeltItem(getBaseProperties().stacksTo(1)));
+          TOOL_BELT = ITEM_REGISTER.register("tool_belt", () -> new ToolBeltItem(getBaseProperties().stacksTo(1))),
+          MINE_MAP = ITEM_REGISTER.register("mine_map", () -> new MineMapItem(getBaseProperties().stacksTo(1)));
 
 
   public static void register(IEventBus bus) {

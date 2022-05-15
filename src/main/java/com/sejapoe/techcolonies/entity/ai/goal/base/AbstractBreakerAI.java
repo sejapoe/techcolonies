@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.common.ForgeHooks;
 
 public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
   private int delay;
@@ -25,7 +26,7 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
     super.tick();
   }
 
-  protected void breakBlock(BlockPos pos) {
+  protected void breakBlock(BlockPos pos) { // Check efficient tool
     BlockState blockState = level.getBlockState(pos);
     Block block = blockState.getBlock();
 
@@ -35,7 +36,7 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
     }
 
     if (!isBreaking) {
-      delay = getBreakingTime(block);
+      delay = getBreakingTime(blockState, pos);
       isBreaking = true;
     }
 
@@ -56,9 +57,33 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
     }
   }
 
-  private int getBreakingTime(Block block) {
-    return (int) (block.defaultDestroyTime() * 20.0F);
+  private int getBreakingTime(BlockState state, BlockPos pos) {
+//    if (worker.getMainHandItem()) return (int) (state.getDestroySpeed(level, pos));
+    return (int) (
+            28.6D * (double) state.getDestroySpeed(level, pos) / (double) worker.getMainHandItem().getItem().getDestroySpeed(worker.getMainHandItem(), state)
+    ); // Perk reduction?
   }
+/*
+destroy - 1.5
+stone/hand - 8* (2)
+stone/wood - 1
+stone/stone - 0.5
+
+destroy - 0.5
+dirt/hand - 1
+dirt/wood - 0.5
+dirt/stone - 0.25
+
+destroy - 3
+copper/hand - 14* (4)
+copper/wooden - 8* (2)
+copper/stone - 1
+
+x * 3  / 4 = 20 -> x =
+x * y * 3 = 300 -> x*y=100
+y = 3.5
+x = 28.6
+  */
 
   public int getDelay() {
     return delay;
