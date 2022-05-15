@@ -47,7 +47,9 @@ public class MineMapItem extends Item {
   public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
     Mine mine = Mine.loadFromNBT(pPlayer.getItemInHand(pUsedHand).getOrCreateTag());
     if (mine == null) {
-      pPlayer.sendMessage(new TranslatableComponent("map.techcolonies.not_found"), Util.NIL_UUID);
+      if (!pLevel.isClientSide) {
+        pPlayer.sendMessage(new TranslatableComponent("map.techcolonies.not_found"), Util.NIL_UUID);
+      }
       return super.use(pLevel, pPlayer, pUsedHand);
     }
     // Open GUI;
