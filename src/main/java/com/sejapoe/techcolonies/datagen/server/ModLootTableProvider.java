@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class ModLootTableProvider extends BaseLootTableProvider{
   public ModLootTableProvider(DataGenerator dataGeneratorIn) {
@@ -28,6 +29,6 @@ public class ModLootTableProvider extends BaseLootTableProvider{
   }
 
   protected void dropSelf(Block block) {
-    add(block, createSimpleTable(block.getRegistryName().getPath(), block));
+    add(block, createSimpleTable(Objects.requireNonNull(block.getRegistryName()).getPath(), block));
   }
 }

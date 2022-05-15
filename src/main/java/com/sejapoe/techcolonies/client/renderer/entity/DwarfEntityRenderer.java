@@ -6,10 +6,7 @@ import com.sejapoe.techcolonies.client.renderer.entity.layer.DwarfFaceElementLay
 import com.sejapoe.techcolonies.client.renderer.entity.layer.DwarfItemInHandLayer;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
-import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 

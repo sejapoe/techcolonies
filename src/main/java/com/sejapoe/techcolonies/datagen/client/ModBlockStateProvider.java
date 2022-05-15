@@ -21,6 +21,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -33,16 +34,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
     platedSimpleBlocks(ModBlocks.PLATED_BRICKS_BLOCKS);
     platedWallBlocks(ModBlocks.PLATED_BRICK_WALL_BLOCKS);
     horizontalMechanismPlatedBlock(ModBlocks.SMELTERY_BLOCK.get(),
-            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front"),
-            modLoc("block/" + ModBlocks.SMELTERY_BLOCK.get().getRegistryName().getPath() + "_front_on"));
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.SMELTERY_BLOCK.get().getRegistryName()).getPath() + "_front"),
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.SMELTERY_BLOCK.get().getRegistryName()).getPath() + "_front_on"));
     cubeAllInterfacePlatedBlock(ModBlocks.ITEM_INTERFACE_BLOCK.get(),
             modLoc("block/interface"),
-            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_input"),
-            modLoc("block/" + ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_output"));
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_input"),
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.ITEM_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_output"));
     cubeAllInterfacePlatedBlock(ModBlocks.FLUID_INTERFACE_BLOCK.get(),
             modLoc("block/interface"),
-            modLoc("block/" + ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_input"),
-            modLoc("block/" + ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName().getPath() + "_output"));
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_input"),
+            modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_output"));
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -54,7 +55,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
   protected void platedWallBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
     for (Map.Entry<PlatingMaterial, RegistryObject<Block>> entry : blocks.entrySet()) {
       wallBlock((WallBlock) entry.getValue().get(),
-              modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
+              modLoc("block/" + Objects.requireNonNull(ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName()).getPath()));
     }
   }
 
@@ -63,7 +64,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     for (PlatingMaterial material : PlatingMaterial.values()) {
       Function<BlockState, ModelBuilder> modelFunc = state -> {
         ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
-        ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + block.getRegistryName().getPath() + "_" + state.getValue(ModProperties.INTERFACE_DIRECTION).getSerializedName())
+        ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath() + "_" + state.getValue(ModProperties.INTERFACE_DIRECTION).getSerializedName())
                 .parent(models().getExistingFile(mcLoc("block/block")))
                 .texture("side", side)
                 .texture("baseOverlay", baseOverlay)
@@ -85,7 +86,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     Map<PlatingMaterial, Pair<ModelBuilder, ModelBuilder>> map = new HashMap<>();
     for (PlatingMaterial material : PlatingMaterial.values()) {
       ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
-      ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + block.getRegistryName().getPath())
+      ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
               .parent(models().getExistingFile(mcLoc("block/block")))
               .texture("side", side)
               .texture("front", front)

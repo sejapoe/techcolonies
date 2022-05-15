@@ -2,7 +2,6 @@ package com.sejapoe.techcolonies.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.client.model.ArmedModel;
@@ -81,7 +80,7 @@ public class DwarfEntityModel extends EntityModel<DwarfEntity> implements ArmedM
   }
 
   @Override
-  public void translateToHand(HumanoidArm pSide, PoseStack pPoseStack) {
+  public void translateToHand(@NotNull HumanoidArm pSide, @NotNull PoseStack pPoseStack) {
     this.getArm(pSide).translateAndRotate(pPoseStack);
 
   }

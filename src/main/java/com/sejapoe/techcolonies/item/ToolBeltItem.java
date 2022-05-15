@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class ToolBeltItem extends Item {
   public ToolBeltItem(Properties pProperties) {
@@ -16,7 +17,7 @@ public class ToolBeltItem extends Item {
   }
 
   @Override
-  public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
+  public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack pStack, @NotNull Player pPlayer, @NotNull LivingEntity pInteractionTarget, @NotNull InteractionHand pUsedHand) {
     if (pInteractionTarget instanceof DwarfEntity) {
       if (((DwarfEntity) pInteractionTarget).getControllerPos() != null) {
         pPlayer.sendMessage(new TranslatableComponent("dwarf.job.need_reset_controller"), Util.NIL_UUID);

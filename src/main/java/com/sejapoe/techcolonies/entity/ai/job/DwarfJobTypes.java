@@ -19,7 +19,7 @@ public enum DwarfJobTypes implements IDwarfJobType {
   MINER("miner", worker -> new MinerAI(new JobMiner(worker)));
 
   private final String name;
-  private Function<DwarfEntity, AbstractAI<? extends IJob>> aiFunction;
+  private final Function<DwarfEntity, AbstractAI<? extends IJob>> aiFunction;
   private final Block controllerBlock;
 
   DwarfJobTypes(String name, Function<DwarfEntity, AbstractAI<? extends IJob>> aiFunction, Block controllerBlock) {
@@ -27,10 +27,6 @@ public enum DwarfJobTypes implements IDwarfJobType {
     this.aiFunction = aiFunction;
     this.controllerBlock = controllerBlock;
   }
-
-//  DwarfJobTypes(String name) {
-//    this(name);
-//  }
 
   <T extends IJob> DwarfJobTypes(String name, Function<DwarfEntity, AbstractAI<? extends IJob>> aiFunction) {
     this(name, aiFunction, null);

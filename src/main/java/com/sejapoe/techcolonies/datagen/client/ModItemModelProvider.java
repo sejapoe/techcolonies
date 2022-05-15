@@ -17,6 +17,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class ModItemModelProvider extends ItemModelProvider {
   public ModItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
@@ -50,38 +51,38 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
   }
   protected void simpleBlockItem(Item item) {
-    getBuilder(item.getRegistryName().toString()).parent(getExistingFile(modLoc("block/" + item.getRegistryName().getPath())));
+    getBuilder(Objects.requireNonNull(item.getRegistryName()).toString()).parent(getExistingFile(modLoc("block/" + item.getRegistryName().getPath())));
   }
 
   protected void simpleBlockItem(Item item, ResourceLocation model) {
-    getBuilder(item.getRegistryName().toString()).parent(getExistingFile(model));
+    getBuilder(Objects.requireNonNull(item.getRegistryName()).toString()).parent(getExistingFile(model));
   }
 
   protected void platedWallBlockItems(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
     for (Map.Entry<PlatingMaterial, RegistryObject<Block>> entry : blocks.entrySet()) {
       wallBlockItem(entry.getValue().get().asItem(),
-              modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName().getPath()));
+              modLoc("block/" + Objects.requireNonNull(ModBlocks.PLATED_BRICKS_BLOCKS.get(entry.getKey()).get().getRegistryName()).getPath()));
     }
   }
   protected void wallBlockItem(Item item ,ResourceLocation texture) {
-    getBuilder(item.getRegistryName().toString()).parent(getExistingFile(mcLoc("block/wall_inventory"))).texture("wall", texture);
+    getBuilder(Objects.requireNonNull(item.getRegistryName()).toString()).parent(getExistingFile(mcLoc("block/wall_inventory"))).texture("wall", texture);
   }
 
   protected void oneLayerItem(Item item, ResourceLocation texture) {
     ResourceLocation itemTexture = new ResourceLocation(texture.getNamespace(), "item/" + texture.getPath());
     if (existingFileHelper.exists(itemTexture, PackType.CLIENT_RESOURCES, ".png", "textures")) {
-      getBuilder(item.getRegistryName().getPath()).parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", itemTexture);
+      getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath()).parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", itemTexture);
     } else {
-      TechColonies.LOGGER.error("Texture for " + item.getRegistryName().toString() + " not present at " + itemTexture);
+      TechColonies.LOGGER.error("Texture for " + Objects.requireNonNull(item.getRegistryName()).toString() + " not present at " + itemTexture);
     }
   }
 
   protected void oneLayerItem(Item item) {
-    oneLayerItem(item, item.getRegistryName());
+    oneLayerItem(item, Objects.requireNonNull(item.getRegistryName()));
   }
 
   protected void bucketItem(FluidDeferredRegister.FluidRegistryObject fluidRegistryObject) {
-    withExistingParent(fluidRegistryObject.getBucket().getRegistryName().getPath(), new ResourceLocation("forge", "item/bucket_drip"))
+    withExistingParent(Objects.requireNonNull(fluidRegistryObject.getBucket().getRegistryName()).getPath(), new ResourceLocation("forge", "item/bucket_drip"))
             .customLoader(DynamicBucketModelBuilder::begin)
             .fluid(fluidRegistryObject.getStillFluid());
   }

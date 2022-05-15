@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class DwarfItemInHandLayer extends ItemInHandLayer<DwarfEntity, DwarfEntityModel> {
   public DwarfItemInHandLayer(RenderLayerParent<DwarfEntity, DwarfEntityModel> parent) {
@@ -19,7 +20,7 @@ public class DwarfItemInHandLayer extends ItemInHandLayer<DwarfEntity, DwarfEnti
   }
 
   @Override
-  protected void renderArmWithItem(LivingEntity livingEntity, ItemStack stack, ItemTransforms.TransformType transformType, HumanoidArm arm, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+  protected void renderArmWithItem(@NotNull LivingEntity livingEntity, ItemStack stack, ItemTransforms.@NotNull TransformType transformType, @NotNull HumanoidArm arm, @NotNull PoseStack poseStack, @NotNull MultiBufferSource buffer, int packedLight) {
     if (stack.isEmpty()) return;
     poseStack.pushPose();
     poseStack.scale(0.5F,0.5F,0.5F);

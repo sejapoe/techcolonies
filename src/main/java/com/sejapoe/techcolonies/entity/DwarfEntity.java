@@ -38,6 +38,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
@@ -107,12 +108,12 @@ public class DwarfEntity extends PathfinderMob  {
     super.readAdditionalSaveData(compoundTag);
     Tag beardType = compoundTag.get("BeardType");
     if (beardType != null) {
-     this.setBeardType(BeardType.getByName(beardType.getAsString()));
+     this.setBeardType(Objects.requireNonNull(BeardType.getByName(beardType.getAsString())));
     }
     CompoundTag controllerPos = compoundTag.getCompound("ControllerPos");
-    this.controllerPos = controllerPos != null ? NbtUtils.readBlockPos(controllerPos) : null;
+    this.controllerPos = NbtUtils.readBlockPos(controllerPos);
     CompoundTag inputContainerPos = compoundTag.getCompound("InputContainerPos");
-    this.inputContainerPos = inputContainerPos != null ? NbtUtils.readBlockPos(inputContainerPos) : null;
+    this.inputContainerPos = NbtUtils.readBlockPos(inputContainerPos);
     inv.loadAllItems(compoundTag);
     this.dwarfName = compoundTag.getString("Name");
     String jobKey = compoundTag.getString("Job");
@@ -180,7 +181,7 @@ public class DwarfEntity extends PathfinderMob  {
   }
   public void setControllerPos(BlockPos controllerPos) {
     this.controllerPos = controllerPos;
-    if (controllerPos == null || level == null) {
+    if (controllerPos == null) {
       this.setJob(null);
       return;
     }
@@ -216,7 +217,7 @@ public class DwarfEntity extends PathfinderMob  {
   }
 
   public BlockEntity getSerializedInputContainer() {
-    if (level == null || inputContainerPos == null) return null;
+    if (inputContainerPos == null) return null;
     return level.getBlockEntity(inputContainerPos);
   }
 

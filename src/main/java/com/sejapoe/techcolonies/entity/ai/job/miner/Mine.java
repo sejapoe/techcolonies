@@ -6,10 +6,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 
 public class Mine {
-  private BlockPos startPos;
-  private Direction direction;
-  private int miningLevel;
-  private int miningRadius;
+  private final BlockPos startPos;
+  private final Direction direction;
+  private final int miningLevel;
+  private final int miningRadius;
 
   public Mine(BlockPos startPos, Direction direction) {
     this(startPos, direction, 30, 32);

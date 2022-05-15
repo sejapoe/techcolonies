@@ -25,6 +25,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class StrangeWandItem extends Item {
   private DwarfEntity configurableDwarf;
   public StrangeWandItem(Properties properties) {
@@ -42,12 +44,12 @@ public class StrangeWandItem extends Item {
       if (blockEntity instanceof AbstractStructureControllerBlockEntity) {
         if (this.configurableDwarf != null) {
           this.configurableDwarf.setControllerPos(pos);
-          useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.job.set_controller"), Util.NIL_UUID);
+          Objects.requireNonNull(useOnContext.getPlayer()).sendMessage(new TranslatableComponent("dwarf.job.set_controller"), Util.NIL_UUID);
           return InteractionResult.SUCCESS;
         }
       }
       if (blockEntity instanceof AbstractInterfaceBlockEntity) {
-        if (useOnContext.getPlayer().isCrouching()) {
+        if (Objects.requireNonNull(useOnContext.getPlayer()).isCrouching()) {
           if (blockEntity instanceof ItemInterfaceBlockEntity) {
             TechColonies.LOGGER.debug(((ItemInterfaceBlockEntity) blockEntity).getItems().toString());
           }
@@ -64,7 +66,7 @@ public class StrangeWandItem extends Item {
       }
       if (blockEntity instanceof Container && this.configurableDwarf != null) {
         this.configurableDwarf.setInputContainerPos(pos);
-        useOnContext.getPlayer().sendMessage(new TranslatableComponent("dwarf.job.set_input"), Util.NIL_UUID);
+        Objects.requireNonNull(useOnContext.getPlayer()).sendMessage(new TranslatableComponent("dwarf.job.set_input"), Util.NIL_UUID);
         return InteractionResult.SUCCESS;
       }
     }

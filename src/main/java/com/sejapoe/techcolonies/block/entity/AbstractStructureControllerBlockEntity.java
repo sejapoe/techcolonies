@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -65,7 +66,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
 
   public void updateInterfaces() {
     for (BlockPos pos : this.getInterfaces()) {
-      BlockEntity interfaceEntity = level.getBlockEntity(pos);
+      BlockEntity interfaceEntity = Objects.requireNonNull(level).getBlockEntity(pos);
       if (interfaceEntity instanceof AbstractStructureElementBlockEntity) {
         ((AbstractStructureElementBlockEntity) interfaceEntity).updateStatus(isComplete(), getStructureLevel());
       }
@@ -81,7 +82,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
   }
 
   public List<AbstractInterfaceBlockEntity> getSerializedInterfaces() {
-    return interfaces.stream().map(blockPos -> (AbstractInterfaceBlockEntity) level.getBlockEntity(blockPos)).collect(Collectors.toList());
+    return interfaces.stream().map(blockPos -> (AbstractInterfaceBlockEntity) Objects.requireNonNull(level).getBlockEntity(blockPos)).collect(Collectors.toList());
   }
 
   public List<FluidInterfaceBlockEntity> getFluidInterfaces() {
@@ -130,7 +131,7 @@ public abstract class AbstractStructureControllerBlockEntity<T extends Structure
 
   public List<T> getAllRecipes() {
     List<T> recipes = new ArrayList<>();
-    level.getRecipeManager().getRecipes().forEach(recipe -> {
+    Objects.requireNonNull(level).getRecipeManager().getRecipes().forEach(recipe -> {
       if (recipe instanceof StructureRecipe && recipe.getType().equals(getRecipeType())) {
         recipes.add((T) recipe);
       }

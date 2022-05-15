@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public abstract class AbstractStructureElementBlockEntity extends BlockEntity {
   private boolean isComplete;
   private int structureLevel;
@@ -34,11 +36,11 @@ public abstract class AbstractStructureElementBlockEntity extends BlockEntity {
   }
 
   public void updateStatus(boolean isComplete, int structureLevel) {
-    BlockState state = level.getBlockState(getBlockPos());
+    BlockState state = Objects.requireNonNull(level).getBlockState(getBlockPos());
     if (this.isComplete != isComplete || this.structureLevel != structureLevel) {
       this.setComplete(isComplete);
       this.setStructureLevel(isComplete ? structureLevel : 0);
-      state = state.setValue(ModProperties.PLATING_MATERIAL, PlatingMaterial.valueOf(this.structureLevel));
+      state = state.setValue(ModProperties.PLATING_MATERIAL, Objects.requireNonNull(PlatingMaterial.valueOf(this.structureLevel)));
       level.setBlockAndUpdate(getBlockPos(), state);
       setChanged(level, getBlockPos(), state);
     }
