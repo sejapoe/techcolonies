@@ -1,7 +1,9 @@
 package com.sejapoe.techcolonies.item;
 
+import com.sejapoe.techcolonies.client.gui.screen.MineMapScreen;
 import com.sejapoe.techcolonies.entity.ai.job.miner.Mine;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -45,14 +47,20 @@ public class MineMapItem extends Item {
 
   @Override
   public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level pLevel, @NotNull Player pPlayer, @NotNull InteractionHand pUsedHand) {
-    Mine mine = Mine.loadFromNBT(pPlayer.getItemInHand(pUsedHand).getOrCreateTag());
+    ItemStack itemInHand = pPlayer.getItemInHand(pUsedHand);
+    Mine mine = Mine.loadFromNBT(itemInHand.getOrCreateTag().getCompound("Mine"));
     if (mine == null) {
       if (!pLevel.isClientSide) {
         pPlayer.sendMessage(new TranslatableComponent("map.techcolonies.not_found"), Util.NIL_UUID);
       }
       return super.use(pLevel, pPlayer, pUsedHand);
     }
-    // Open GUI;
-    return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
+    if (pLevel.isClientSide) {
+      Minecraft.getInstance().setScreen(new MineMapScreen(pLevel, pPlayer, itemInHand));
+    }
+
+    return InteractionResultHolder.success(itemInHand);
   }
+
+
 }

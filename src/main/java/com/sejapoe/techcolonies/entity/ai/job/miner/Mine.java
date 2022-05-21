@@ -8,8 +8,8 @@ import net.minecraft.nbt.NbtUtils;
 public class Mine {
   private final BlockPos startPos;
   private final Direction direction;
-  private final int miningLevel;
-  private final int miningRadius;
+  private int miningLevel;
+  private int miningRadius;
 
   public Mine(BlockPos startPos, Direction direction) {
     this(startPos, direction, 30, 32);
@@ -37,5 +37,29 @@ public class Mine {
             Direction.from2DDataValue(compoundTag.getInt("Direction")),
             compoundTag.getInt("MiningLevel"),
             compoundTag.getInt("MiningRadius"));
+  }
+
+  public BlockPos getStartPos() {
+    return startPos;
+  }
+
+  public Direction getDirection() {
+    return direction;
+  }
+
+  public int getMiningLevel() {
+    return miningLevel;
+  }
+
+  public void setMiningLevel(int miningLevel) {
+    this.miningLevel = miningLevel;
+  }
+
+  public int getMiningRadius() {
+    return miningRadius;
+  }
+
+  public void setMiningRadius(int miningRadius) {
+    this.miningRadius = miningRadius;
   }
 }
