@@ -3,6 +3,7 @@ package com.sejapoe.techcolonies.entity;
 import com.sejapoe.techcolonies.block.entity.SmelteryBlockEntity;
 import com.sejapoe.techcolonies.entity.ai.job.DwarfJobTypes;
 import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
+import com.sejapoe.techcolonies.entity.ai.job.base.IJob;
 import com.sejapoe.techcolonies.registry.ModCapabilities;
 import com.sejapoe.techcolonies.registry.ModItems;
 import com.sejapoe.techcolonies.core.SavableContainer;
@@ -42,7 +43,8 @@ import java.util.Objects;
 
 public class DwarfEntity extends PathfinderMob  {
   private static final EntityDataAccessor<CompoundTag> DATA_FACE = SynchedEntityData.defineId(DwarfEntity.class, EntityDataSerializers.COMPOUND_TAG);
-  private IDwarfJobType job;
+  private IDwarfJobType jobType;
+  private IJob job;
   private String dwarfName; // TODO: Move to dwarf fundamentals
   private BlockPos controllerPos;
   private BlockPos inputContainerPos;
@@ -118,7 +120,7 @@ public class DwarfEntity extends PathfinderMob  {
     this.dwarfName = compoundTag.getString("Name");
     String jobKey = compoundTag.getString("Job");
     if (!jobKey.equals("")) {
-      this.setJob(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
+      this.setJobType(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
     }
     this.setHasToolBelt(compoundTag.getBoolean("HasToolBelt"));
   }
@@ -135,16 +137,16 @@ public class DwarfEntity extends PathfinderMob  {
     }
     inv.saveAllItems(compoundTag);
     compoundTag.putString("Name", this.dwarfName);
-    if (this.job != null) {
-      compoundTag.putString("Job", this.job.getName());
+    if (this.jobType != null) {
+      compoundTag.putString("Job", this.jobType.getName());
     }
     compoundTag.putBoolean("HasToolBelt", this.hasToolBelt());
   }
 
   public Component getBakedName() {
     TextComponent textComponent = new TextComponent(this.getDwarfName());
-    if (this.getJob() != null) {
-      textComponent.append(" ").append(this.getJob().getTranslatableName());
+    if (this.getJobType() != null) {
+      textComponent.append(" ").append(this.getJobType().getTranslatableName());
     }
     return textComponent;
   }
@@ -166,13 +168,13 @@ public class DwarfEntity extends PathfinderMob  {
   }
 
   private void updateGoals() {
-    if (this.job == null) {
+    if (this.jobType == null) {
       for (Goal goal : goalList) {
         this.goalSelector.removeGoal(goal);
       }
       return;
     }
-    Goal goal = this.job.createGoal(this);
+    Goal goal = this.jobType.createGoal(this);
     this.addGoal(1, goal);
   }
   private void addGoal(int priority, Goal goal) {
@@ -182,14 +184,14 @@ public class DwarfEntity extends PathfinderMob  {
   public void setControllerPos(BlockPos controllerPos) {
     this.controllerPos = controllerPos;
     if (controllerPos == null) {
-      this.setJob(null);
+      this.setJobType(null);
       return;
     }
     BlockEntity blockEntity = level.getBlockEntity(controllerPos);
     if (blockEntity instanceof SmelteryBlockEntity) { // TODO: move this to BE
-      this.setJob(DwarfJobTypes.MELTER);
+      this.setJobType(DwarfJobTypes.MELTER);
     } else {
-      this.setJob(null);
+      this.setJobType(null);
     }
   }
 
@@ -234,12 +236,13 @@ public class DwarfEntity extends PathfinderMob  {
     this.updateCustomName();
   }
 
-  public IDwarfJobType getJob() {
-    return job;
+  public IDwarfJobType getJobType() {
+    return jobType;
   }
 
-  public void setJob(IDwarfJobType job) {
-    this.job = job;
+  public void setJobType(@Nullable IDwarfJobType jobType) {
+    this.jobType = jobType;
+    this.job = jobType != null ? jobType.createJob(this) : null;
     this.updateCustomName();
     this.updateGoals();
   }
@@ -250,6 +253,13 @@ public class DwarfEntity extends PathfinderMob  {
 
   public void setHasToolBelt(boolean hasToolBelt) {
     this.hasToolBelt = hasToolBelt;
-    this.setJob(hasToolBelt ? DwarfJobTypes.MINER : null);
+    this.setJobType(hasToolBelt ? DwarfJobTypes.MINER : null);
+  }
+
+  public IJob getOrCreateJob() {
+    if (job == null) {
+      this.job = this.jobType.createJob(this);
+    }
+    return job;
   }
 }

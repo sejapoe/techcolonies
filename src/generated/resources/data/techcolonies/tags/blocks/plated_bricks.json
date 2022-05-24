@@ -2,7 +2,7 @@
   "replace": false,
   "values": [
     "techcolonies:none_plated_bricks",
-    "techcolonies:copper_plated_bricks",
-    "techcolonies:diamond_plated_bricks"
+    "techcolonies:diamond_plated_bricks",
+    "techcolonies:copper_plated_bricks"
   ]
 }

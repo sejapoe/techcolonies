@@ -16,4 +16,6 @@ public interface IDwarfJobType {
   }
 
   AbstractAI<? extends IJob> createGoal(DwarfEntity worker);
+
+  IJob createJob(DwarfEntity worker);
 }

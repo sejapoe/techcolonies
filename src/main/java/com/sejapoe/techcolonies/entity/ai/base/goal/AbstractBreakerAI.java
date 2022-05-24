@@ -24,13 +24,13 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
     super.tick();
   }
 
-  protected void breakBlock(BlockPos pos) { // Check efficient tool
+  protected boolean breakBlock(BlockPos pos) { // Check efficient tool
     BlockState blockState = level.getBlockState(pos);
     Block block = blockState.getBlock();
 
     //// Unbreakable
     if (block.equals(Blocks.AIR) || block.equals(Blocks.BEDROCK) || block.defaultDestroyTime() < 0) {
-      return;
+      return true;
     }
 
     if (!isBreaking) {
@@ -49,9 +49,11 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
               SoundSource.BLOCKS,
               soundType.getVolume(),
               soundType.getPitch());
+      return false;
     } else {
       LevelHelper.removeBlock(level, pos);
       isBreaking = false;
+      return true;
     }
   }
 

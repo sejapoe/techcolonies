@@ -42,7 +42,6 @@ public class ModItemModelProvider extends ItemModelProvider {
     // Just Items
     oneLayerItem(ModItems.STRANGE_WAND.get());
     oneLayerItem(ModItems.TOOL_BELT.get());
-    oneLayerItem(ModItems.MINE_MAP.get());
   }
 
   protected void platedSimpleBlockItems(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -73,7 +72,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     if (existingFileHelper.exists(itemTexture, PackType.CLIENT_RESOURCES, ".png", "textures")) {
       getBuilder(Objects.requireNonNull(item.getRegistryName()).getPath()).parent(getExistingFile(mcLoc("item/generated"))).texture("layer0", itemTexture);
     } else {
-      TechColonies.LOGGER.error("Texture for " + Objects.requireNonNull(item.getRegistryName()).toString() + " not present at " + itemTexture);
+      TechColonies.LOGGER.error("Texture for " + Objects.requireNonNull(item.getRegistryName()) + " not present at " + itemTexture);
     }
   }
 
