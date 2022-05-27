@@ -16,71 +16,60 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.FluidStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<SmelteryRecipe> {
-  private boolean isLit;
+public class SmelteryBlockEntity extends AbstractProcessingStructureControllerBlockEntity<SmelteryRecipe> {
   public SmelteryBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.SMELTERY_BE.get(), blockPos, state);
   }
-  public static void tick(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
-    if (level.isClientSide()) return;
-    blockEntity.isLit = blockState.getValue(SmelteryBlock.LIT);
-    updateStructureStatus(level, blockPos, blockState, blockEntity);
-    blockState = level.getBlockState(blockPos);
-    process(level, blockPos, blockState, blockEntity);
-    if (blockEntity.isLit != blockState.getValue(SmelteryBlock.LIT)) {
-      level.setBlockAndUpdate(blockPos, blockState.setValue(SmelteryBlock.LIT, blockEntity.isLit));
-    }
-  }
-
-  private static void process(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
+  protected void process(Level level, BlockPos blockPos, BlockState blockState) {
     boolean isChanged = false;
 
-    if (!blockEntity.isComplete()) {
+    if (!this.isComplete()) {
       // Pause, NOT RESET, recipe if structure incomplete;
-      blockEntity.isLit = false;
+      this.setLit(false);
       return;
     }
 
-    if (blockEntity.getActiveRecipe() != null) {
-      if (blockEntity.getStructureLevel() < blockEntity.getActiveRecipe().getRequiredStructureLevel()) {
+    if (this.getActiveRecipe() != null) {
+      if (this.getStructureLevel() < this.getActiveRecipe().getRequiredStructureLevel()) {
         // Reset recipe if structure level not enough;
-        blockEntity.setProcessingTime(0);
-        blockEntity.setActiveRecipe(null);
-        blockEntity.isLit = false;
+        this.setProcessingTime(0);
+        this.setActiveRecipe(null);
+        this.setLit(false);
         isChanged = true;
       } else {
-        blockEntity.setProcessingTime(blockEntity.getProcessingTime() + 1);
-        blockEntity.isLit = true;
-        if (blockEntity.getProcessingTime() >= blockEntity.getActiveRecipe().getProcessingDuration()) {
+        this.setProcessingTime(this.getProcessingTime() + 1);
+        this.setLit(true);
+        if (this.getProcessingTime() >= this.getActiveRecipe().getProcessingDuration()) {
           // Complete recipe;
-          StructureInterfaceHelper.injectRecipeFluidResult(blockEntity.getActiveRecipe(), blockEntity.getFluidOutputInterfaces());
-          blockEntity.setProcessingTime(0);
-          blockEntity.setActiveRecipe(null);
-          blockEntity.isLit = false;
+          StructureInterfaceHelper.injectRecipeFluidResult(this.getActiveRecipe(), this.getFluidOutputInterfaces());
+          this.setProcessingTime(0);
+          this.setActiveRecipe(null);
+          this.setLit(false);
           isChanged = true;
         }
       }
     }
 
-    if (blockEntity.getActiveRecipe() == null) {
-      List<ItemStack> input = blockEntity.getSummaryItemInput();
+    if (this.getActiveRecipe() == null) {
+      List<ItemStack> input = this.getSummaryItemInput();
       List<FluidStack> fluidInput = new ArrayList<>();
-      List<SmelteryRecipe> recipes = blockEntity.getAllRecipes();
+      List<SmelteryRecipe> recipes = this.getAllRecipes();
       SmelteryRecipe recipe = recipes.stream().filter(smelteryRecipe -> smelteryRecipe.matches(input, fluidInput)).findFirst().orElse(null);
-      if (recipe != null && StructureInterfaceHelper.hasSpaceForFluidResult(recipe, blockEntity.getFluidOutputInterfaces())) {
+      if (recipe != null && StructureInterfaceHelper.hasSpaceForFluidResult(recipe, this.getFluidOutputInterfaces())) {
         // Start process recipe;
-        blockEntity.setActiveRecipe(recipe);
-        StructureInterfaceHelper.extractRecipeIngredients(recipe, blockEntity.getItemInputInterfaces());
-        blockEntity.setProcessingTime(0);
+        this.setActiveRecipe(recipe);
+        StructureInterfaceHelper.extractRecipeIngredients(recipe, this.getItemInputInterfaces());
+        this.setProcessingTime(0);
         isChanged = true;
       } else {
         // Confirm that isLit false, if no recipe;
-        blockEntity.isLit = false;
+        this.setLit(false);
       }
     }
 
@@ -89,21 +78,9 @@ public class SmelteryBlockEntity extends AbstractStructureControllerBlockEntity<
     }
   }
 
-  private static void updateStructureStatus(Level level, BlockPos blockPos, BlockState blockState, SmelteryBlockEntity blockEntity) {
-    PlatedBlockPattern.BlockPatternMatch match = checkStructure(level, blockPos, blockState);
-    if (match != null) {
-      blockEntity.updateStatus(true, match.getLowestMaterial().getLevel());
-      blockEntity.setInterfaces(match.getInterfaces());
-      blockEntity.updateInterfaces();
-    } else {
-      blockEntity.updateStatus(false, 0);
-      blockEntity.updateInterfaces();
-      blockEntity.setInterfaces(new ArrayList<>());
-    }
-  }
-
   @Nullable
-  private static PlatedBlockPattern.BlockPatternMatch checkStructure(Level level, BlockPos pos, BlockState state) {
+  @Override
+  protected PlatedBlockPattern.BlockPatternMatch checkStructure(Level level, BlockPos pos, BlockState state) {
     Direction facing = state.getValue(HorizontalDirectionalBlock.FACING);
     BlockPos leftBotFront = pos.offset(facing.getClockWise().getNormal());
     return Structures.SMELTERY_PATTERN.matches(level, leftBotFront, facing);

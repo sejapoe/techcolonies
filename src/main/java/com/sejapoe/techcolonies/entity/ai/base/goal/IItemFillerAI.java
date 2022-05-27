@@ -1,5 +1,6 @@
 package com.sejapoe.techcolonies.entity.ai.base.goal;
 
+import com.sejapoe.techcolonies.block.entity.AbstractProcessingStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.AbstractStructureControllerBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.core.helper.EntityHelper;
@@ -86,12 +87,12 @@ public interface IItemFillerAI<T extends StructureRecipe<?>> {
     return canInsertToInterface() || canTakeFromInput();
   }
 
-  default AbstractStructureControllerBlockEntity<T> getController() {
+  default AbstractProcessingStructureControllerBlockEntity<T> getController() {
     BlockPos controllerPos = getWorker().getControllerPos();
     if (controllerPos == null) return null;
     BlockEntity blockEntity = getWorker().level.getBlockEntity(controllerPos);
     if (blockEntity instanceof AbstractStructureControllerBlockEntity) {
-      return (AbstractStructureControllerBlockEntity<T>) blockEntity;
+      return (AbstractProcessingStructureControllerBlockEntity<T>) blockEntity;
     }
     return null;
   }
