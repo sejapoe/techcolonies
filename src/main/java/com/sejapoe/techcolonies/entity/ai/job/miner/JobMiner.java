@@ -1,7 +1,6 @@
 package com.sejapoe.techcolonies.entity.ai.job.miner;
 
 import com.sejapoe.techcolonies.entity.DwarfEntity;
-import com.sejapoe.techcolonies.entity.ai.job.base.IDwarfJobType;
 import com.sejapoe.techcolonies.entity.ai.job.base.IJob;
 
 public class JobMiner implements IJob {

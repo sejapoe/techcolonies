@@ -7,10 +7,13 @@ import com.sejapoe.techcolonies.block.entity.FluidInterfaceBlockEntity;
 import com.sejapoe.techcolonies.block.entity.ItemInterfaceBlockEntity;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
+import com.sejapoe.techcolonies.entity.ai.job.miner.VirtualMine;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Container;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,8 +26,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Objects;
 
 public class StrangeWandItem extends Item {
@@ -68,6 +75,20 @@ public class StrangeWandItem extends Item {
         this.configurableDwarf.setInputContainerPos(pos);
         Objects.requireNonNull(useOnContext.getPlayer()).sendMessage(new TranslatableComponent("dwarf.job.set_input"), Util.NIL_UUID);
         return InteractionResult.SUCCESS;
+      }
+    } else {
+      if (!level.isClientSide) {
+        VirtualMine virtualMine = new VirtualMine((ServerLevel) level, 1, 30, 50);
+        virtualMine.addListener(virtualMine1 -> {
+          ItemStack tool = Objects.requireNonNull(useOnContext.getPlayer()).getItemInHand(InteractionHand.OFF_HAND);
+          long ticks = virtualMine1.getMiningTime(tool);
+          TechColonies.LOGGER.debug("Need " + ticks + " ticks to break this all");
+          List<ItemStack> itemStackList = virtualMine1.calculateResult((ServerLevel) level, tool);
+          IItemHandler capability = Objects.requireNonNull(useOnContext.getPlayer()).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).orElse(null);
+          for (ItemStack itemStack : itemStackList) {
+            ItemHandlerHelper.insertItemStacked(capability, itemStack, false);
+          }
+        });
       }
     }
     return InteractionResult.PASS;

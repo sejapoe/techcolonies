@@ -1,10 +1,13 @@
 package com.sejapoe.techcolonies.entity.ai.base.goal;
 
+import com.sejapoe.techcolonies.core.helper.BlockHelper;
 import com.sejapoe.techcolonies.core.helper.LevelHelper;
 import com.sejapoe.techcolonies.entity.ai.job.base.IJob;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
@@ -58,10 +61,7 @@ public abstract class AbstractBreakerAI<T extends IJob> extends AbstractAI<T> {
   }
 
   private int getBreakingTime(BlockState state, BlockPos pos) {
-//    if (worker.getMainHandItem()) return (int) (state.getDestroySpeed(level, pos));
-    return (int) (
-            28.6D * (double) state.getDestroySpeed(level, pos) / (double) worker.getMainHandItem().getItem().getDestroySpeed(worker.getMainHandItem(), state)
-    ); // Perk reduction?
+    return BlockHelper.getBreakingTimeForTool(level, state, this.worker.getMainHandItem());
   }
 /*
 destroy - 1.5
