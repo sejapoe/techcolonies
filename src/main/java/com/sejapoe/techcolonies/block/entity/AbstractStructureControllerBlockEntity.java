@@ -1,25 +1,11 @@
 package com.sejapoe.techcolonies.block.entity;
 
 import com.sejapoe.techcolonies.core.structures.PlatedBlockPattern;
-import com.sejapoe.techcolonies.recipe.StructureRecipe;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public abstract class AbstractStructureControllerBlockEntity extends AbstractStructureElementBlockEntity{
 
@@ -41,4 +27,9 @@ public abstract class AbstractStructureControllerBlockEntity extends AbstractStr
   }
 
   protected abstract PlatedBlockPattern.BlockPatternMatch checkStructure(Level level, BlockPos pos, BlockState state);
+
+  public static void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState, AbstractStructureControllerBlockEntity blockEntity) {
+    if (level.isClientSide()) return;
+    blockEntity.updateStructureStatus(level, blockPos, blockState);
+  }
 }

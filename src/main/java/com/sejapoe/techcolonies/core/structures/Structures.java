@@ -22,4 +22,18 @@ public class Structures {
           .where('A', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
           .where('W',blockInWorld -> blockInWorld.getState().is(ModBlockTags.PLATED_BRICK_WALLS))
           .build());
+
+  public static final PlatedBlockPattern PORTAL_PATTERN = new PlatedBlockPattern(BlockPatternBuilder.start()
+          .aisle("AABAA", "AAWAA", "AAWAA", "AAWAA", "**B**")
+          .aisle("AAWAA", "AAPAA", "AAPAA", "AAPAA", "**B**")
+          .aisle("BWWWB", "WPPPW", "WPPPW", "WPPPW", "BBCBB")
+          .aisle("AAWAA", "AAPAA", "AAPAA", "AAPAA", "**B**")
+          .aisle("AABAA", "AAWAA", "AAWAA", "AAWAA", "**B**")
+          .where('B', blockInWorld -> blockInWorld.getState().is(ModBlockTags.PLATED_BRICKS))
+          .where('W', blockInWorld -> blockInWorld.getState().is(ModBlockTags.PLATED_BRICK_WALLS))
+          .where('*', blockInWorld -> true)
+          .where('P', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+          .where('A', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
+          .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.PORTAL_BLOCK.get())))
+          .build());
 }

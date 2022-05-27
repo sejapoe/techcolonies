@@ -44,6 +44,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
             modLoc("block/interface"),
             modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_input"),
             modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_output"));
+    topMechanismPlatedBlock(ModBlocks.PORTAL_BLOCK.get(),
+            modLoc("block/portal_controller"));
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -109,5 +111,24 @@ public class ModBlockStateProvider extends BlockStateProvider {
       Pair<ModelBuilder, ModelBuilder> models = map.get(material);
       return state.getValue(BlockStateProperties.LIT) ? models.getRight() : models.getLeft();
     });
+  }
+
+  protected void topMechanismPlatedBlock(Block block, ResourceLocation top) {
+    Map<PlatingMaterial, ModelBuilder> map = new HashMap<>();
+    for (PlatingMaterial material : PlatingMaterial.values()) {
+      ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
+      ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
+              .parent(models().getExistingFile(mcLoc("block/block")))
+              .texture("side", side)
+              .texture("top", top)
+              .texture("particle", "#side");
+      model.element().textureAll("#side");
+      model.element().face(Direction.UP).texture("#top").tintindex(0);
+
+      map.put(material, model);
+    }
+    getVariantBuilder(block).forAllStates(blockState -> ConfiguredModel.builder()
+            .modelFile(map.get(blockState.getValue(ModProperties.PLATING_MATERIAL)))
+            .build());
   }
 }

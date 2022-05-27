@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "plating_material=none": {
+      "model": "techcolonies:block/none_portal_controller"
+    },
+    "plating_material=copper": {
+      "model": "techcolonies:block/copper_portal_controller"
+    },
+    "plating_material=diamond": {
+      "model": "techcolonies:block/diamond_portal_controller"
+    }
+  }
+}

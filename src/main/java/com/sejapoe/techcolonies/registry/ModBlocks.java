@@ -24,7 +24,8 @@ public final class ModBlocks {
   public static final RegistryObject<Block>
         SMELTERY_BLOCK = BLOCK_REGISTER.register("smeltery", () -> new SmelteryBlock(BlockBehaviour.Properties.copy(PLATED_BRICKS_BLOCKS.get(PlatingMaterial.COPPER).get()))),
         ITEM_INTERFACE_BLOCK = BLOCK_REGISTER.register("item_interface", () -> new ItemInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS))),
-        FLUID_INTERFACE_BLOCK = BLOCK_REGISTER.register("fluid_interface", () -> new FluidInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
+        FLUID_INTERFACE_BLOCK = BLOCK_REGISTER.register("fluid_interface", () -> new FluidInterfaceBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS))),
+        PORTAL_BLOCK = BLOCK_REGISTER.register("portal_controller", () -> new PortalBlock(BlockBehaviour.Properties.copy(Blocks.STONE_BRICKS)));
 
   public static void register(IEventBus bus) {
     TechColonies.LOGGER.debug("HELLO FROM BLOCK REGISTER");
