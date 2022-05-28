@@ -44,7 +44,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
             modLoc("block/interface"),
             modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_input"),
             modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_output"));
-    topMechanismPlatedBlock(ModBlocks.PORTAL_BLOCK.get(),
+    topMechanismPlatedBlock(ModBlocks.PORTAL_CONTROLLER_BLOCK.get(),
             modLoc("block/portal_controller"));
   }
 

@@ -34,6 +34,6 @@ public class Structures {
           .where('*', blockInWorld -> true)
           .where('P', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
           .where('A', BlockInWorld.hasState(BlockMaterialPredicate.forMaterial(Material.AIR)))
-          .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.PORTAL_BLOCK.get())))
+          .where('C', BlockInWorld.hasState(BlockStatePredicate.forBlock(ModBlocks.PORTAL_CONTROLLER_BLOCK.get())))
           .build());
 }

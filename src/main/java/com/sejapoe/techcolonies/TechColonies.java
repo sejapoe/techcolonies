@@ -79,7 +79,7 @@ public class TechColonies {
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.SMELTERY_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.ITEM_INTERFACE_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_INTERFACE_BLOCK.get(), RenderType.cutout());
-    ItemBlockRenderTypes.setRenderLayer(ModBlocks.PORTAL_BLOCK.get(), RenderType.cutout());
+    ItemBlockRenderTypes.setRenderLayer(ModBlocks.PORTAL_CONTROLLER_BLOCK.get(), RenderType.cutout());
     for (FluidDeferredRegister.FluidRegistryObject fluidRegistryObject : ModFluids.FLUID_REGISTER.getEntries()) {
       ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getBlock(), RenderType.translucent());
       ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getStillFluid(), RenderType.translucent());
