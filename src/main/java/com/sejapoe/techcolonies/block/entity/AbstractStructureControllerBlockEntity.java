@@ -31,5 +31,8 @@ public abstract class AbstractStructureControllerBlockEntity extends AbstractStr
   public static void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState, AbstractStructureControllerBlockEntity blockEntity) {
     if (level.isClientSide()) return;
     blockEntity.updateStructureStatus(level, blockPos, blockState);
+    blockEntity.tick(level, blockPos, blockState);
   }
+
+  public abstract void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState);
 }

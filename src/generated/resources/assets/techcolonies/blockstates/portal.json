@@ -1,13 +1,20 @@
 {
-  "variants": {
-    "axis=x": {
-      "model": "techcolonies:block/portal_ns"
+  "multipart": [
+    {
+      "when": {
+        "axis": "x|y"
+      },
+      "apply": {
+        "model": "techcolonies:block/portal_ns"
+      }
     },
-    "axis=y": {
-      "model": "techcolonies:block/portal_ew"
-    },
-    "axis=z": {
-      "model": "techcolonies:block/portal_ew"
+    {
+      "when": {
+        "axis": "z|y"
+      },
+      "apply": {
+        "model": "techcolonies:block/portal_ew"
+      }
     }
-  }
+  ]
 }

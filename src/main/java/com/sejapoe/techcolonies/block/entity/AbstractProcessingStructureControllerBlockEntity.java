@@ -169,6 +169,7 @@ public abstract class AbstractProcessingStructureControllerBlockEntity<T extends
     if (blockEntity.isLit != blockState.getValue(SmelteryBlock.LIT)) {
       level.setBlockAndUpdate(blockPos, blockState.setValue(SmelteryBlock.LIT, blockEntity.isLit));
     }
+    blockEntity.tick(level, blockPos, blockState);
   }
 
   @Override

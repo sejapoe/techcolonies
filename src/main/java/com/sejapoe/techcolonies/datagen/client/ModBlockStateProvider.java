@@ -13,10 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.client.model.generators.BlockModelBuilder;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelBuilder;
+import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.RegistryObject;
 import org.apache.commons.lang3.tuple.Pair;
@@ -163,16 +160,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
             .face(Direction.WEST)
             .uvs(0,0,16,16)
             .texture("#portal");
-    getVariantBuilder(block).forAllStates(blockState -> switch (blockState.getValue(PortalBlock.AXIS)) {
-      case X -> ConfiguredModel.builder()
-              .modelFile(model1)
-              .build();
-      case Z -> ConfiguredModel.builder()
-              .modelFile(model2)
-              .build();
-      case Y -> ConfiguredModel.builder()
-              .modelFile(model2)
-              .build();
-    });
+    getMultipartBuilder(block)
+            .part().modelFile(model1).addModel().condition(PortalBlock.AXIS, Direction.Axis.X, Direction.Axis.Y).end()
+            .part().modelFile(model2).addModel().condition(PortalBlock.AXIS, Direction.Axis.Z, Direction.Axis.Y).end();
   }
 }

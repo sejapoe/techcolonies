@@ -87,6 +87,11 @@ public class SmelteryBlockEntity extends AbstractProcessingStructureControllerBl
   }
 
   @Override
+  public void tick(@NotNull Level level, BlockPos blockPos, BlockState blockState) {
+
+  }
+
+  @Override
   protected RecipeType<? extends StructureRecipe> getRecipeType() {
     return ModRecipeTypes.SMELTING.getType();
   }

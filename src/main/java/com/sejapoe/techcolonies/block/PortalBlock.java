@@ -36,13 +36,13 @@ public class PortalBlock extends Block {
     this.registerDefaultState(this.stateDefinition.any().setValue(AXIS, Direction.Axis.X));
   }
 
-  @Override
-  public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
-    Direction.Axis direction$axis = pFacing.getAxis();
-    Direction.Axis direction$axis1 = pState.getValue(AXIS);
-    boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
-    return !flag && !pFacingState.is(this) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
-  }
+//  @Override
+//  public @NotNull BlockState updateShape(BlockState pState, Direction pFacing, @NotNull BlockState pFacingState, @NotNull LevelAccessor pLevel, @NotNull BlockPos pCurrentPos, @NotNull BlockPos pFacingPos) {
+//    Direction.Axis direction$axis = pFacing.getAxis();
+//    Direction.Axis direction$axis1 = pState.getValue(AXIS);
+//    boolean flag = direction$axis1 != direction$axis && direction$axis.isHorizontal();
+//    return !flag && !pFacingState.is(this) ? Blocks.AIR.defaultBlockState() : super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);
+//  }
 
   public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
     switch(pState.getValue(AXIS)) {
