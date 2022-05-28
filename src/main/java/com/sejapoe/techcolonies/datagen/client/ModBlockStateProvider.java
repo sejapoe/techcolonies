@@ -1,6 +1,7 @@
 package com.sejapoe.techcolonies.datagen.client;
 
 import com.sejapoe.techcolonies.TechColonies;
+import com.sejapoe.techcolonies.block.PortalBlock;
 import com.sejapoe.techcolonies.registry.ModBlocks;
 import com.sejapoe.techcolonies.core.properties.InterfaceDirection;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.WallBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelBuilder;
@@ -46,6 +48,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
             modLoc("block/" + Objects.requireNonNull(ModBlocks.FLUID_INTERFACE_BLOCK.get().getRegistryName()).getPath() + "_output"));
     topMechanismPlatedBlock(ModBlocks.PORTAL_CONTROLLER_BLOCK.get(),
             modLoc("block/portal_controller"));
+    simplePortal(ModBlocks.PORTAL_BLOCK.get());
   }
 
   protected void platedSimpleBlocks(Map<PlatingMaterial, RegistryObject<Block>> blocks) {
@@ -62,11 +65,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
   }
 
   protected void cubeAllInterfacePlatedBlock(Block block, ResourceLocation baseOverlay, ResourceLocation inputOverlay, ResourceLocation outputOverlay) {
-    Map<PlatingMaterial, Function<BlockState, ModelBuilder>> map = new HashMap<>();
+    Map<PlatingMaterial, Function<BlockState, ModelBuilder<BlockModelBuilder>>> map = new HashMap<>();
     for (PlatingMaterial material : PlatingMaterial.values()) {
-      Function<BlockState, ModelBuilder> modelFunc = state -> {
+      Function<BlockState, ModelBuilder<BlockModelBuilder>> modelFunc = state -> {
         ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
-        ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath() + "_" + state.getValue(ModProperties.INTERFACE_DIRECTION).getSerializedName())
+        ModelBuilder<BlockModelBuilder> model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath() + "_" + state.getValue(ModProperties.INTERFACE_DIRECTION).getSerializedName())
                 .parent(models().getExistingFile(mcLoc("block/block")))
                 .texture("side", side)
                 .texture("baseOverlay", baseOverlay)
@@ -85,10 +88,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
   }
 
   protected void horizontalMechanismPlatedBlock(Block block, ResourceLocation front, ResourceLocation frontOn) {
-    Map<PlatingMaterial, Pair<ModelBuilder, ModelBuilder>> map = new HashMap<>();
+    Map<PlatingMaterial, Pair<ModelBuilder<BlockModelBuilder>, ModelBuilder<BlockModelBuilder>>> map = new HashMap<>();
     for (PlatingMaterial material : PlatingMaterial.values()) {
       ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
-      ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
+      ModelBuilder<BlockModelBuilder> model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
               .parent(models().getExistingFile(mcLoc("block/block")))
               .texture("side", side)
               .texture("front", front)
@@ -96,7 +99,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
       model.element().textureAll("#side");
       model.element().face(Direction.NORTH).texture("#front").tintindex(0);
 
-      ModelBuilder modelOn = models().getBuilder(material.getSerializedName()+ "_" + block.getRegistryName().getPath() + "_lit")
+      ModelBuilder<BlockModelBuilder> modelOn = models().getBuilder(material.getSerializedName()+ "_" + block.getRegistryName().getPath() + "_lit")
               .parent(models().getExistingFile(mcLoc("block/block")))
               .texture("side", side)
               .texture("front", frontOn)
@@ -108,16 +111,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
     horizontalBlock(block, state -> {
       PlatingMaterial material = state.getValue(ModProperties.PLATING_MATERIAL);
-      Pair<ModelBuilder, ModelBuilder> models = map.get(material);
+      Pair<ModelBuilder<BlockModelBuilder>, ModelBuilder<BlockModelBuilder>> models = map.get(material);
       return state.getValue(BlockStateProperties.LIT) ? models.getRight() : models.getLeft();
     });
   }
 
   protected void topMechanismPlatedBlock(Block block, ResourceLocation top) {
-    Map<PlatingMaterial, ModelBuilder> map = new HashMap<>();
+    Map<PlatingMaterial, ModelBuilder<BlockModelBuilder>> map = new HashMap<>();
     for (PlatingMaterial material : PlatingMaterial.values()) {
       ResourceLocation side = modLoc("block/" + ModBlocks.PLATED_BRICKS_BLOCKS.get(material).getId().getPath());
-      ModelBuilder model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
+      ModelBuilder<BlockModelBuilder> model = models().getBuilder(material.getSerializedName()+ "_" + Objects.requireNonNull(block.getRegistryName()).getPath())
               .parent(models().getExistingFile(mcLoc("block/block")))
               .texture("side", side)
               .texture("top", top)
@@ -130,5 +133,46 @@ public class ModBlockStateProvider extends BlockStateProvider {
     getVariantBuilder(block).forAllStates(blockState -> ConfiguredModel.builder()
             .modelFile(map.get(blockState.getValue(ModProperties.PLATING_MATERIAL)))
             .build());
+  }
+
+  private void simplePortal(Block block) {
+    ResourceLocation resourceLocation = blockTexture(block);
+    ModelBuilder<BlockModelBuilder> model1 = models().getBuilder(resourceLocation + "_ns")
+            .texture("portal", resourceLocation)
+            .texture("particle", "#portal");
+    model1.element()
+            .from(0,0,6)
+            .to(16,16,10)
+            .face(Direction.NORTH)
+            .uvs(0,0,16,16)
+            .texture("#portal")
+            .end()
+            .face(Direction.SOUTH)
+            .uvs(0,0,16,16)
+            .texture("#portal");
+    ModelBuilder<BlockModelBuilder> model2 = models().getBuilder(resourceLocation + "_ew")
+            .texture("portal", resourceLocation)
+            .texture("particle", "#portal");
+    model2.element()
+            .from(6,0,0)
+            .to(10,16,16)
+            .face(Direction.EAST)
+            .uvs(0,0,16,16)
+            .texture("#portal")
+            .end()
+            .face(Direction.WEST)
+            .uvs(0,0,16,16)
+            .texture("#portal");
+    getVariantBuilder(block).forAllStates(blockState -> switch (blockState.getValue(PortalBlock.AXIS)) {
+      case X -> ConfiguredModel.builder()
+              .modelFile(model1)
+              .build();
+      case Z -> ConfiguredModel.builder()
+              .modelFile(model2)
+              .build();
+      case Y -> ConfiguredModel.builder()
+              .modelFile(model2)
+              .build();
+    });
   }
 }

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "techcolonies:block/portal_ns"
+    },
+    "axis=y": {
+      "model": "techcolonies:block/portal_ew"
+    },
+    "axis=z": {
+      "model": "techcolonies:block/portal_ew"
+    }
+  }
+}

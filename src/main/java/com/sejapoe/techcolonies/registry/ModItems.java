@@ -21,10 +21,6 @@ public final class ModItems {
 
   public static void register(IEventBus bus) {
     TechColonies.LOGGER.debug("HELLO FROM ITEM REGISTER");
-
-    for (RegistryObject<Block> registryObject : ModBlocks.BLOCK_REGISTER.getEntries()) {
-      ITEM_REGISTER.register(registryObject.getId().getPath(), () -> new BlockItem(registryObject.get(), getBaseProperties()));
-    }
     ITEM_REGISTER.register(bus);
   }
   @NotNull

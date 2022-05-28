@@ -1,0 +1,28 @@
+{
+  "textures": {
+    "portal": "techcolonies:block/portal",
+    "particle": "#portal"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        6
+      ],
+      "to": [
+        16,
+        16,
+        10
+      ],
+      "faces": {
+        "north": {
+          "texture": "#portal"
+        },
+        "south": {
+          "texture": "#portal"
+        }
+      }
+    }
+  ]
+}
