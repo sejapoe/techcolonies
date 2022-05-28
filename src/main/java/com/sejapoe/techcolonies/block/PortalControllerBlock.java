@@ -1,6 +1,6 @@
 package com.sejapoe.techcolonies.block;
 
-import com.sejapoe.techcolonies.block.entity.PortalBlockEntity;
+import com.sejapoe.techcolonies.block.entity.PortalControllerBlockEntity;
 import com.sejapoe.techcolonies.core.properties.ModProperties;
 import com.sejapoe.techcolonies.registry.ModBlockEntities;
 import net.minecraft.core.BlockPos;
@@ -16,8 +16,8 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class PortalBlock extends BaseEntityBlock {
-  public PortalBlock(Properties properties) {
+public class PortalControllerBlock extends BaseEntityBlock {
+  public PortalControllerBlock(Properties properties) {
     super(properties);
   }
 
@@ -34,12 +34,12 @@ public class PortalBlock extends BaseEntityBlock {
   @Nullable
   @Override
   public BlockEntity newBlockEntity(@NotNull BlockPos pPos, @NotNull BlockState pState) {
-    return new PortalBlockEntity(pPos, pState);
+    return new PortalControllerBlockEntity(pPos, pState);
   }
 
   @Nullable
   @Override
   public <T extends BlockEntity> BlockEntityTicker<T> getTicker(@NotNull Level pLevel, @NotNull BlockState pState, @NotNull BlockEntityType<T> pBlockEntityType) {
-    return createTickerHelper(pBlockEntityType, ModBlockEntities.PORTAL_BE.get(), PortalBlockEntity::tick);
+    return createTickerHelper(pBlockEntityType, ModBlockEntities.PORTAL_BE.get(), PortalControllerBlockEntity::tick);
   }
 }

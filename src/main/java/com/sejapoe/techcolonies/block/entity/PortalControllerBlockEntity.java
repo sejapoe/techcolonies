@@ -8,8 +8,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class PortalBlockEntity extends AbstractStructureControllerBlockEntity {
-  public PortalBlockEntity(BlockPos blockPos, BlockState state) {
+public class PortalControllerBlockEntity extends AbstractStructureControllerBlockEntity {
+  public PortalControllerBlockEntity(BlockPos blockPos, BlockState state) {
     super(ModBlockEntities.PORTAL_BE.get(), blockPos, state);
   }
 
