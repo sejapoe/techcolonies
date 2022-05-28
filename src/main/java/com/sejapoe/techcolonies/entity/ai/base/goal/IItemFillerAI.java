@@ -22,7 +22,7 @@ import java.util.List;
 import static com.sejapoe.techcolonies.entity.ai.base.AIStates.FILL_INPUT;
 import static com.sejapoe.techcolonies.entity.ai.base.AIStates.IDLE;
 
-public interface IItemFillerAI<T extends StructureRecipe<?>> {
+public interface IItemFillerAI<T extends StructureRecipe> {
   default IAIState insertToInterface() {
     ItemInterfaceBlockEntity interfaceBlockEntity = chooseInterface();
     if (interfaceBlockEntity == null) return IDLE;

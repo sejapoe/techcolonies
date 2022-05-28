@@ -9,11 +9,14 @@ import com.sejapoe.techcolonies.core.properties.PlatingMaterial;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.loaders.DynamicBucketModelBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
@@ -81,7 +84,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     oneLayerItem(item, Objects.requireNonNull(item.getRegistryName()));
   }
 
-  protected void bucketItem(FluidDeferredRegister.FluidRegistryObject fluidRegistryObject) {
+  protected void bucketItem(FluidDeferredRegister.FluidRegistryObject<ForgeFlowingFluid.Source, ForgeFlowingFluid.Flowing, LiquidBlock, BucketItem> fluidRegistryObject) {
     withExistingParent(Objects.requireNonNull(fluidRegistryObject.getBucket().getRegistryName()).getPath(), new ResourceLocation("forge", "item/bucket_drip"))
             .customLoader(DynamicBucketModelBuilder::begin)
             .fluid(fluidRegistryObject.getStillFluid());

@@ -20,7 +20,8 @@ public class ModLootTableProvider extends BaseLootTableProvider{
     dropSelf(ModBlocks.SMELTERY_BLOCK.get());
   }
 
-  protected void groupDropSelf(Map<?, RegistryObject<Block>>... maps) {
+  @SafeVarargs
+  protected final void groupDropSelf(Map<?, RegistryObject<Block>>... maps) {
     for (Map<?, RegistryObject<Block>> map : maps) {
       for (RegistryObject<Block> registryObject : map.values()) {
         dropSelf(registryObject.get());

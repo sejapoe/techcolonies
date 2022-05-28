@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StructureRecipeSerializer<T extends StructureRecipe<?>> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
+public class StructureRecipeSerializer<T extends StructureRecipe> extends ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<T> {
   private final StructureRecipeFactory<T> factory;
 
   public StructureRecipeSerializer(StructureRecipeFactory<T> factory) {
@@ -99,7 +99,7 @@ public class StructureRecipeSerializer<T extends StructureRecipe<?>> extends For
     fluidIngredients.forEach(i -> i.write(buffer));
 
     buffer.writeVarInt(outputs.size());
-    outputs.forEach(o -> buffer.writeItem(o));
+    outputs.forEach(buffer::writeItem);
     buffer.writeVarInt(fluidOutputs.size());
     fluidOutputs.forEach(o -> o.writeToPacket(buffer));
 

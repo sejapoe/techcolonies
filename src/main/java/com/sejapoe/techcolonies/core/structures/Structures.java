@@ -1,14 +1,12 @@
 package com.sejapoe.techcolonies.core.structures;
 
 import com.sejapoe.techcolonies.block.AbstractInterfaceBlock;
-import com.sejapoe.techcolonies.block.PortalBlock;
 import com.sejapoe.techcolonies.registry.ModBlockTags;
 import com.sejapoe.techcolonies.registry.ModBlocks;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockMaterialPredicate;
-import net.minecraft.world.level.block.state.predicate.BlockPredicate;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
 import net.minecraft.world.level.material.Material;
 

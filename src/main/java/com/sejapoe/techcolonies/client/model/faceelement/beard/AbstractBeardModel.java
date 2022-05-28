@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class AbstractBeardModel<T extends DwarfEntity> extends Model {
+public abstract class AbstractBeardModel extends Model {
   public static ModelLayerLocation LAYER_LOCATION;
   protected final ModelPart main;
 
@@ -24,7 +24,7 @@ public abstract class AbstractBeardModel<T extends DwarfEntity> extends Model {
     return new ModelLayerLocation(new ResourceLocation(TechColonies.MOD_ID, "face/beard/" + name), "main");
   }
 
-  public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+  public void setupAnim(DwarfEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
     this.main.yRot = netHeadYaw * ((float)(Math.PI / 180f));
     this.main.xRot = headPitch * ((float)(Math.PI / 180f));
   }

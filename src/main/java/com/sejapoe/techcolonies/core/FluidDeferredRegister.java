@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 public class FluidDeferredRegister {
   private static final ResourceLocation LIQUID = new ResourceLocation("block/lava_still");
   private static final ResourceLocation LIQUID_FLOW = new ResourceLocation("block/lava_flow");
-  private final Collection<FluidRegistryObject> allObjects = new ArrayList<>();
+  private final Collection<FluidRegistryObject<Source, Flowing, LiquidBlock, BucketItem>> allObjects = new ArrayList<>();
 
   public static FluidAttributes.Builder getBaseBuilder() {
     return FluidAttributes.builder(LIQUID, LIQUID_FLOW).sound(SoundEvents.BUCKET_FILL, SoundEvents.BUCKET_EMPTY);
@@ -74,7 +74,7 @@ public class FluidDeferredRegister {
   public FluidRegistryObject<Source, Flowing, LiquidBlock, BucketItem> register(String name, FluidAttributes.Builder builder, BucketCreator bucketCreator, UnaryOperator<ForgeFlowingFluid.Properties> propertiesUnaryOperator) {
     String flowingName = name + "_flowing";
     String bucketName = name + "_bucket";
-    FluidRegistryObject<Source, Flowing, LiquidBlock, BucketItem> fluidRegistryObject = new FluidRegistryObject();
+    FluidRegistryObject<Source, Flowing, LiquidBlock, BucketItem> fluidRegistryObject = new FluidRegistryObject<>();
     ForgeFlowingFluid.Properties properties = propertiesUnaryOperator.apply(new ForgeFlowingFluid.Properties(fluidRegistryObject::getStillFluid, fluidRegistryObject::getFlowingFluid, builder)
             .bucket(fluidRegistryObject::getBucket).block(fluidRegistryObject::getBlock));
     fluidRegistryObject.setStillRegistryObject(fluidDeferredRegister.register(name, () -> new Source(properties)));
@@ -92,7 +92,7 @@ public class FluidDeferredRegister {
     itemDeferredRegister.register(bus);
   }
 
-  public Collection<FluidRegistryObject> getEntries() {
+  public Collection<FluidRegistryObject<Source, Flowing, LiquidBlock, BucketItem>> getEntries() {
     return allObjects;
   }
 

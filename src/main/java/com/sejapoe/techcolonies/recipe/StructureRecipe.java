@@ -6,20 +6,21 @@ import com.sejapoe.techcolonies.core.IRecipeTypeInfo;
 import com.sejapoe.techcolonies.recipe.StructureRecipeBuilder.StructureRecipesParams;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.items.wrapper.RecipeWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
 import java.util.List;
 import java.util.function.Supplier;
 
-public abstract class StructureRecipe<T extends Container> implements Recipe<T> {
+public abstract class StructureRecipe implements Recipe<RecipeWrapper> {
   protected final ResourceLocation id;
   protected final NonNullList<Ingredient> ingredients;
   protected final NonNullList<ItemStack> results;
@@ -127,11 +128,6 @@ public abstract class StructureRecipe<T extends Container> implements Recipe<T> 
   }
 
   @Override
-  public @NotNull ItemStack assemble(@NotNull T inv) {
-    return getResultItem();
-  }
-
-  @Override
   public boolean canCraftInDimensions(int p_43999_, int p_44000_) {
     return true;
   }
@@ -170,10 +166,22 @@ public abstract class StructureRecipe<T extends Container> implements Recipe<T> 
     return typeInfo;
   }
 
+  @Override
+  public boolean matches(@NotNull RecipeWrapper pContainer, @NotNull Level pLevel) {
+    return false;
+  }
 
+  @Override
+  public @NotNull ItemStack assemble(@NotNull RecipeWrapper pContainer) {
+    return getResultItem();
+  }
 
   public boolean matches(List<ItemStack> input, List<FluidStack> fluidInput) {
     return ingredients.stream().allMatch(ingredient -> input.stream().anyMatch(ingredient)) &&
             fluidIngredients.stream().allMatch(fluidIngredient -> fluidInput.stream().anyMatch(fluidIngredient));
+  }
+
+  public Supplier<ItemStack> getForcedResult() {
+    return forcedResult;
   }
 }

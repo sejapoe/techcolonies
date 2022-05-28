@@ -33,7 +33,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     addGroupToTag(ModBlockTags.PLATED_BRICK_WALLS, ModBlocks.PLATED_BRICK_WALL_BLOCKS);
   }
 
-  protected void addGroupToTag(TagKey<Block> key, Map<?, RegistryObject<Block>>... maps) {
+  @SafeVarargs
+  protected final void addGroupToTag(TagKey<Block> key, Map<?, RegistryObject<Block>>... maps) {
     for (Map<?, RegistryObject<Block>> map : maps) {
       for (RegistryObject<Block> v : map.values()) {
         tag(key).add(v.get());

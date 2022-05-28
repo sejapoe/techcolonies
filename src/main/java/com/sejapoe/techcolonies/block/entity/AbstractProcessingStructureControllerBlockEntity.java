@@ -121,7 +121,7 @@ public abstract class AbstractProcessingStructureControllerBlockEntity<T extends
 
   public boolean isValidItemInput(ItemStack inserted) {
     List<T> recipes = getAllRecipes();
-    return recipes.stream().anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(ingredient -> ((Ingredient) ingredient).test(inserted)) && recipe.getRequiredStructureLevel() <= this.getStructureLevel());
+    return recipes.stream().anyMatch(recipe -> recipe.getIngredients().stream().anyMatch(ingredient -> ingredient.test(inserted)) && recipe.getRequiredStructureLevel() <= this.getStructureLevel());
   }
 
   public List<T> getAllRecipes() {

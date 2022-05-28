@@ -4,10 +4,11 @@ import com.sejapoe.techcolonies.entity.DwarfEntity;
 import com.sejapoe.techcolonies.entity.ai.base.AIElement;
 import com.sejapoe.techcolonies.entity.ai.base.goal.IItemFillerAI;
 import com.sejapoe.techcolonies.entity.ai.base.goal.JobWithControllerAI;
+import com.sejapoe.techcolonies.recipe.SmelteryRecipe;
 
 import static com.sejapoe.techcolonies.entity.ai.base.AIStates.*;
 
-public class MelterAI extends JobWithControllerAI<JobMelter> implements IItemFillerAI {
+public class MelterAI extends JobWithControllerAI<JobMelter> implements IItemFillerAI<SmelteryRecipe> {
   public MelterAI(JobMelter job) {
     super(job);
     super.registerTargets(

@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
-public class StructureRecipeBuilder<T extends StructureRecipe<?>> {
+public class StructureRecipeBuilder<T extends StructureRecipe> {
   private final StructureRecipeFactory<T> factory;
   private final StructureRecipesParams params;
 
@@ -75,7 +75,7 @@ public class StructureRecipeBuilder<T extends StructureRecipe<?>> {
   }
 
   @FunctionalInterface
-  public interface StructureRecipeFactory<T extends StructureRecipe<?>> {
+  public interface StructureRecipeFactory<T extends StructureRecipe> {
     T create(StructureRecipesParams params);
   }
 
@@ -100,7 +100,7 @@ public class StructureRecipeBuilder<T extends StructureRecipe<?>> {
     }
   }
 
-  public static class DataGenResult<S extends StructureRecipe<?>> implements FinishedRecipe {
+  public static class DataGenResult<S extends StructureRecipe> implements FinishedRecipe {
     private final StructureRecipeSerializer<S> serializer;
     private final ResourceLocation id;
     private final S recipe;

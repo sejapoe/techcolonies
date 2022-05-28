@@ -2,7 +2,6 @@ package com.sejapoe.techcolonies.entity.ai.job.miner;
 
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.core.helper.BlockHelper;
-import com.sejapoe.techcolonies.entity.ai.base.goal.AbstractBreakerAI;
 import com.sejapoe.techcolonies.level.VirtualLevel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -19,7 +18,6 @@ import slimeknights.tconstruct.tools.TinkerTools;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;

@@ -1,12 +1,11 @@
 package com.sejapoe.techcolonies.client.model.faceelement.beard;
 
-import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 
-public class DefaultBeardModel<T extends DwarfEntity> extends AbstractBeardModel<T> {
+public class DefaultBeardModel extends AbstractBeardModel {
   public static final ModelLayerLocation LAYER_LOCATION = createModelLayerLocation("default");
 
   public DefaultBeardModel(ModelPart root) {

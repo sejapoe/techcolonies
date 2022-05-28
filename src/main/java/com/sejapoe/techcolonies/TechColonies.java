@@ -7,13 +7,16 @@ import com.sejapoe.techcolonies.core.FluidDeferredRegister;
 import com.sejapoe.techcolonies.registry.*;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -81,7 +84,7 @@ public class TechColonies {
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.FLUID_INTERFACE_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.PORTAL_CONTROLLER_BLOCK.get(), RenderType.cutout());
     ItemBlockRenderTypes.setRenderLayer(ModBlocks.PORTAL_BLOCK.get(), RenderType.cutout());
-    for (FluidDeferredRegister.FluidRegistryObject fluidRegistryObject : ModFluids.FLUID_REGISTER.getEntries()) {
+    for (FluidDeferredRegister.FluidRegistryObject<ForgeFlowingFluid.Source, ForgeFlowingFluid.Flowing, LiquidBlock, BucketItem> fluidRegistryObject : ModFluids.FLUID_REGISTER.getEntries()) {
       ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getBlock(), RenderType.translucent());
       ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getStillFluid(), RenderType.translucent());
       ItemBlockRenderTypes.setRenderLayer(fluidRegistryObject.getFlowingFluid(), RenderType.translucent());

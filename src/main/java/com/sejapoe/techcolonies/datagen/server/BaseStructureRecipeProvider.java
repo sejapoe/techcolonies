@@ -16,15 +16,15 @@ public abstract class BaseStructureRecipeProvider extends BaseCustomRecipeProvid
     super(generator);
   }
 
-  protected <T extends StructureRecipe<?>> GeneratedRecipe create(String name, UnaryOperator<StructureRecipeBuilder<T>> transform) {
+  protected <T extends StructureRecipe> GeneratedRecipe create(String name, UnaryOperator<StructureRecipeBuilder<T>> transform) {
     return create(new ResourceLocation(TechColonies.MOD_ID, name), transform);
   }
 
-  protected <T extends StructureRecipe<?>> GeneratedRecipe create(ResourceLocation id, UnaryOperator<StructureRecipeBuilder<T>> transform) {
+  protected <T extends StructureRecipe> GeneratedRecipe create(ResourceLocation id, UnaryOperator<StructureRecipeBuilder<T>> transform) {
     return createWithDeferredId(() -> id, transform);
   }
 
-  private <T extends StructureRecipe<?>> GeneratedRecipe createWithDeferredId(Supplier<ResourceLocation> id, UnaryOperator<StructureRecipeBuilder<T>> transform) {
+  private <T extends StructureRecipe> GeneratedRecipe createWithDeferredId(Supplier<ResourceLocation> id, UnaryOperator<StructureRecipeBuilder<T>> transform) {
     StructureRecipeSerializer<T> serializer = getSerializer();
     GeneratedRecipe recipe = consumer -> transform.apply(new StructureRecipeBuilder<>(serializer.getFactory(), id.get())).build(consumer);
     generatedRecipes.add(recipe);
@@ -33,7 +33,7 @@ public abstract class BaseStructureRecipeProvider extends BaseCustomRecipeProvid
 
   protected abstract IRecipeTypeInfo getRecipeType();
 
-  private <T extends StructureRecipe<?>> StructureRecipeSerializer<T> getSerializer() {
+  private <T extends StructureRecipe> StructureRecipeSerializer<T> getSerializer() {
     return getRecipeType().getSerializer();
   }
 }

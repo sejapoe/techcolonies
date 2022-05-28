@@ -3,6 +3,7 @@ package com.sejapoe.techcolonies.registry;
 import com.sejapoe.techcolonies.TechColonies;
 import com.sejapoe.techcolonies.core.IRecipeTypeInfo;
 import com.sejapoe.techcolonies.recipe.SmelteryRecipe;
+import com.sejapoe.techcolonies.recipe.StructureRecipe;
 import com.sejapoe.techcolonies.recipe.StructureRecipeBuilder.StructureRecipeFactory;
 import com.sejapoe.techcolonies.recipe.StructureRecipeSerializer;
 import net.minecraft.core.Registry;
@@ -18,19 +19,19 @@ import java.util.function.Supplier;
 public enum ModRecipeTypes implements IRecipeTypeInfo {
   SMELTING(SmelteryRecipe::new);
 
-  private final Supplier<RecipeType<?>> typeSupplier;
-  private final Supplier<RecipeSerializer<?>> serializerSuppplier;
+  private final Supplier<RecipeType<? extends StructureRecipe>> typeSupplier;
+  private final Supplier<RecipeSerializer<? extends StructureRecipe>> serializerSuppplier;
   private final ResourceLocation id;
-  private RecipeSerializer<?> serializer;
-  private RecipeType type;
+  private RecipeSerializer<? extends StructureRecipe> serializer;
+  private RecipeType<? extends StructureRecipe> type;
 
-  ModRecipeTypes(Supplier<RecipeSerializer<?>> serializerSupplier) {
+  ModRecipeTypes(Supplier<RecipeSerializer<? extends StructureRecipe>> serializerSupplier) {
     this.id = new ResourceLocation(TechColonies.MOD_ID, name().toLowerCase(Locale.ROOT));
     this.serializerSuppplier = serializerSupplier;
     this.typeSupplier = () -> simpleType(this.id);
   }
 
-  ModRecipeTypes(StructureRecipeFactory factory) {
+  ModRecipeTypes(StructureRecipeFactory<? extends StructureRecipe> factory) {
     this(() -> new StructureRecipeSerializer<>(factory));
   }
 
@@ -41,12 +42,12 @@ public enum ModRecipeTypes implements IRecipeTypeInfo {
   }
 
   @Override
-  public RecipeSerializer<?> getSerializer() {
+  public RecipeSerializer<? extends StructureRecipe> getSerializer() {
     return serializer;
   }
 
   @Override
-  public RecipeType getType() {
+  public RecipeType<? extends StructureRecipe> getType() {
     return type;
   }
   public static <T extends Recipe<?>> RecipeType<T> simpleType(ResourceLocation id) {

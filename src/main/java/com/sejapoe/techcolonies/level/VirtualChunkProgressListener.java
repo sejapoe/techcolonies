@@ -1,6 +1,5 @@
 package com.sejapoe.techcolonies.level;
 
-import com.sejapoe.techcolonies.TechColonies;
 import net.minecraft.server.level.progress.ChunkProgressListener;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.chunk.ChunkStatus;
