@@ -39,18 +39,18 @@ public class StrangeWandItem extends Item {
     if (blockEntity != null) {
       if (level.isClientSide()) return InteractionResult.SUCCESS;
 
-      if (blockEntity instanceof PortalControllerBlockEntity) {
-        if (Objects.requireNonNull(useOnContext.getPlayer()).isCrouching()) {
-          if (((PortalControllerBlockEntity) blockEntity).getEntities().isEmpty()) {
-            useOnContext.getPlayer().sendMessage(new TextComponent("Empty"), Util.NIL_UUID);
-            return InteractionResult.FAIL;
-          }
-          ((PortalControllerBlockEntity) blockEntity).extractEntity(((PortalControllerBlockEntity) blockEntity).getEntities().get(0));
-        } else if (this.configurableDwarf != null) {
-          ((PortalControllerBlockEntity) blockEntity).insertEntity(this.configurableDwarf, 120);
-        }
-        return InteractionResult.SUCCESS;
-      }
+//      if (blockEntity instanceof PortalControllerBlockEntity) {
+//        if (Objects.requireNonNull(useOnContext.getPlayer()).isCrouching()) {
+//          if (((PortalControllerBlockEntity) blockEntity).getEntities().isEmpty()) {
+//            useOnContext.getPlayer().sendMessage(new TextComponent("Empty"), Util.NIL_UUID);
+//            return InteractionResult.FAIL;
+//          }
+//          ((PortalControllerBlockEntity) blockEntity).extractEntity(((PortalControllerBlockEntity) blockEntity).getEntities().get(0));
+//        } else if (this.configurableDwarf != null) {
+//          ((PortalControllerBlockEntity) blockEntity).insertEntity(this.configurableDwarf, 120);
+//        }
+//        return InteractionResult.SUCCESS;
+//      }
 
       if (blockEntity instanceof AbstractStructureControllerBlockEntity) {
         if (this.configurableDwarf != null) {

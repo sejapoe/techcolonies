@@ -1,5 +1,6 @@
 package com.sejapoe.techcolonies.item;
 
+import com.sejapoe.techcolonies.block.entity.PortalControllerBlockEntity;
 import com.sejapoe.techcolonies.entity.DwarfEntity;
 import net.minecraft.Util;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -19,7 +20,7 @@ public class ToolBeltItem extends Item {
   @Override
   public @NotNull InteractionResult interactLivingEntity(@NotNull ItemStack pStack, @NotNull Player pPlayer, @NotNull LivingEntity pInteractionTarget, @NotNull InteractionHand pUsedHand) {
     if (pInteractionTarget instanceof DwarfEntity) {
-      if (((DwarfEntity) pInteractionTarget).getControllerPos() != null) {
+      if (((DwarfEntity) pInteractionTarget).getControllerPos() != null && !(pPlayer.level.getBlockEntity(((DwarfEntity) pInteractionTarget).getControllerPos()) instanceof PortalControllerBlockEntity)) {
         pPlayer.sendMessage(new TranslatableComponent("dwarf.job.need_reset_controller"), Util.NIL_UUID);
         return InteractionResult.PASS;
       }

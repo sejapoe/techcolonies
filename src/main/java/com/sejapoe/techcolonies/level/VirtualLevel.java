@@ -28,7 +28,7 @@ public class VirtualLevel extends ServerLevel {
 
   public VirtualLevel(ServerLevel parent, long seed, WorldGenSettings newOpts) throws IOException {
     super(parent.getServer(),
-            Util.bootstrapExecutor(),
+            Util.backgroundExecutor(),
             LevelStorageSource.createDefault(Files.createTempDirectory("TechColoniesVirtual")).createAccess("TechColoniesVirtual"),
             (ServerLevelData) parent.getLevelData(),
             parent.dimension(),

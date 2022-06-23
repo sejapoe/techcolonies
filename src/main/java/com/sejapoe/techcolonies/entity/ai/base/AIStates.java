@@ -8,6 +8,11 @@ public enum AIStates implements IAIState {
 
   // Filler
   FILL_INPUT,
+  // Portal,
+  GOING_TO_PORTAL,
+  IN_PORTAL,
+
   // Miner
   MINE,
+  CREATE_MINE, MINE_RESET,
 }

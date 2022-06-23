@@ -121,6 +121,7 @@ public class DwarfEntity extends PathfinderMob  {
     String jobKey = compoundTag.getString("Job");
     if (!jobKey.equals("")) {
       this.setJobType(Arrays.stream(DwarfJobTypes.values()).filter(job -> job.getName().equals(jobKey)).findFirst().orElse(null));
+      this.job.load(compoundTag.getCompound("JobData"));
     }
     this.setHasToolBelt(compoundTag.getBoolean("HasToolBelt"));
   }
@@ -139,6 +140,9 @@ public class DwarfEntity extends PathfinderMob  {
     compoundTag.putString("Name", this.dwarfName);
     if (this.jobType != null) {
       compoundTag.putString("Job", this.jobType.getName());
+      CompoundTag compoundTag1 = new CompoundTag();
+      this.job.save(compoundTag1);
+      compoundTag.put("JobData", compoundTag1);
     }
     compoundTag.putBoolean("HasToolBelt", this.hasToolBelt());
   }
